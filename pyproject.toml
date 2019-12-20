@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "SynodicTemplateLibrary"
+version = "0.0.0"
+description = "Utility library."
+
+license = "MIT"
+
+authors = [
+    "Synodic Software"
+]
+
+readme = "README.md"
+
+repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
+homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
+
+
+[tool.poetry.dependencies]
+python  = "^3.8"
+
+
+[tool.poetry.dev-dependencies]
+synodic-tools = "^0.0.0"
+conan   = "^1.19"
+
+ requires = (
+"Catch2/2.10.0"
+
+build_requires = 
+"cmake_installer/3.15.4"
+
+[build-system]
+requires        = ["poetry>=0.12"]
+build-backend   = "poetry.masonry.api"
