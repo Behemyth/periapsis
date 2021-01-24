@@ -1,7 +1,6 @@
 #pragma once
 
-// TODO: replace with <span> C++20
-#include "Span.h"
+#include <span>
 
 #include <functional>
 #include <optional>
@@ -30,8 +29,7 @@ private:
 
 	std::optional<function_type> indexMap_;
 
-	//TODO: replace with std::span C++20
-	nonstd::span<T> data_;
+	std::span<T> data_;
 
 
 };
