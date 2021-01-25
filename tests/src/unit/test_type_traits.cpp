@@ -90,27 +90,27 @@ TEST_SUITE("Reflection")
 		static_assert(constructorParameterCount == 3);
 	}
 
-	TEST_CASE("ConstructorParameters")
+	TEST_CASE("Value ConstructorParameters")
 	{
 		using constructorType = synodic::ConstructorParameters<TestClass>;
 		static_assert(std::is_same_v<constructorType, std::tuple<std::vector<int>, TestData, int>>);
 	}
 
-	TEST_CASE("Const ConstructorParameters")
-	{
-		using constructorType = synodic::ConstructorParameters<TestClass>;
-		static_assert(std::is_same_v<constructorType, std::tuple<std::vector<int>, TestData, int>>);
-	}
+	//TEST_CASE("Const ConstructorParameters")
+	//{
+	//	using constructorType = synodic::ConstructorParameters<ConstTestClass>;
+	//	static_assert(std::is_same_v<constructorType, std::tuple<std::vector<int>, TestData, int>>);
+	//}
 
-	TEST_CASE("Reference ConstructorParameters")
-	{
-		using constructorType = synodic::ConstructorParameters<TestClass>;
-		static_assert(std::is_same_v<constructorType, std::tuple<std::vector<int>, TestData, int>>);
-	}
+	//TEST_CASE("Reference ConstructorParameters")
+	//{
+	//	using constructorType = synodic::ConstructorParameters<ReferenceTestClass>;
+	//	static_assert(std::is_same_v<constructorType, std::tuple<std::vector<int>, TestData, int>>);
+	//}
 
-	TEST_CASE("Pointer ConstructorParameters")
-	{
-		using constructorType = synodic::ConstructorParameters<TestClass>;
-		static_assert(std::is_same_v<constructorType, std::tuple<std::vector<int>, TestData, int>>);
-	}
+	//TEST_CASE("Pointer ConstructorParameters")
+	//{
+	//	using constructorType = synodic::ConstructorParameters<PointerTestClass>;
+	//	static_assert(std::is_same_v<constructorType, std::tuple<std::vector<int>, TestData, int>>);
+	//}
 }

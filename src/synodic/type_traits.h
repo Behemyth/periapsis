@@ -23,10 +23,9 @@ namespace synodic
 		typename T,
 		typename U,
 		int N,
-		bool B,
-		typename = typename std::enable_if_t<!std::is_same_v<
+		bool B> requires !std::is_same_v<
 			std::remove_cv_t<std::remove_reference_t<T>>,
-			std::remove_cv_t<std::remove_reference_t<U>>>>>
+			std::remove_cv_t<std::remove_reference_t<U>>>
 	struct fn_def
 	{
 		friend auto loophole(tag<T, N>)
