@@ -14,7 +14,7 @@ public:
 
 protected:
 
-	uint id_;
+	uint32_t id_;
 
 private:
 

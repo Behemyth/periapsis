@@ -7,7 +7,7 @@ class CRTP
 
 public:
 
-	~CRTP() = default; //No VTable
+	~CRTP() = default; // Force the virtual table to compile away 
 
     CRTP(const CRTP&) = default;
 	CRTP(CRTP&&) noexcept = default;

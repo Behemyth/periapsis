@@ -7,33 +7,33 @@ class Property {
 
 public:
 
-	Property(const T&);
+	explicit Property(const T&);
 	~Property() = default;
 
 	Property& operator=(const T&);
 
-	operator T() const;
+	explicit operator T() const;
 
 	void AddCallback(const std::function<void(T)>&);
 	void Update();
 
 private:
 
-	T data;
-	std::vector<std::function<void(T)>> callbacks;
+	T data_;
+	std::vector<std::function<void(T)>> callbacks_;
 
 };
 
 template<typename T>
 Property<T>::Property(const T& value) {
-	data = value;
+	data_ = value;
 }
 
 
 template<typename T>
 Property<T>& Property<T>::operator=(const T& value){
 
-	data = value;
+	data_ = value;
 	Update();
 
 	return *this;
@@ -43,8 +43,8 @@ Property<T>& Property<T>::operator=(const T& value){
 template<typename T>
 void Property<T>::Update() {
 
-	for (const auto& callback : callbacks) {
-		callback(data);
+	for (const auto& callback : callbacks_) {
+		callback(data_);
 	}
 
 }
@@ -52,13 +52,13 @@ void Property<T>::Update() {
 template<typename T>
 Property<T>::operator T() const {
 
-	return data;
+	return data_;
 
 }
 
 template<typename T>
 void Property<T>::AddCallback(const std::function<void(T)>& fn) {
 
-	callbacks.push_back(fn);
+	callbacks_.push_back(fn);
 
 }
