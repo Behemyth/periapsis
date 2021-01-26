@@ -77,7 +77,6 @@ TEST_SUITE("Reflection")
 
 	TEST_CASE("ParameterCount")
 	{
-		// decltype(&TestClass::GetData3)
 		constexpr static auto parameterCount =
 			synodic::ParameterCount<decltype(&TestClass::GetData3)>(0);
 		static_assert(parameterCount == 0);
