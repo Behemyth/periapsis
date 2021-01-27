@@ -23,7 +23,7 @@ namespace synodic
 	{
 		friend auto GetType(Tag<T, N>)
 		{
-			return U {};
+			return U();
 		}
 		consteval friend size_t GetID(Tag<T, N>)
 		{
