@@ -16,7 +16,7 @@ namespace synodic
 		consteval friend size_t GetID(Tag<T, N>);
 	};
 
-	// The definitions of friend functions. Prevent multiple instantiations by requiring the types
+	// The definitions of the friend functions elevating their scope. Prevent multiple instantiations by requiring the types
 	//		to be different
 	template<typename T, typename U, size_t N>
 	requires(!std::is_same_v<T, U>) struct FriendType
@@ -31,11 +31,10 @@ namespace synodic
 		}
 	};
 
-
-	// This has a templated conversion operator which in turn triggers instantiations.
 	template<typename T, size_t N>
 	struct TypeConversion
 	{
+		// Conversion helper
 		template<typename U, size_t = sizeof(FriendType<T, U, N>)>
 		consteval operator U()
 		{
@@ -43,7 +42,6 @@ namespace synodic
 		}
 	};
 
-	// The byproduct is instantiations.
 	template<typename T, size_t... Ns>
 	consteval auto ConstructorParameterCount(size_t) -> decltype(T(TypeConversion<T, Ns>()...), 0)
 	{
@@ -56,17 +54,20 @@ namespace synodic
 		return ConstructorParameterCount<T, Ns..., sizeof...(Ns)>(0);
 	}
 
+	// Declaration required for specialization
 	template<typename T, typename U>
 	struct TaggedTuple;
 
+	// Provide the only specialization, making the inputs an integer_sequence type
 	template<typename T, size_t... Ns>
 	struct TaggedTuple<T, std::index_sequence<Ns...>>
 	{
 		using Type = std::tuple<decltype(GetType(Tag<T, Ns>()))...>;
 	};
 
-
-	// Exported types
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Exports
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Given a type T, returns a tuple of the parameters for the shortest constructor for that type
 	template<typename T>
