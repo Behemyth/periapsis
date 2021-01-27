@@ -85,13 +85,6 @@ private:
 TEST_SUITE("Reflection")
 {
 
-	TEST_CASE("ParameterCount")
-	{
-		constexpr static auto parameterCount =
-			synodic::ParameterCount<decltype(&TestClass::GetData3)>(0);
-		static_assert(parameterCount == 0);
-	}
-
 	TEST_CASE("ConstructorParameterCount")
 	{
 		constexpr static auto constructorParameterCount =
