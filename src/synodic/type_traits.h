@@ -57,10 +57,10 @@ namespace synodic
 	}
 
 	template<typename T, typename U>
-	struct TagTuple;
+	struct TaggedTuple;
 
 	template<typename T, size_t... Ns>
-	struct TagTuple<T, std::index_sequence<Ns...>>
+	struct TaggedTuple<T, std::index_sequence<Ns...>>
 	{
 		using Type = std::tuple<decltype(GetType(Tag<T, Ns>()))...>;
 	};
@@ -70,7 +70,7 @@ namespace synodic
 
 	// Given a type T, returns a tuple of the parameters for the shortest constructor for that type
 	template<typename T>
-	using ConstructorParameters = typename TagTuple<
+	using ConstructorParameters = typename TaggedTuple<
 		T,
 		std::make_index_sequence<ConstructorParameterCount<T>(0)>>::Type;
 
