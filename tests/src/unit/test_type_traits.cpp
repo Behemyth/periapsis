@@ -82,30 +82,33 @@ private:
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST_SUITE("Reflection")
-{
+namespace ut = boost::ut;
 
-	TEST_CASE("Value ConstructorParameters")
+ut::suite errors = []
+{
+	using namespace ut;
+	
+	"Value ConstructorParameters"_test = []
 	{
 		using ConstructorType = synodic::ConstructorParameters<TestClass>;
-		static_assert(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
-	}
+		expect(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+	};
 
-	TEST_CASE("Const ConstructorParameters")
+	"Const ConstructorParameters"_test = []
 	{
 		using ConstructorType = synodic::ConstructorParameters<ConstTestClass>;
-		static_assert(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
-	}
+		expect(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+	};
 
-	// TEST_CASE("Reference ConstructorParameters")
-	//{
+	"Reference ConstructorParameters"_test = []
+	{
 	//	using ConstructorType = synodic::ConstructorParameters<ReferenceTestClass>;
-	//	static_assert(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
-	//}
+	//	expect(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+	};
 
-	// TEST_CASE("Pointer ConstructorParameters")
-	//{
+	"Pointer ConstructorParameters"_test = []
+	{
 	//	using ConstructorType = synodic::ConstructorParameters<PointerTestClass>;
-	//	static_assert(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
-	//}
-}
+	//	expect(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+	};
+};

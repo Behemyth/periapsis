@@ -13,12 +13,15 @@
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST_SUITE("Graph")
-{
+namespace ut = boost::ut;
 
-	TEST_CASE("Something")
+ut::suite graph = []
+{
+	using namespace ut;
+	
+	"Something"_test = []
 	{
 
-	}
+	};
 
-}
+};
