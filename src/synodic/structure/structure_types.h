@@ -10,6 +10,16 @@ public:
 
 };
 
+class SparseStructure : public Structure{
+
+public:
+
+	SparseStructure() = default;
+	virtual ~SparseStructure() = default;
+
+
+};
+
 template<class T>
 class ExternalStructure : public Structure, public Contiguous {
 

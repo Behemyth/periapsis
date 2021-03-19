@@ -1,0 +1,19 @@
+target_sources(synodic-template-library
+PRIVATE
+	class_id.h
+	class_id.cpp
+	crtp.h
+	exception.h
+	hash_string.h
+	property.h
+	thread_local.h
+	timer.h
+	timer.cpp
+	type_id.h
+	type_traits.h
+)
+
+add_subdirectory(
+	graph
+	structure
+)

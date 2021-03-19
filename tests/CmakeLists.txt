@@ -25,20 +25,12 @@ set_target_properties(tests
 )
 
 
-find_package(doctest 2.4.4 REQUIRED)
+find_package(ut 1.1.8 REQUIRED)
 
 target_link_libraries(tests
 PUBLIC
 	${CMAKE_PROJECT_NAME}
-    doctest::doctest
+    boost::ut
 )
 
-
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
-
-target_sources(tests
-	PRIVATE
-		${SOURCES}
-)
-
-doctest_discover_tests(tests)
+add_subdirectory(src)

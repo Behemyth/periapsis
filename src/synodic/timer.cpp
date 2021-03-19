@@ -1,4 +1,4 @@
-#include "Synodic/Timer.h"
+#include "timer.h"
 
 Timer::Timer() {
 	

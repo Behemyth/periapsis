@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "doctest/doctest.h"
+#include "boost/ut.hpp"
 #include "synodic/type_traits.h"
 
 

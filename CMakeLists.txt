@@ -13,30 +13,28 @@ project(synodic-template-library
 	LANGUAGES CXX
 )
 
-option(BUILD_TESTS "Build test projects" ON)
-option(BUILD_SHARED_LIBS "Build shared library" OFF)
+include(CTest)
 
 
-add_library(${PROJECT_NAME} INTERFACE)
-add_library(synodic::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+add_library(synodic-template-library)
+add_library(synodic::synodic-template-library ALIAS synodic-template-library )
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
 
-target_include_directories(${PROJECT_NAME}
+target_include_directories(synodic-template-library
 INTERFACE
-	${CMAKE_CURRENT_SOURCE_DIR}/src
+	src
 )
 
-target_sources(${PROJECT_NAME}
-INTERFACE
-	${SOURCES}
+add_subdirectory(
+	src/synodic
 )
 
 #Provides Visual Studio filter support
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES SOURCES)
 
 
-if(BUILD_TESTS)
+if(BUILD_TESTING)
 
 	enable_testing()
     add_subdirectory(tests)

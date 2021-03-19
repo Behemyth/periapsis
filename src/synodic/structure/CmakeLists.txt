@@ -1,0 +1,11 @@
+target_sources(synodic-template-library
+PRIVATE
+	external_buffer.h
+	ring_buffer.h
+	sparse_array.h
+	sparse_bitmap.h
+	sparse_hashmap.h
+	sparse_hashset.h
+	sparse_vector.h
+	structure_types.h
+)

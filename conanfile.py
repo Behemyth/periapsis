@@ -6,7 +6,7 @@ class SynodicCoreConan(ConanFile):
 	license = "MIT"
 	homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 	settings = "os", "compiler", "build_type", "arch"
-	requires = "doctest/2.4.4"
+	requires = "boost-ext-ut/1.1.8"
 	generators = "cmake_find_package"
 	scm = {
          "type": "git",
