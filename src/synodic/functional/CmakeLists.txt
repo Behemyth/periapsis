@@ -1,4 +1,16 @@
-target_sources( synodic-template-library
+add_library(functional OBJECT)
+
+set_target_properties(functional
+PROPERTIES
+	LINKER_LANGUAGE CXX
+)
+
+target_include_directories(functional
 PRIVATE
-	function_ref.h
+	src
+)
+
+target_sources( functional
+PRIVATE
+	"src/function_ref.h"
 )

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18.2 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.19.2 FATAL_ERROR)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR}) #TODO: remove with new Conan generator
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}) #TODO: remove with new Conan generator
@@ -19,7 +19,6 @@ include(CTest)
 add_library(synodic-template-library)
 add_library(synodic::synodic-template-library ALIAS synodic-template-library )
 
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
 
 target_include_directories(synodic-template-library
 INTERFACE
@@ -28,6 +27,11 @@ INTERFACE
 
 add_subdirectory(
 	src/synodic
+)
+
+target_link_libraries(synodic-template-library
+PUBLIC
+	functional
 )
 
 #Provides Visual Studio filter support

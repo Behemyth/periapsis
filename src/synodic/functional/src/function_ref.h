@@ -10,16 +10,8 @@ namespace synodic
 	template<typename>
 	inline constexpr bool alwaysFalse = false;
 
-	template<class Fn>
-	class function_ref
-	{
-		static_assert(
-			alwaysFalse<Fn>,
-			"synodic::function_ref does not accept non-function types as template arguments.");
-	};
-
 	template<class R, class... Args>
-	class function_ref<R(Args...)>
+	class function_ref
 	{
 	public:
 		constexpr function_ref() noexcept = delete;
