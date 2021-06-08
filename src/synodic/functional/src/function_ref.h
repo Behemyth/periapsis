@@ -3,6 +3,26 @@
 #include <functional>
 #include <utility>
 
+TODO:
+
+namespace detail {
+    template <typename F, typename R, typename... Args>
+    concept callable_r = 
+        std::invocable<F, Args...>
+        && std::same_as<R, std::invoke_result_t<F, Args...>>;
+
+    template <typename F, typename Sig>
+    inline constexpr bool is_callable_sig = false;
+
+    template <typename F, typename R, typename... Args>
+    inline constexpr bool is_callable_sig<F, R(Args...)>
+        = callable_r<F, R, Args...>;
+}
+
+template <typename F, typename Sig>
+concept Callable = detail::is_callable_sig<F, Sig>;
+
+
 // Forgoes Synodic style in favor of std style
 namespace synodic
 {
