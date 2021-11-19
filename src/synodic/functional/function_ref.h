@@ -1,19 +1,13 @@
 #pragma once
 
-#include <functional>
 #include <utility>
 
-#include "synodic/type_traits.h"
-
+#include "synodic/type/concepts.h"
 
 // Temporary implementation while the basis is considered for standardization.
-//	As a result, this implementation follows naming conventions
+//	As a result, this implementation follows stl naming conventions
 namespace synodic
 {
-
-	template<typename>
-	inline constexpr bool alwaysFalse = false;
-
 	template<class F>
 	class function_ref;
 
@@ -33,8 +27,7 @@ namespace synodic
 		constexpr ~function_ref() = default;
 
 		// Assigns this function_ref the same Callable as the input
-		constexpr function_ref<R(Args...)>& operator		=(
-			const function_ref<R(Args...)>& other) noexcept = default;
+		constexpr function_ref<R(Args...)>& operator=(const function_ref<R(Args...)>& other) noexcept = default;
 
 		template<callable<R, Args...> Fn>
 		constexpr function_ref<R(Args...)>& operator=(Fn&& function) noexcept;

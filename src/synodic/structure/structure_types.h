@@ -2,7 +2,6 @@
 
 class Structure
 {
-
 public:
 	Structure()			 = default;
 	virtual ~Structure() = default;
@@ -10,7 +9,6 @@ public:
 
 class SparseStructure : public Structure
 {
-
 public:
 	SparseStructure()		   = default;
 	virtual ~SparseStructure() = default;

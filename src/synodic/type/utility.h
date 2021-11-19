@@ -1,4 +1,10 @@
+#pragma once
 
+#include <type_traits>
+
+namespace synodic
+{
+	
 
 template<auto N>
 constexpr auto nth_element(auto... args)
@@ -29,3 +35,5 @@ static_assert(1 == nth_element<0>(1, 2));
 static_assert(2 == nth_element<1>(1, 2));
 static_assert(1 == nth_element<0>(1, 2, 3));
 static_assert(2 == nth_element<1>(1, 2, 3));
+
+}

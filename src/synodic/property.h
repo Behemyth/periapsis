@@ -2,6 +2,7 @@
 
 #include <functional>
 
+// TODO: Move somewhere appropriate
 template<typename T>
 class Property {
 
