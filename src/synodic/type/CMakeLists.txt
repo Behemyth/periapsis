@@ -1,7 +1,8 @@
 target_sources(synodic-template-library
 PRIVATE
-	class.h
-	class.cpp
+	id.cpp
 	id.h
 	traits.h
+	concepts.h
+	utility.h
 )
