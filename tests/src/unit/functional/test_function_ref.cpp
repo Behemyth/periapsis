@@ -35,19 +35,23 @@ struct TestStruct
 
 namespace ut = boost::ut;
 
-ut::suite function_ref = [] {
+ut::suite function_ref = []
+{
 	using namespace ut;
 
-	"Construction"_test = [] {
-		synodic::function_ref<void()> function1 = [] {
+	"Construction"_test = []
+	{
+		synodic::function_ref function1 = []
+		{
 		};
-		synodic::function_ref<void()> function2			  = FreeFunction;
+		synodic::function_ref function2					  = FreeFunction;
 		synodic::function_ref<void(TestStruct)> function3 = &TestStruct::MemberFunctionOne;
 	};
 
-	"Call"_test = [] {
+	"Call"_test = []
+	{
 		{
-			const synodic::function_ref<void()> function = FreeFunction;
+			const synodic::function_ref function = FreeFunction;
 			function();
 			expect(freeTest);
 		}
@@ -65,29 +69,33 @@ ut::suite function_ref = [] {
 		}
 
 		{
-			auto testFunction = [] {
+			auto testFunction = []
+			{
 				return 42;
 			};
-			const synodic::function_ref<int()> function = testFunction;
+			const synodic::function_ref function = testFunction;
 			expect(function() == 42);
 		}
 
 		{
 			int i			  = 0;
-			auto testFunction = [&i] {
+			auto testFunction = [&i]
+			{
 				i = 42;
 			};
-			const synodic::function_ref<void()> function = testFunction;
+			const synodic::function_ref function = testFunction;
 			function();
 			expect(i == 42);
 		}
 	};
 
-	"Assignment"_test = [] {
+	"Assignment"_test = []
+	{
 		{
-			synodic::function_ref<void(void)> function = FreeFunction;
-			function								   = [] {
-			  };
+			synodic::function_ref function = FreeFunction;
+			function					   = []
+			{
+			};
 		}
 
 		{
@@ -96,10 +104,12 @@ ut::suite function_ref = [] {
 		}
 	};
 
-	"Deduction"_test = [] {
+	"Deduction"_test = []
+	{
 		{
 			int i					= 5;
-			synodic::function_ref g = [&](double) {
+			synodic::function_ref g = [&](double)
+			{
 				return i;
 			};
 		}

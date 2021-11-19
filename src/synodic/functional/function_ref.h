@@ -3,69 +3,57 @@
 #include <functional>
 #include <utility>
 
-TODO:
-
-namespace detail {
-    template <typename F, typename R, typename... Args>
-    concept callable_r = 
-        std::invocable<F, Args...>
-        && std::same_as<R, std::invoke_result_t<F, Args...>>;
-
-    template <typename F, typename Sig>
-    inline constexpr bool is_callable_sig = false;
-
-    template <typename F, typename R, typename... Args>
-    inline constexpr bool is_callable_sig<F, R(Args...)>
-        = callable_r<F, R, Args...>;
-}
-
-template <typename F, typename Sig>
-concept Callable = detail::is_callable_sig<F, Sig>;
+#include "synodic/type_traits.h"
 
 
-// Forgoes Synodic style in favor of std style
+// Temporary implementation while the basis is considered for standardization.
+//	As a result, this implementation follows naming conventions
 namespace synodic
 {
 
 	template<typename>
 	inline constexpr bool alwaysFalse = false;
 
+	template<class F>
+	class function_ref;
+
 	template<class R, class... Args>
-	class function_ref
+	class function_ref<R(Args...)>
 	{
 	public:
 		constexpr function_ref() noexcept = delete;
 
-		// Construction the function_ref referring to the same Callable as the input
+		// Construct the function_ref referring to the same Callable as the input
 		constexpr function_ref(const function_ref<R(Args...)>& function) noexcept = default;
 
 		// Constructs from a Callable object
-		template<std::invocable<Args...> Fn>
+		template<callable<R, Args...> Fn>
 		constexpr function_ref(Fn&& function) noexcept;
 
 		constexpr ~function_ref() = default;
 
 		// Assigns this function_ref the same Callable as the input
-		constexpr function_ref<R(Args...)>& operator	  =(
-			  const function_ref<R(Args...)>& other) noexcept = default;
+		constexpr function_ref<R(Args...)>& operator		=(
+			const function_ref<R(Args...)>& other) noexcept = default;
 
-		template<std::invocable<Args...> Fn>
+		template<callable<R, Args...> Fn>
 		constexpr function_ref<R(Args...)>& operator=(Fn&& function) noexcept;
 
 		constexpr R operator()(Args... arguments) const;
 		constexpr void swap(function_ref& other) noexcept;
 
 	private:
-		void* object_					   = nullptr;
+		void* object_				   = nullptr;
 		R (*callback_)(void*, Args...) = nullptr;
 	};
 
 	template<class R, class... Args>
-	template<std::invocable<Args...> Fn>
+	template<callable<R, Args...> Fn>
 	constexpr function_ref<R(Args...)>::function_ref(Fn&& function) noexcept :
 		object_(const_cast<void*>(reinterpret_cast<const void*>(std::addressof(function))))
 	{
-		callback_ = [](void* object, Args... arguments) -> R {
+		callback_ = [](void* object, Args... arguments) -> R
+		{
 			return std::invoke(
 				*reinterpret_cast<typename std::add_pointer<Fn>::type>(object),
 				std::forward<Args>(arguments)...);
@@ -73,11 +61,12 @@ namespace synodic
 	}
 
 	template<class R, class... Args>
-	template<std::invocable<Args...> Fn>
+	template<callable<R, Args...> Fn>
 	constexpr function_ref<R(Args...)>& function_ref<R(Args...)>::operator=(Fn&& function) noexcept
 	{
 		object_	  = reinterpret_cast<void*>(std::addressof(function));
-		callback_ = [](void* object, Args... arguments) {
+		callback_ = [](void* object, Args... arguments)
+		{
 			return std::invoke(
 				*reinterpret_cast<typename std::add_pointer<Fn>::type>(object),
 				std::forward<Args>(arguments)...);
@@ -158,9 +147,7 @@ namespace synodic
 		using type = R(Args...);
 	};
 
-	template<
-		class Fn,
-		class Stripped = typename SignatureStripper<decltype(&Fn::operator())>::type>
+	template<class Fn, class Stripped = typename SignatureStripper<decltype(&Fn::operator())>::type>
 	function_ref(Fn) -> function_ref<Stripped>;
 
 }

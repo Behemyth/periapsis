@@ -1,4 +1,6 @@
-from conans import ConanFile, CMake
+from conans import ConanFile
+from conan.tools.cmake import CMake, CMakeToolchain
+from conan.tools.layout import cmake_layout
 
 class SynodicCoreConan(ConanFile):
 	name = "synodic-template-library"
@@ -7,26 +9,22 @@ class SynodicCoreConan(ConanFile):
 	homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 	settings = "os", "compiler", "build_type", "arch"
 	requires = "boost-ext-ut/1.1.8"
-	generators = "cmake_find_package"
-	scm = {
-         "type": "git",
-         "url": "auto",
-         "revision": "auto",
-    }
+	generators = "CMakeToolchain", "CMakeDeps"
+
+	def layout(self):
+		cmake_layout(self)
+
+	def generate(self):
+		toolchain = CMakeToolchain(self, generator='Ninja')
+		toolchain.variables["BUILD_TESTS"] = True
+		toolchain.variables["BOOST_UT_DISABLE_MODULE"] = True
+		toolchain.generate()
 
 	def build(self):
-		cmake = CMake(self)
+		cmake = CMake()
 		cmake.configure()
 		cmake.build()
 
 	def package(self):
-		self.copy("*.h", src="src", dst="include")
-
-	def package_id(self):
-		self.info.header_only()
-
-	def package_info(self):
-
-		# If the the package is in editable mode, forward the library path
-		if not self.in_local_cache:
-			self.cpp_info.includedirs = ["src"]
+		cmake = CMake()
+		cmake.install()

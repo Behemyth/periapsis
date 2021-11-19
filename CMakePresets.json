@@ -1,0 +1,26 @@
+{
+	"version": 3,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 21,
+		"patch": 2
+	},
+	"configurePresets": [
+		{
+			"name": "default",
+			"displayName": "Default Config",
+			"description": "Default build using Ninja generator",
+			"generator": "Ninja",
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"toolchainFile": "${sourceDir}/build/conan/conan_toolchain.cmake",
+			"architecture": {
+				"value": "x64",
+				"strategy": "external"
+			}
+		}
+	],
+	"buildPresets": [
+	],
+	"testPresets": [
+	]
+}

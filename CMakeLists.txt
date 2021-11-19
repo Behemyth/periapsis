@@ -1,15 +1,11 @@
-cmake_minimum_required(VERSION 3.19.2 FATAL_ERROR)
-
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR}) #TODO: remove with new Conan generator
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}) #TODO: remove with new Conan generator
+cmake_minimum_required(VERSION 3.21.2 FATAL_ERROR)
 
 #Global Options
-set(CMAKE_FIND_PACKAGE_PREFER_CONFIG ON) # Opposite module/PCF order for `find_package`
 set_property(GLOBAL PROPERTY USE_FOLDERS ON) # Group the default targets in a folder
 
 project(synodic-template-library 
 	VERSION 0.1.0
-	DESCRIPTION "Synodic template library"
+	DESCRIPTION "Synodic Template Library"
 	LANGUAGES CXX
 )
 
@@ -29,16 +25,11 @@ add_subdirectory(
 	src/synodic
 )
 
-target_link_libraries(synodic-template-library
-PUBLIC
-	functional
-)
-
 #Provides Visual Studio filter support
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES SOURCES)
 
 
-if(BUILD_TESTING)
+if(BUILD_TESTS)
 
 	enable_testing()
     add_subdirectory(tests)

@@ -16,8 +16,8 @@ homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
 
 [tool.poetry.dependencies]
-python  = "^3.9"
-conan   = "^1.33"
+python  = "^3.10"
+conan   = "^1.42"
 
 
 [build-system]

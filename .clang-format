@@ -35,14 +35,14 @@ ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
-# TODO: Clang11 - DeriveLineEnding: false
+DeriveLineEnding: false
 DerivePointerAlignment: false
 DisableFormat: false
 FixNamespaceComments: false
 IncludeBlocks: Regroup
-# TODO: Clang11 - IndentCaseBlocks: false
+IndentCaseBlocks: false
 IndentCaseLabels: true
-# TODO: Clang11 - IndentGotoLabels: false
+IndentGotoLabels: false
 IndentPPDirectives: AfterHash
 IndentWidth: 4
 IndentWrappedFunctionNames: true
@@ -63,18 +63,17 @@ SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
 SpaceBeforeParens: Never
 SpaceBeforeRangeBasedForLoopColon: false
-# TODO: Clang11 - SpaceBeforeSquareBrackets: false
-# TODO: Clang11 - SpaceInEmptyBlock: false
+SpaceBeforeSquareBrackets: false
+SpaceInEmptyBlock: false
 SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 2
 SpacesInAngles: false
 SpacesInCStyleCastParentheses: false
-# TODO: Clang11 - SpacesInConditionalStatement: false
+SpacesInConditionalStatement: false
 SpacesInContainerLiterals: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-# TODO: Clang11 - Standard: Latest
-Standard: Cpp11 
+Standard: Latest
 TabWidth: 4
-# TODO: Clang11 - UseCRLF: false
+UseCRLF: false
 UseTab: Always

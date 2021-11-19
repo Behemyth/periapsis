@@ -1,12 +1,21 @@
 #pragma once
 
-// TODO: This is a intermediate measure prior to C++23, or reflection. Remove when std reflection is available
-
 #include <tuple>
 #include <utility>
 
 namespace synodic
 {
+
+	template<class F, typename Ret, class... Args>
+	concept callable =
+		std::invocable<F, Args...> && std::same_as<Ret, std::invoke_result_t<F, Args...>>;
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// ConstructorParameters
+	// TODO: Remove when reflection is available
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	template<typename T, size_t N>
 	struct Tag
 	{
@@ -17,7 +26,8 @@ namespace synodic
 		consteval friend size_t GetID(Tag<T, N>);
 	};
 
-	// The definitions of the friend functions elevating their scope. Prevent multiple instantiations by requiring the types
+	// The definitions of the friend functions elevating their scope. Prevent multiple
+	// instantiations by requiring the types
 	//		to be different
 	template<typename T, typename U, size_t N>
 	requires(!std::is_same_v<T, U>) struct FriendType
@@ -72,8 +82,7 @@ namespace synodic
 
 	// Given a type T, returns a tuple of the parameters for the shortest constructor for that type
 	template<typename T>
-	using ConstructorParameters = typename TaggedTuple<
-		T,
-		std::make_index_sequence<ConstructorParameterCount<T>(0)>>::Type;
+	using ConstructorParameters =
+		typename TaggedTuple<T, std::make_index_sequence<ConstructorParameterCount<T>(0)>>::Type;
 
 }
