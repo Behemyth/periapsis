@@ -2,62 +2,83 @@
 BasedOnStyle: Google
 AccessModifierOffset: -4
 AlignAfterOpenBracket: AlwaysBreak
-AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: false
-AlignConsecutiveMacros: true
+# TODO: Clang 13 - AlignArrayOfStructures: Left
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveBitFields: Consecutive
+AlignConsecutiveDeclarations: None
+AlignConsecutiveMacros: Consecutive
 AlignEscapedNewlines: Left
-AlignOperands: true
+AlignOperands: Align
 AlignTrailingComments: false
-AllowAllArgumentsOnNextLine: true
-AllowAllConstructorInitializersOnNextLine: false
+AllowAllArgumentsOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortBlocksOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
 AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: None
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterReturnType: None
-AlwaysBreakBeforeMultilineStrings: false
+AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: Yes
-BinPackArguments: true
+AttributeMacros: []
+BinPackArguments: false
 BinPackParameters: false
+BitFieldColonSpacing: Both
 BreakAfterJavaFieldAnnotations: true
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Allman
+BreakBeforeConceptDeclarations: true
 BreakBeforeTernaryOperators: false
 BreakConstructorInitializers: AfterColon
 BreakInheritanceList: AfterColon
 BreakStringLiterals: true
-ColumnLimit: 100
+ColumnLimit: 120
 CompactNamespaces: false
-ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
 DeriveLineEnding: false
 DerivePointerAlignment: false
 DisableFormat: false
+# TODO: Clang 14 - EmptyLineAfterAccessModifier: Never
+# TODO: Clang 14 - EmptyLineBeforeAccessModifier: Always
 FixNamespaceComments: false
+ForEachMacros: []
+# TODO: Clang 14 - IfMacros: []
 IncludeBlocks: Regroup
+# TODO: Clang 13 - IndentAccessModifiers: false
 IndentCaseBlocks: false
 IndentCaseLabels: true
+IndentExternBlock: Indent
 IndentGotoLabels: false
 IndentPPDirectives: AfterHash
+IndentRequires: true
 IndentWidth: 4
 IndentWrappedFunctionNames: true
-KeepEmptyLinesAtTheStartOfBlocks: true
+InsertTrailingCommas: None
+KeepEmptyLinesAtTheStartOfBlocks: false
+# TODO: Clang 13 - LambdaBodyIndentation: Signature
 Language: Cpp
-MaxEmptyLinesToKeep: 2
+MaxEmptyLinesToKeep: 1
 NamespaceIndentation: All
+NamespaceMacros: []
+# TODO: Clang 14 - PPIndentWidth: -1
+# TODO: Clang 14 - PackConstructorInitializers: Never
 PointerAlignment: Left
+# TODO: Clang 14 - QualifierAlignment: Left
+# TODO: Clang 14 - ReferenceAlignment: Left
 ReflowComments: true
+# TODO: Clang 14 - SortIncludes: CaseSensitive
 SortIncludes: true
 SortUsingDeclarations: true
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: false
+SpaceAroundPointerQualifiers: Default
 SpaceBeforeAssignmentOperators: true
+SpaceBeforeCaseColon: false
 SpaceBeforeCpp11BracedList: true
 SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
@@ -67,13 +88,19 @@ SpaceBeforeSquareBrackets: false
 SpaceInEmptyBlock: false
 SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 2
+# TODO: Clang 14 - SpacesInAngles: Never
 SpacesInAngles: false
 SpacesInCStyleCastParentheses: false
 SpacesInConditionalStatement: false
 SpacesInContainerLiterals: false
+# TODO: Clang 14 - SpacesInLineCommentPrefix:
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard: Latest
+StatementAttributeLikeMacros: []
+StatementMacros: []
 TabWidth: 4
+TypenameMacros: []
 UseCRLF: false
 UseTab: Always
+WhitespaceSensitiveMacros: []

@@ -1,27 +1,24 @@
 #pragma once
 
-#include "SparseStructure.h"
-#include "Exception.h"
-
-#include <vector>
+#include <bitset>
 #include <cassert>
 #include <memory>
 #include <type_traits>
-#include <bitset>
+#include <vector>
+
+#include "Exception.h"
+#include "SparseStructure.h"
 
 template<class T, uint8_t N>
-class SparseBitMap final : public SparseStructure {
-	
+class SparseBitMap final : public SparseStructure
+{
 	static_assert(N % 4 == 0, "N must be byte aligned.");
 
-
 public:
-
 	using size_type = uint8_t;
-	using iterator = typename std::vector<T>::iterator;
+	using iterator	= typename std::vector<T>::iterator;
 
-
-	SparseBitMap() = default;
+	SparseBitMap()	= default;
 	~SparseBitMap() = default;
 
 	T& operator[](size_type);
@@ -34,24 +31,20 @@ public:
 	void Clear();
 
 	iterator Find(const size_type position);
-	
+
 	iterator begin() noexcept;
 	iterator end() noexcept;
-	
-private:
 
+private:
 	[[nodiscard]] uint8_t CountPosition(const size_type position) const;
-	
+
 	std::bitset<N> mapping_;
 	std::vector<T> data_;
-
-
 };
 
 template<class T, uint8_t N>
 T& SparseBitMap<T, N>::operator[](size_type position)
 {
-
 	assert(mapping_.test(position));
 
 	uint8_t pos = CountPosition(position) - 1;
@@ -59,30 +52,26 @@ T& SparseBitMap<T, N>::operator[](size_type position)
 	assert(pos < data_.size());
 
 	return data_[pos];
-
 }
 
 template<class T, uint8_t N>
 bool SparseBitMap<T, N>::Test(size_type position) const
 {
-
 	return mapping_.test(position);
-
 }
 
 template<class T, uint8_t N>
 template<typename... Args>
-std::pair<typename SparseBitMap<T, N>::iterator, bool> SparseBitMap<T, N>::Emplace(size_type position,
-	Args&&... args)
+std::pair<typename SparseBitMap<T, N>::iterator, bool> SparseBitMap<T, N>::Emplace(size_type position, Args&&... args)
 {
-
-	if (Test(position)) {
+	if(Test(position))
+	{
 		return {operator[](position), false};
 	}
 
 	uint8_t pos = CountPosition(position);
 	mapping_.set(position);
-	
+
 	auto iter = data_.emplace(data_.begin() + pos, std::forward<Args>(args)...);
 
 	return {iter, true};
@@ -97,71 +86,59 @@ std::pair<typename SparseBitMap<T, N>::iterator, bool> SparseBitMap<T, N>::Empla
  * @returns	A pair;
  */
 template<class T, uint8_t N>
-std::pair<typename SparseBitMap<T, N>::iterator, bool> SparseBitMap<T, N>::Insert(
-	size_type position,
-	const T& value)
+std::pair<typename SparseBitMap<T, N>::iterator, bool> SparseBitMap<T, N>::Insert(size_type position, const T& value)
 {
-
-	if (Test(position)) {
+	if(Test(position))
+	{
 		return {data_.begin() + position, false};
 	}
 
 	uint8_t pos = CountPosition(position);
 	mapping_.set(position);
-	
+
 	auto iter = data_.insert(data_.begin() + pos, value);
 
 	return {iter, true};
-
 }
 
 template<class T, uint8_t N>
 void SparseBitMap<T, N>::Clear()
 {
-
 	mapping_.reset();
 	data_.resize(0);
-
 }
 
 template<class T, uint8_t N>
 typename SparseBitMap<T, N>::iterator SparseBitMap<T, N>::Find(const size_type position)
 {
-
-	if (!Test(position)) {
+	if(!Test(position))
+	{
 		return data_.end();
 	}
 
 	uint8_t pos = CountPosition(position);
-	
+
 	return data_.begin() + pos;
-	
 }
 
 template<class T, uint8_t N>
 typename SparseBitMap<T, N>::iterator SparseBitMap<T, N>::begin() noexcept
 {
-
 	return data_.begin();
-	
 }
 
 template<class T, uint8_t N>
 typename SparseBitMap<T, N>::iterator SparseBitMap<T, N>::end() noexcept
 {
-
 	return data_.end();
-
 }
 
 template<class T, uint8_t N>
 uint8_t SparseBitMap<T, N>::CountPosition(const size_type position) const
 {
-	
 	std::bitset<N> mask;
 	mask = ~(~mask << position) & mapping_;
 
 	// TODO: Replace with `popcount`
 	return static_cast<uint8_t>(mask.count());
-	
 }
