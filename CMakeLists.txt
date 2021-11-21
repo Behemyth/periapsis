@@ -12,8 +12,8 @@ project(synodic-template-library
 include(CTest)
 
 
-add_library(synodic-template-library)
-add_library(synodic::synodic-template-library ALIAS synodic-template-library )
+add_library(synodic-template-library INTERFACE)
+add_library(synodic::synodic-template-library ALIAS synodic-template-library)
 
 
 target_include_directories(synodic-template-library
