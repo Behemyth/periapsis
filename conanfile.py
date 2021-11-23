@@ -8,7 +8,7 @@ class SynodicCoreConan(ConanFile):
 	license = "MIT"
 	homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 	settings = "os", "compiler", "build_type", "arch"
-	requires = "catch2/2.13.7"
+	requires = "gtest/1.11.0"
 	generators = "CMakeToolchain", "CMakeDeps"
 
 	def layout(self):

@@ -1,8 +1,8 @@
+#include <gtest/gtest.h>
+
 #include <vector>
 
-#include "catch2/catch.hpp"
 #include "synodic/type/traits.h"
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types
@@ -34,12 +34,8 @@ private:
 class ConstTestClass
 {
 public:
-	ConstTestClass(
-		const std::vector<int> parameter1,
-		const TestData parameter2,
-		const int parameter3) :
-		data1_(parameter1),
-		data2_(parameter2), data3_(parameter3)
+	ConstTestClass(const std::vector<int> parameter1, const TestData parameter2, const int parameter3) :
+		data1_(parameter1), data2_(parameter2), data3_(parameter3)
 	{
 	}
 
@@ -77,32 +73,30 @@ private:
 	int* data3_;
 };
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-TEST_CASE("Value ConstructorParameters", "[type_traits]")
+TEST(type_traits, Value)
 {
 	using ConstructorType = synodic::ConstructorParameters<TestClass>;
-	REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+	EXPECT_TRUE((std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>));
 }
 
-TEST_CASE("Const ConstructorParameters", "[type_traits]")
+TEST(type_traits, Const)
 {
 	using ConstructorType = synodic::ConstructorParameters<ConstTestClass>;
-	REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+	EXPECT_TRUE((std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>));
 }
 
-TEST_CASE("Reference ConstructorParameters", "[type_traits]")
+TEST(type_traits, Reference)
 {
-	//using ConstructorType = synodic::ConstructorParameters<ReferenceTestClass>;
-	//REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+	// using ConstructorType = synodic::ConstructorParameters<ReferenceTestClass>;
+	// REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
 }
 
-TEST_CASE("Pointer ConstructorParameters", "[type_traits]")
+TEST(type_traits, Pointer)
 {
-	//using ConstructorType = synodic::ConstructorParameters<PointerTestClass>;
-	//REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+	// using ConstructorType = synodic::ConstructorParameters<PointerTestClass>;
+	// REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
 }

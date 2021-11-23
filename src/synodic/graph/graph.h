@@ -4,7 +4,6 @@
 
 namespace synodic
 {
-
 	// TODO: Make the ID type configurable
 	template<uint16_t T>
 	struct Vertex
@@ -27,7 +26,5 @@ namespace synodic
 	};
 
 	// Exports
-
-	
 
 }
