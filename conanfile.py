@@ -8,7 +8,7 @@ class SynodicCoreConan(ConanFile):
 	license = "MIT"
 	homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 	settings = "os", "compiler", "build_type", "arch"
-	requires = "boost-ext-ut/1.1.8"
+	requires = "catch2/2.13.7"
 	generators = "CMakeToolchain", "CMakeDeps"
 
 	def layout(self):
@@ -16,8 +16,7 @@ class SynodicCoreConan(ConanFile):
 
 	def generate(self):
 		toolchain = CMakeToolchain(self, generator='Ninja')
-		toolchain.variables["BUILD_TESTS"] = True
-		toolchain.variables["BOOST_UT_DISABLE_MODULE"] = True
+		toolchain.variables["BUILD_TESTING"] = True
 		toolchain.generate()
 
 	def build(self):

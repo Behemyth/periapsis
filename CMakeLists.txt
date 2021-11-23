@@ -9,9 +9,10 @@ project(synodic-template-library
 	LANGUAGES CXX
 )
 
+# Enable CTest for the project
 include(CTest)
 
-
+# Provide a namespaced alias
 add_library(synodic-template-library INTERFACE)
 add_library(synodic::synodic-template-library ALIAS synodic-template-library)
 
@@ -29,9 +30,8 @@ add_subdirectory(
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES SOURCES)
 
 
-if(BUILD_TESTS)
+if(BUILD_TESTING)
 
-	enable_testing()
     add_subdirectory(tests)
 
 endif()

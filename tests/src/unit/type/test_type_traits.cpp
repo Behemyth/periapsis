@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "boost/ut.hpp"
+#include "catch2/catch.hpp"
 #include "synodic/type/traits.h"
 
 
@@ -82,33 +82,27 @@ private:
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace ut = boost::ut;
 
-ut::suite errors = []
+TEST_CASE("Value ConstructorParameters", "[type_traits]")
 {
-	using namespace ut;
-	
-	"Value ConstructorParameters"_test = []
-	{
-		using ConstructorType = synodic::ConstructorParameters<TestClass>;
-		expect(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
-	};
+	using ConstructorType = synodic::ConstructorParameters<TestClass>;
+	REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+}
 
-	"Const ConstructorParameters"_test = []
-	{
-		using ConstructorType = synodic::ConstructorParameters<ConstTestClass>;
-		expect(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
-	};
+TEST_CASE("Const ConstructorParameters", "[type_traits]")
+{
+	using ConstructorType = synodic::ConstructorParameters<ConstTestClass>;
+	REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+}
 
-	"Reference ConstructorParameters"_test = []
-	{
-		//using ConstructorType = synodic::ConstructorParameters<ReferenceTestClass>;
-		//expect(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
-	};
+TEST_CASE("Reference ConstructorParameters", "[type_traits]")
+{
+	//using ConstructorType = synodic::ConstructorParameters<ReferenceTestClass>;
+	//REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+}
 
-	"Pointer ConstructorParameters"_test = []
-	{
-		//using ConstructorType = synodic::ConstructorParameters<PointerTestClass>;
-		//expect(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
-	};
-};
+TEST_CASE("Pointer ConstructorParameters", "[type_traits]")
+{
+	//using ConstructorType = synodic::ConstructorParameters<PointerTestClass>;
+	//REQUIRE(std::is_same_v<ConstructorType, std::tuple<std::vector<int>, TestData, int>>);
+}

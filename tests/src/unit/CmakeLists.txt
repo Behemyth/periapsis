@@ -1,13 +1,11 @@
-
-target_sources(tests
-PRIVATE
-	test_type_traits.cpp
-)
-
 add_subdirectory(
 	graph
 )
 
 add_subdirectory(
 	functional
+)
+
+add_subdirectory(
+	type
 )
