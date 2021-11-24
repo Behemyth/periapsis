@@ -7,8 +7,8 @@
 	},
 	"configurePresets": [
 		{
-			"name": "default",
-			"displayName": "Default Config",
+			"name": "windows-default",
+			"displayName": "Windows x64 Debug",
 			"description": "Default build using Ninja generator",
 			"generator": "Ninja",
 			"binaryDir": "${sourceDir}/build/${presetName}",
@@ -16,6 +16,32 @@
 			"architecture": {
 				"value": "x64",
 				"strategy": "external"
+			},
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}"
+			},
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Windows"
+			}
+		},
+		{
+			"name": "linux-default",
+			"displayName": "Linux Debug",
+			"description": "Sets Ninja generator, compilers, build and install directory, debug build type",
+			"generator": "Ninja",
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"toolchainFile": "${sourceDir}/build/conan/conan_toolchain.cmake",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}"
+			},
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Linux"
 			}
 		}
 	],
