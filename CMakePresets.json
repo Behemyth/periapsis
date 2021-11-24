@@ -7,19 +7,23 @@
 	},
 	"configurePresets": [
 		{
-			"name": "windows-default",
-			"displayName": "Windows x64 Debug",
-			"description": "Default build using Ninja generator",
-			"generator": "Ninja",
+			"name": "default",
+			"hidden": true,
+			"description": "Base preset for all configurations",
+			"generator": "Ninja Multi-Config",
 			"binaryDir": "${sourceDir}/build/${presetName}",
 			"toolchainFile": "${sourceDir}/build/conan/conan_toolchain.cmake",
-			"architecture": {
-				"value": "x64",
-				"strategy": "external"
-			},
 			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Debug",
 				"CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}"
+			}
+		},
+		{
+			"name": "windows-default",
+			"inherits": "default",
+			"hidden": true,
+			"description": "Base preset for Windows configurations",
+			"architecture": {
+				"value": "x64"
 			},
 			"condition": {
 				"type": "equals",
@@ -29,23 +33,126 @@
 		},
 		{
 			"name": "linux-default",
-			"displayName": "Linux Debug",
-			"description": "Sets Ninja generator, compilers, build and install directory, debug build type",
-			"generator": "Ninja",
-			"binaryDir": "${sourceDir}/build/${presetName}",
-			"toolchainFile": "${sourceDir}/build/conan/conan_toolchain.cmake",
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Debug",
-				"CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}"
-			},
+			"inherits": "default",
+			"hidden": true,
+			"description": "Base preset for Linux configurations",
 			"condition": {
 				"type": "equals",
 				"lhs": "${hostSystemName}",
 				"rhs": "Linux"
 			}
+		},
+		{
+			"name": "macos-default",
+			"inherits": "default",
+			"hidden": true,
+			"description": "Base preset for MacOS configurations",
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Darwin"
+			}
+		},
+		{
+			"name": "windows-ninja",
+			"displayName": "Ninja Multi-Config",
+			"description": "Default configuration using Ninja Multi-Config generator for Windows configurations",
+			"architecture": {
+				"strategy": "external"
+			},
+			"inherits": [
+				"windows-default"
+			]
+		},
+		{
+			"name": "windows-vs2022",
+			"displayName": "Visual Studio 17 2022",
+			"description": "Default configuration using Visual Studio 2022 generator for Windows configurations",
+			"generator": "Visual Studio 17 2022",
+			"architecture": {
+				"strategy": "set"
+			},
+			"inherits": [
+				"windows-default"
+			]
 		}
 	],
 	"buildPresets": [
+		{
+			"name": "windows-default",
+			"hidden": true,
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Windows"
+			}
+		},
+		{
+			"name": "linux-default",
+			"hidden": true,
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Linux"
+			}
+		},
+		{
+			"name": "macos-default",
+			"hidden": true,
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Darwin"
+			}
+		},
+		{
+			"name": "ninja-windows-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-ninja",
+			"configuration": "Debug"
+		},
+		{
+			"name": "ninja-windows-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-ninja",
+			"configuration": "Release"
+		},
+		{
+			"name": "ninja-windows-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-ninja",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "vs2022-windows-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-vs2022",
+			"configuration": "Debug"
+		},
+		{
+			"name": "vs2022-windows-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-vs2022",
+			"configuration": "Release"
+		},
+		{
+			"name": "vs2022-windows-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-vs2022",
+			"configuration": "RelWithDebInfo"
+		}
 	],
 	"testPresets": [
 	]

@@ -15,7 +15,7 @@ class SynodicCoreConan(ConanFile):
 		cmake_layout(self)
 
 	def generate(self):
-		toolchain = CMakeToolchain(self, generator='Ninja')
+		toolchain = CMakeToolchain(self)
 		toolchain.variables["BUILD_TESTING"] = True
 		toolchain.generate()
 
