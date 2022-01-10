@@ -7,15 +7,19 @@
 	},
 	"configurePresets": [
 		{
+			"name": "vcpkg",
+			"hidden": true,
+			"description": "Base preset for Vcpkg package management",
+			"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+		},
+		{
 			"name": "default",
+			"inherits": [ "vcpkg" ],
 			"hidden": true,
 			"description": "Base preset for all configurations",
 			"generator": "Ninja Multi-Config",
 			"binaryDir": "${sourceDir}/build/${presetName}",
-			"toolchainFile": "${sourceDir}/build/conan/conan_toolchain.cmake",
-			"cacheVariables": {
-				"CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}"
-			}
+			"installDir": "${sourceDir}/install/${presetName}"
 		},
 		{
 			"name": "windows-default",
@@ -54,9 +58,9 @@
 			}
 		},
 		{
-			"name": "windows-ninja",
-			"displayName": "Ninja Multi-Config",
-			"description": "Default configuration using Ninja Multi-Config generator for Windows configurations",
+			"name": "windows-ninja-msvc",
+			"displayName": "Ninja - MSVC",
+			"description": "Default configuration using Ninja Multi-Config generator and the Microsoft Visual C++ compiler",
 			"architecture": {
 				"strategy": "external"
 			},
@@ -65,9 +69,9 @@
 			]
 		},
 		{
-			"name": "windows-vs2022",
-			"displayName": "Visual Studio 17 2022",
-			"description": "Default configuration using Visual Studio 2022 generator for Windows configurations",
+			"name": "windows-msbuild-msvc",
+			"displayName": "MSBuild - MSVC",
+			"description": "Default configuration using MSBuild and the Microsoft Visual C++ compiler",
 			"generator": "Visual Studio 17 2022",
 			"architecture": {
 				"strategy": "set"
@@ -75,6 +79,44 @@
 			"inherits": [
 				"windows-default"
 			]
+		},
+		{
+			"name": "windows-ninja-clang",
+			"displayName": "Ninja - Clang",
+			"description": "Default configuration using Ninja Multi-Config generator and Clang",
+			"architecture": {
+				"strategy": "external"
+			},
+			"inherits": [
+				"windows-default"
+			],
+			"cacheVariables": {
+				"CMAKE_CXX_COMPILER": "clang-cl"
+			}
+		},
+		{
+			"name": "windows-msbuild-clang",
+			"displayName": "MSBuild - Clang",
+			"description": "Default configuration using MSBuild and Clang",
+			"generator": "Visual Studio 17 2022",
+			"architecture": {
+				"strategy": "set"
+			},
+			"inherits": [
+				"windows-default"
+			],
+			"toolset": "ClangCL"
+		},
+		{
+			"name": "linux-ninja-gcc",
+			"displayName": "Ninja - GCC",
+			"description": "Default configuration using Ninja and GCC",
+			"inherits": [
+				"linux-default"
+			],
+			"cacheVariables": {
+				"CMAKE_CXX_COMPILER": "g++-9"
+			}
 		}
 	],
 	"buildPresets": [
@@ -106,51 +148,123 @@
 			}
 		},
 		{
-			"name": "ninja-windows-debug",
+			"name": "windows-ninja-msvc-debug",
 			"displayName": "Debug",
 			"description": "",
 			"inherits": [ "windows-default" ],
-			"configurePreset": "windows-ninja",
+			"configurePreset": "windows-ninja-msvc",
 			"configuration": "Debug"
 		},
 		{
-			"name": "ninja-windows-release",
+			"name": "windows-ninja-msvc-release",
 			"displayName": "Release",
 			"description": "",
 			"inherits": [ "windows-default" ],
-			"configurePreset": "windows-ninja",
+			"configurePreset": "windows-ninja-msvc",
 			"configuration": "Release"
 		},
 		{
-			"name": "ninja-windows-development",
+			"name": "windows-ninja-msvc-development",
 			"displayName": "Development",
 			"description": "",
 			"inherits": [ "windows-default" ],
-			"configurePreset": "windows-ninja",
+			"configurePreset": "windows-ninja-msvc",
 			"configuration": "RelWithDebInfo"
 		},
 		{
-			"name": "vs2022-windows-debug",
+			"name": "windows-msbuild-msvc-debug",
 			"displayName": "Debug",
 			"description": "",
 			"inherits": [ "windows-default" ],
-			"configurePreset": "windows-vs2022",
+			"configurePreset": "windows-msbuild-msvc",
 			"configuration": "Debug"
 		},
 		{
-			"name": "vs2022-windows-release",
+			"name": "windows-msbuild-msvc-release",
 			"displayName": "Release",
 			"description": "",
 			"inherits": [ "windows-default" ],
-			"configurePreset": "windows-vs2022",
+			"configurePreset": "windows-msbuild-msvc",
 			"configuration": "Release"
 		},
 		{
-			"name": "vs2022-windows-development",
+			"name": "windows-msbuild-msvc-development",
 			"displayName": "Development",
 			"description": "",
 			"inherits": [ "windows-default" ],
-			"configurePreset": "windows-vs2022",
+			"configurePreset": "windows-msbuild-msvc",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "windows-ninja-clang-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-ninja-clang",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-ninja-clang-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-ninja-clang",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-ninja-clang-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-ninja-clang",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "windows-msbuild-clang-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-msbuild-clang",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-msbuild-clang-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-msbuild-clang",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-msbuild-clang-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [ "windows-default" ],
+			"configurePreset": "windows-msbuild-clang",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "linux-msbuild-clang-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [ "linux-default" ],
+			"configurePreset": "linux-ninja-gcc",
+			"configuration": "Debug"
+		},
+		{
+			"name": "linux-msbuild-clang-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [ "linux-default" ],
+			"configurePreset": "linux-ninja-gcc",
+			"configuration": "Release"
+		},
+		{
+			"name": "linux-msbuild-clang-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [ "linux-default" ],
+			"configurePreset": "linux-ninja-gcc",
 			"configuration": "RelWithDebInfo"
 		}
 	],

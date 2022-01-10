@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "SynodicTemplateLibrary"
+name = "synodic-template-library"
 version = "0.0.0"
 description = "Utility library."
 
@@ -17,8 +17,6 @@ homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
 [tool.poetry.dependencies]
 python  = "^3.10"
-conan   = "^1.42"
-
 
 [build-system]
 requires      = ["poetry>=1.1"]
