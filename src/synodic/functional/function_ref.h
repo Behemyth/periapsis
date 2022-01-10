@@ -43,14 +43,13 @@ namespace synodic
 	template<class R, class... Args>
 	template<callable<R, Args...> Fn>
 	constexpr function_ref<R(Args...)>::function_ref(Fn&& function) noexcept :
-		object_(const_cast<void*>(reinterpret_cast<const void*>(std::addressof(function))))
+		object_(const_cast<void*>(reinterpret_cast<const void*>(std::addressof(function)))),
+		callback_(
+			[](void* object, Args... arguments) -> R
+			{
+				return std::invoke(*reinterpret_cast<std::add_pointer_t<Fn>>(object), std::forward<Args>(arguments)...);
+			})
 	{
-		callback_ = [](void* object, Args... arguments) -> R
-		{
-			return std::invoke(
-				*reinterpret_cast<typename std::add_pointer<Fn>::type>(object),
-				std::forward<Args>(arguments)...);
-		};
 	}
 
 	template<class R, class... Args>
@@ -60,9 +59,7 @@ namespace synodic
 		object_	  = reinterpret_cast<void*>(std::addressof(function));
 		callback_ = [](void* object, Args... arguments)
 		{
-			return std::invoke(
-				*reinterpret_cast<typename std::add_pointer<Fn>::type>(object),
-				std::forward<Args>(arguments)...);
+			return std::invoke(*reinterpret_cast<std::add_pointer_t<Fn>>(object), std::forward<Args>(arguments)...);
 		};
 
 		return *this;

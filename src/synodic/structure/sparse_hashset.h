@@ -1,28 +1,26 @@
 #pragma once
 
+#include <vector>
+
 #include "SparseStructure.h"
 #include "SparseVector.h"
 
-#include <vector>
+namespace synodic
+{
+	template<class Key, class Hash = std::hash<Key>>
+	class SparseHashSet final : public SparseStructure
+	{
+		using size_type = size_t;
 
+		static constexpr size_type blockSize_ = 8;
 
-template<class Key, class Hash = std::hash<Key>>
-class SparseHashSet final : public SparseStructure {
+	public:
+		SparseHashSet()			  = default;
+		~SparseHashSet() override = default;
 
-	using size_type = size_t;
+	private:
+		SparseVector<Key, Hash> indirectionTable_;
+		std::vector<Key> keys_;
+	};
 
-	static constexpr size_type blockSize_ = 8;
-
-public:
-
-	SparseHashSet() = default;
-	~SparseHashSet() override = default;
-
-
-private:
-
-	SparseVector<Key, Hash> indirectionTable_;
-	std::vector<Key> keys_;
-
-
-};
+}

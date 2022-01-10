@@ -1,62 +1,65 @@
 #pragma once
 
 #include <string>
-
-class HashString final {
-
-public:
-
-	using HashType = uint64_t;
-
-	explicit constexpr HashString(std::string_view);
-
-	constexpr operator std::string_view() const;
-	constexpr operator HashType() const;
-
-	constexpr bool operator==(const HashString &other) const;
-	constexpr bool operator!=(const HashString &other) const;
-
-private:
-
-	constexpr static HashType Hash(HashType, std::string_view);
-
-	//hash constants
-	constexpr static HashType offset_ = 0xcbf29ce484222325;
-	constexpr static HashType prime_ = 0x100000001b3;
-
-	const HashType hash_;
-	std::string_view string_;
-
-};
-
-constexpr HashString::HashString(std::string_view string) :
-	hash_(Hash(offset_, string)),
-	string_(string)
+namespace synodic
 {
-}
+	class HashString final
+	{
+	public:
+		using HashType = uint64_t;
 
-//cast of the data as a readable string
-constexpr HashString::operator std::string_view() const {
-	return string_;
-}
+		explicit constexpr HashString(std::string_view);
 
-//cast of the data as a numerical value
-constexpr HashString::operator HashType() const {
-	return hash_;
-}
+		constexpr operator std::string_view() const;
+		constexpr operator HashType() const;
 
-constexpr bool HashString::operator==(const HashString &other) const {
-	return hash_ == other.hash_;
-}
+		constexpr bool operator==(const HashString& other) const;
+		constexpr bool operator!=(const HashString& other) const;
 
-constexpr bool HashString::operator!=(const HashString &other) const {
-	return hash_ != other.hash_;
-}
+	private:
+		constexpr static HashType Hash(HashType, std::string_view);
 
-constexpr HashString::HashType HashString::Hash(HashType offset, const std::string_view string) {
-	return !string.empty() ? offset : Hash((offset^string[0])*prime_, string.substr(1));
-}
+		constexpr static HashType offset_ = 0xcbf29ce484222325;
+		constexpr static HashType prime_  = 0x100000001b3;
 
-constexpr HashString operator"" _hashed(const char* str, std::size_t) {
-	return HashString{ str };
+		const HashType hash_;
+		std::string_view string_;
+	};
+
+	constexpr HashString::HashString(std::string_view string) : hash_(Hash(offset_, string)), string_(string)
+	{
+	}
+
+	// cast of the data as a readable string
+	constexpr HashString::operator std::string_view() const
+	{
+		return string_;
+	}
+
+	// cast of the data as a numerical value
+	constexpr HashString::operator HashType() const
+	{
+		return hash_;
+	}
+
+	constexpr bool HashString::operator==(const HashString& other) const
+	{
+		return hash_ == other.hash_;
+	}
+
+	constexpr bool HashString::operator!=(const HashString& other) const
+	{
+		return hash_ != other.hash_;
+	}
+
+	constexpr HashString::HashType HashString::Hash(HashType offset, const std::string_view string)
+	{
+		return !string.empty() ? offset : Hash((offset ^ string[0]) * prime_, string.substr(1));
+	}
+
+	constexpr HashString operator"" _hashed(const char* str, std::size_t)
+	{
+		return HashString {str};
+	}
+
 }

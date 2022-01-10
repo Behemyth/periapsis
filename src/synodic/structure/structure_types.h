@@ -1,15 +1,19 @@
 #pragma once
 
-class Structure
+namespace synodic
 {
-public:
-	Structure()			 = default;
-	virtual ~Structure() = default;
-};
+	class Structure
+	{
+	public:
+		Structure()			 = default;
+		virtual ~Structure() = default;
+	};
 
-class SparseStructure : public Structure
-{
-public:
-	SparseStructure()		   = default;
-	virtual ~SparseStructure() = default;
-};
+	class SparseStructure : public Structure
+	{
+	public:
+		SparseStructure()		   = default;
+		virtual ~SparseStructure() = default;
+	};
+
+}
