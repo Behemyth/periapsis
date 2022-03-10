@@ -1,2 +1,12 @@
 build/
 .vs/
+
+#Python
+*.egg-info
+*.pyc
+dist/
+.vs/
+
+#PDM
+.pdm.toml
+__pypackages__/

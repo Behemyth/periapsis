@@ -1,6 +1,7 @@
 {
 	"name": "synodic-template-library",
 	"version": "1.0",
+	"homepage": "https://github.com/Synodic-Software/Synodic-Template-Library",
 	"dependencies": [
 		{
 			"name": "gtest",

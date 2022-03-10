@@ -1,23 +1,30 @@
-[tool.poetry]
-name = "synodic-template-library"
-version = "0.0.0"
+[project]
 description = "Utility library."
+name = "synodic-template-library"
 
-license = "MIT"
+license-expression = "MIT"
 
 authors = [
-    "Synodic Software"
+  {name = "Synodic Software", email = "contact@synodic.software"},
 ]
 
 readme = "README.md"
 
-repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
+dynamic = ["version"]
+
+dependencies = [
+    "cppython>=0.3.4",
+    "cppython-vcpkg>=0.2.0",
+]
+requires-python = ">=3.10"
+
+[project.license-files]
+paths = ["LICENSE.md"]
+
+[project.urls]
 homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
-
-
-[tool.poetry.dependencies]
-python  = "^3.10"
+repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
 [build-system]
-requires      = ["poetry>=1.1"]
-build-backend = "poetry.core.masonry.api"
+build-backend = "pdm.pep517.api"
+requires = ["pdm-pep517"]
