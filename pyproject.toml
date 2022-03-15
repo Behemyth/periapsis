@@ -25,6 +25,8 @@ paths = ["LICENSE.md"]
 homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
+[tool.cppython]
+
 [build-system]
 build-backend = "pdm.pep517.api"
 requires = ["pdm-pep517"]
