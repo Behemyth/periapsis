@@ -25,6 +25,8 @@ homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
 [tool.cppython]
+generator = "vcpkg"
+target = "static"
 
 [build-system]
 build-backend = "pdm.pep517.api"
