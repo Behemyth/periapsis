@@ -15,18 +15,18 @@ summary = "Cross-platform colored terminal text."
 
 [[package]]
 name = "cppython"
-version = "0.4.1"
+version = "0.4.4"
 requires_python = ">=3.10"
 summary = "A Python package manager agnostic plugin integrating a transparent Conan and CMake workflow."
 dependencies = [
     "click>=8.0.3",
-    "cppython-core>=0.1.0",
+    "cppython-core>=0.1.1",
     "tomlkit>=0.10.0",
 ]
 
 [[package]]
 name = "cppython-core"
-version = "0.1.0"
+version = "0.1.1"
 requires_python = ">=3.10"
 summary = "Data definitions for CPPython"
 dependencies = [
@@ -35,11 +35,11 @@ dependencies = [
 
 [[package]]
 name = "cppython-vcpkg"
-version = "0.2.0"
+version = "0.2.1"
 requires_python = ">=3.10"
 summary = "A plugin for CPPython that enables vcpkg support for CMake projects"
 dependencies = [
-    "cppython>=0.3.4",
+    "cppython>=0.4.4",
 ]
 
 [[package]]
@@ -65,7 +65,7 @@ summary = "Backported and Experimental Type Hints for Python 3.6+"
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:a78869b580f80985ec656b024390b161f51ee60ca725543f6ea79322f54982a3"
+content_hash = "sha256:392f166a56ca6aa672128758400de955e6915a1cf60ff328fdbfde66ff8de3fe"
 
 [metadata.files]
 "click 8.0.4" = [
@@ -76,17 +76,17 @@ content_hash = "sha256:a78869b580f80985ec656b024390b161f51ee60ca725543f6ea79322f
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
-"cppython 0.4.1" = [
-    {file = "cppython-0.4.1-py3-none-any.whl", hash = "sha256:5c8ce8585948cefdf2998fa1808a5c00a8853a42b3daeb6320da9e79b473d826"},
-    {file = "cppython-0.4.1.tar.gz", hash = "sha256:a47df9c09fa72c88afa3e079105558e78eca5b778d8d40330c64afceae26a967"},
+"cppython 0.4.4" = [
+    {file = "cppython-0.4.4-py3-none-any.whl", hash = "sha256:30551c6531a0d4ae1fb7893ef87121c258d2a9b45cb6863a497163836bb0c36b"},
+    {file = "cppython-0.4.4.tar.gz", hash = "sha256:d373cf7806bf6f98d6c72415b06f81e885f300e93dddd2f0321d00a093bc99f1"},
 ]
-"cppython-core 0.1.0" = [
-    {file = "cppython_core-0.1.0-py3-none-any.whl", hash = "sha256:97a7c5132eb0fb4c5703d31509e73a746f66576957ebca77b216a50940153d40"},
-    {file = "cppython-core-0.1.0.tar.gz", hash = "sha256:2993b038d0d2591be46a8afe6d21ec87c51f634d51d83fed10bd4b5c8ef2df50"},
+"cppython-core 0.1.1" = [
+    {file = "cppython_core-0.1.1-py3-none-any.whl", hash = "sha256:5ea0027328417d22f2f718a883bafeac1b049fed84db06f0ab925a89149ef897"},
+    {file = "cppython-core-0.1.1.tar.gz", hash = "sha256:5df3d04010661f88f778317978eb3d5319976fa72d3289ec2a2b437daf717901"},
 ]
-"cppython-vcpkg 0.2.0" = [
-    {file = "cppython_vcpkg-0.2.0-py3-none-any.whl", hash = "sha256:6d00fb0810f20fa329497b049de01458346617175b5b87614cf6e8e5366b2284"},
-    {file = "cppython-vcpkg-0.2.0.tar.gz", hash = "sha256:89c5c210c773f7bc0928a3760b71f2f72b7cdb9a9579c3e73a3cbe6125c408f6"},
+"cppython-vcpkg 0.2.1" = [
+    {file = "cppython_vcpkg-0.2.1-py3-none-any.whl", hash = "sha256:92ca75e90f1aeb246d0d62e628665e7d2f3db42bbde7671d47f7ac905b04d15c"},
+    {file = "cppython-vcpkg-0.2.1.tar.gz", hash = "sha256:3ca0518a9b2398b9e98214d7d32a4da5b3c535ba14ab9bb8e07638bc3ba68a3c"},
 ]
 "pydantic 1.9.0" = [
     {file = "pydantic-1.9.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:cb23bcc093697cdea2708baae4f9ba0e972960a835af22560f6ae4e7e47d33f5"},
