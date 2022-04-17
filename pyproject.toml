@@ -13,8 +13,8 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    "cppython-vcpkg>=0.2.5",
-    "cppython-pdm>=0.2.5",
+    "cppython-vcpkg>=0.3.1",
+    "cppython-pdm>=0.2.7",
 ]
 requires-python = ">=3.10"
 

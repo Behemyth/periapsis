@@ -20,42 +20,43 @@ summary = "Cross-platform colored terminal text."
 
 [[package]]
 name = "cppython"
-version = "0.5.4"
+version = "0.6.0"
 requires_python = ">=3.10"
 summary = "A Python package manager agnostic plugin integrating a transparent Conan and CMake workflow."
 dependencies = [
     "click>=8.1.2",
-    "cppython-core>=0.2.1",
+    "cppython-core>=0.3.2",
     "pydantic>=1.9.0",
     "tomlkit>=0.10.1",
 ]
 
 [[package]]
 name = "cppython-core"
-version = "0.2.1"
+version = "0.3.2"
 requires_python = ">=3.10"
 summary = "Data definitions for CPPython"
 dependencies = [
+    "packaging>=21.3",
     "pydantic>=1.9",
 ]
 
 [[package]]
 name = "cppython-pdm"
-version = "0.2.5"
+version = "0.2.7"
 requires_python = ">=3.10"
 summary = "Interface plugin for CPPython that hooks into PDM"
 dependencies = [
-    "cppython>=0.5.1",
+    "cppython>=0.6.0",
     "pdm>=1.14.0",
 ]
 
 [[package]]
 name = "cppython-vcpkg"
-version = "0.2.7"
+version = "0.3.1"
 requires_python = ">=3.10"
 summary = "A plugin for CPPython that enables vcpkg support for CMake projects"
 dependencies = [
-    "cppython-core>=0.2.1",
+    "cppython-core>=0.3.2",
 ]
 
 [[package]]
@@ -189,7 +190,7 @@ summary = "A built-package format for Python"
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:dde1e60f822baf2b8f7a2929db004c3e5531fa62afe9164dbaeefdf2c5abb3ca"
+content_hash = "sha256:0eb06ad07c70f8938902aeef3ee928ce91d9e98244d6bba7022f79a30ef5457c"
 
 [metadata.files]
 "blinker 1.4" = [
@@ -203,21 +204,21 @@ content_hash = "sha256:dde1e60f822baf2b8f7a2929db004c3e5531fa62afe9164dbaeefdf2c
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
-"cppython 0.5.4" = [
-    {file = "cppython-0.5.4-py3-none-any.whl", hash = "sha256:d22b200dea871b5b23761386dcd08168d185d44d2c4daf0a9fd754a6fdb1ae50"},
-    {file = "cppython-0.5.4.tar.gz", hash = "sha256:caba31a81b5eb0acd2e486753c0658104909bd06f7de4a9299b5e077d3e7d80a"},
+"cppython 0.6.0" = [
+    {file = "cppython-0.6.0-py3-none-any.whl", hash = "sha256:f4fd966171745f21cd308f58d92ff257265f8b3ae0fd83207e465539650a7b01"},
+    {file = "cppython-0.6.0.tar.gz", hash = "sha256:0d0823282e0dee38fe2bcf19432b4268bc0d2bc1733547a77c11cdbc51b7263e"},
 ]
-"cppython-core 0.2.1" = [
-    {file = "cppython_core-0.2.1-py3-none-any.whl", hash = "sha256:d5f7be4815b89c53bfd7bbc7653e1fc66e1cde022edebe78afc86f5b0d6a1de4"},
-    {file = "cppython-core-0.2.1.tar.gz", hash = "sha256:001fb049a1d62c584eb1a2bcc8c4e4acad461ff583e875bb44ab5df9249b37b7"},
+"cppython-core 0.3.2" = [
+    {file = "cppython_core-0.3.2-py3-none-any.whl", hash = "sha256:bd7ee3988fe73206476c7d3979392279f203ed696e2920e00075163b00a5aea9"},
+    {file = "cppython-core-0.3.2.tar.gz", hash = "sha256:65da9e2cac0db22c8e061978bd910137560ad1bbb0c28f240797e0b8a7b5d6fa"},
 ]
-"cppython-pdm 0.2.5" = [
-    {file = "cppython_pdm-0.2.5-py3-none-any.whl", hash = "sha256:4665064f37ba5f4bfdf905a7bb28727d6d31566385ff1e7262acbec4837a4fcf"},
-    {file = "cppython-pdm-0.2.5.tar.gz", hash = "sha256:a3e58ddb8057bd37140c51ab6412b0a8e62c3c9c168dcb9b27bab92c04bbefd5"},
+"cppython-pdm 0.2.7" = [
+    {file = "cppython_pdm-0.2.7-py3-none-any.whl", hash = "sha256:da80a4b179bac852a244d062d257b7391460876dc11ef9907505ce149974b044"},
+    {file = "cppython-pdm-0.2.7.tar.gz", hash = "sha256:78c637e45489aecd1d55643c030f60bcea9b10ec275a63218200b66a76a79880"},
 ]
-"cppython-vcpkg 0.2.7" = [
-    {file = "cppython_vcpkg-0.2.7-py3-none-any.whl", hash = "sha256:b69bba4d367a0e62e8767386d37b1a6ea5bca62c5795a4fb6c02b68aad71ddd8"},
-    {file = "cppython-vcpkg-0.2.7.tar.gz", hash = "sha256:83cac4fdcae6333e4977d5cbbfd2826045e928607f33c9c9e2e3989d38fb8ddb"},
+"cppython-vcpkg 0.3.1" = [
+    {file = "cppython_vcpkg-0.3.1-py3-none-any.whl", hash = "sha256:025838cdf1eb38a6ebed6b69a8ef086c613536ed56de8b7f0311db7794af1ab0"},
+    {file = "cppython-vcpkg-0.3.1.tar.gz", hash = "sha256:08f2e8e936773cb2f1541710af9314c1f6b7d1f6f04ac37d49a8264db1235adf"},
 ]
 "findpython 0.1.5" = [
     {file = "findpython-0.1.5-py3-none-any.whl", hash = "sha256:670e0a45ed75874763f416c347868713e59a4de1c30937799ff1f160d60cd2b0"},
