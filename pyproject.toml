@@ -12,10 +12,7 @@ readme = "README.md"
 
 dynamic = ["version"]
 
-dependencies = [
-    "cppython-vcpkg>=0.3.1",
-    "cppython-pdm>=0.2.7",
-]
+dependencies = []
 requires-python = ">=3.10"
 
 [project.license-files]
@@ -25,12 +22,18 @@ paths = ["LICENSE.md"]
 homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
+[project.optional-dependencies]
 [tool.cppython]
 target = "static"
 
 [tool.cppython.vcpkg]
 
 [tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+  "cppython-vcpkg>=0.3.2.dev2",
+  "cppython-pdm>=0.2.8.dev2",
+]
 
 [build-system]
 build-backend = "pdm.pep517.api"
