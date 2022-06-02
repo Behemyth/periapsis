@@ -24,6 +24,9 @@ repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
 [project.optional-dependencies]
 [tool.cppython]
+dependencies = [
+  'gtest',
+]
 target = "static"
 
 [tool.cppython.vcpkg]
