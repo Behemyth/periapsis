@@ -1,0 +1,20 @@
+{
+    "version": 4,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 23,
+        "patch": 1
+    },
+    "include": [
+        "providers/vcpkg.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "cppython",
+            "hidden": true,
+            "inherits": [
+                "vcpkg"
+            ]
+        }
+    ]
+}

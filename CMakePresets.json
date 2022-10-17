@@ -6,7 +6,7 @@
         "patch": 1
     },
     "include": [
-        "build/cppython/cppython.json"
+        "tool/cppython/cppython.json"
     ],
     "configurePresets": [
         {
