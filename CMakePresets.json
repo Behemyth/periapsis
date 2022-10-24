@@ -120,8 +120,13 @@
     ],
     "buildPresets": [
         {
+            "name": "default",
+            "hidden": true
+        },
+        {
             "name": "windows-default",
             "hidden": true,
+            "inherits": "default",
             "condition": {
                 "type": "equals",
                 "lhs": "${hostSystemName}",
@@ -131,6 +136,7 @@
         {
             "name": "linux-default",
             "hidden": true,
+            "inherits": "default",
             "condition": {
                 "type": "equals",
                 "lhs": "${hostSystemName}",
@@ -140,6 +146,7 @@
         {
             "name": "macos-default",
             "hidden": true,
+            "inherits": "default",
             "condition": {
                 "type": "equals",
                 "lhs": "${hostSystemName}",
@@ -297,5 +304,198 @@
             "configuration": "RelWithDebInfo"
         }
     ],
-    "testPresets": []
+    "testPresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "output": {
+                "outputOnFailure": true,
+                "shortProgress": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "windows-default",
+            "hidden": true,
+            "inherits": "default",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "linux-default",
+            "hidden": true,
+            "inherits": "default",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            }
+        },
+        {
+            "name": "macos-default",
+            "hidden": true,
+            "inherits": "default",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Darwin"
+            }
+        },
+        {
+            "name": "windows-ninja-msvc-debug",
+            "displayName": "Debug",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-ninja-msvc",
+            "configuration": "Debug"
+        },
+        {
+            "name": "windows-ninja-msvc-release",
+            "displayName": "Release",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-ninja-msvc",
+            "configuration": "Release"
+        },
+        {
+            "name": "windows-ninja-msvc-development",
+            "displayName": "Development",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-ninja-msvc",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "windows-msbuild-msvc-debug",
+            "displayName": "Debug",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-msbuild-msvc",
+            "configuration": "Debug"
+        },
+        {
+            "name": "windows-msbuild-msvc-release",
+            "displayName": "Release",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-msbuild-msvc",
+            "configuration": "Release"
+        },
+        {
+            "name": "windows-msbuild-msvc-development",
+            "displayName": "Development",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-msbuild-msvc",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "windows-ninja-clang-debug",
+            "displayName": "Debug",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-ninja-clang",
+            "configuration": "Debug"
+        },
+        {
+            "name": "windows-ninja-clang-release",
+            "displayName": "Release",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-ninja-clang",
+            "configuration": "Release"
+        },
+        {
+            "name": "windows-ninja-clang-development",
+            "displayName": "Development",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-ninja-clang",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "windows-msbuild-clang-debug",
+            "displayName": "Debug",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-msbuild-clang",
+            "configuration": "Debug"
+        },
+        {
+            "name": "windows-msbuild-clang-release",
+            "displayName": "Release",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-msbuild-clang",
+            "configuration": "Release"
+        },
+        {
+            "name": "windows-msbuild-clang-development",
+            "displayName": "Development",
+            "description": "",
+            "inherits": [
+                "windows-default"
+            ],
+            "configurePreset": "windows-msbuild-clang",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "linux-msbuild-clang-debug",
+            "displayName": "Debug",
+            "description": "",
+            "inherits": [
+                "linux-default"
+            ],
+            "configurePreset": "linux-ninja-gcc",
+            "configuration": "Debug"
+        },
+        {
+            "name": "linux-msbuild-clang-release",
+            "displayName": "Release",
+            "description": "",
+            "inherits": [
+                "linux-default"
+            ],
+            "configurePreset": "linux-ninja-gcc",
+            "configuration": "Release"
+        },
+        {
+            "name": "linux-msbuild-clang-development",
+            "displayName": "Development",
+            "description": "",
+            "inherits": [
+                "linux-default"
+            ],
+            "configurePreset": "linux-ninja-gcc",
+            "configuration": "RelWithDebInfo"
+        }
+    ]
 }

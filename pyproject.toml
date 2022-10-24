@@ -2,7 +2,7 @@
 description = "Utility library."
 name = "synodic-template-library"
 
-license-expression = "MIT"
+license = "MIT"
 
 authors = [
   {name = "Synodic Software", email = "contact@synodic.software"},
@@ -35,6 +35,10 @@ dev = [
   "cppython-pdm>=0.2.8.dev2",
   "cppython-cmake>=0.0.0.dev0",
 ]
+
+[tool.pdm.scripts]
+build = {shell = "cmake --preset all"}
+test = {shell = "ctest --preset windows-msbuild-msvc-debug"}
 
 [build-system]
 build-backend = "pdm.pep517.api"

@@ -47,6 +47,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "cmake"
+version = "3.24.1.1"
+summary = "CMake is an open-source, cross-platform family of tools designed to build, test and package software"
+
+[[package]]
 name = "colorama"
 version = "0.4.5"
 requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
@@ -73,10 +78,11 @@ dependencies = [
 
 [[package]]
 name = "cppython-cmake"
-version = "0.1.0.dev9"
+version = "0.1.0.dev11"
 requires_python = ">=3.10"
 summary = "A plugin for CPPython that enables a CMake generator for C++ projects"
 dependencies = [
+    "cmake>=3.24.1",
     "cppython-core>=0.3.3.dev0",
 ]
 
@@ -197,7 +203,7 @@ dependencies = [
 
 [[package]]
 name = "pdm-pep517"
-version = "1.0.4"
+version = "1.0.5"
 requires_python = ">=3.7"
 summary = "A PEP 517 backend for PDM that supports PEP 621 metadata"
 
@@ -355,6 +361,24 @@ content_hash = "sha256:3ead65fcd8eec498c2de1906e0abdeb0ceb05795023acd7632f61417f
     {url = "https://files.pythonhosted.org/packages/59/87/84326af34517fca8c58418d148f2403df25303e02736832403587318e9e8/click-8.1.3.tar.gz", hash = "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e"},
     {url = "https://files.pythonhosted.org/packages/c2/f1/df59e28c642d583f7dacffb1e0965d0e00b218e0186d7858ac5233dce840/click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
 ]
+"cmake 3.24.1.1" = [
+    {url = "https://files.pythonhosted.org/packages/0f/21/5105f9f85308a16e4836adbdab50d15a2ec5f3c0fc7837f2d9926d4e10ca/cmake-3.24.1.1-py2.py3-none-manylinux_2_12_i686.manylinux2010_i686.whl", hash = "sha256:d212e0945753420e02bdfaa3ba411b45af7bddb77e0db6335ee71b5cbbca6cea"},
+    {url = "https://files.pythonhosted.org/packages/47/50/0c4763477f516e439a422e24cc4f4bae777ce005a3db040a8c47afe5ca0c/cmake-3.24.1.1-py2.py3-none-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:4085aeaf85b462fee4f2f5e1b72e08136bfbc4f5c6241a521a1221d5f0a7eece"},
+    {url = "https://files.pythonhosted.org/packages/53/ad/f0fdb2efe96eaab8c91c045a0f5796d504e2ba81891fb4a5f2eb752148ae/cmake-3.24.1.1-py2.py3-none-macosx_10_10_universal2.macosx_10_10_x86_64.macosx_11_0_arm64.macosx_11_0_universal2.whl", hash = "sha256:5db44d09123d721785165918d5220c18c2fb8a4784b126922a208085bded627c"},
+    {url = "https://files.pythonhosted.org/packages/54/f9/c50d29a8f01ea852afa8150f592e264fdc6fd78480a3de32d22a1c0afd7f/cmake-3.24.1.1-py2.py3-none-musllinux_1_1_ppc64le.whl", hash = "sha256:fe0e398861aae4aee97f32ee0af02692b48f3685ac0d52fa463737090a667ce2"},
+    {url = "https://files.pythonhosted.org/packages/5e/e0/2636f31298e58a5364ce761b4af8ae457a59728a31dc2974143fb98fbe9f/cmake-3.24.1.1-py2.py3-none-musllinux_1_1_aarch64.whl", hash = "sha256:1137407cb24c54c486184bde10aa74c50eb90604ee601c6c45e8c754112f236c"},
+    {url = "https://files.pythonhosted.org/packages/65/4b/cd2b62c1507c28180c0415f63072c1d698efb5a88241693b37aabaf9ed3d/cmake-3.24.1.1-py2.py3-none-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:70fe2f46f66c265874b26fb43b3332d707a60d1e0151d8f76dfe6487f5119198"},
+    {url = "https://files.pythonhosted.org/packages/77/04/034fef3c930b59eee2e9c3d8e2a38f555d48cf6082731d1f091cf96da397/cmake-3.24.1.1-py2.py3-none-win32.whl", hash = "sha256:6dce0562d6a7707d10f5c41f1d3adca1f1f2971bfbb3d24a780252cb81101497"},
+    {url = "https://files.pythonhosted.org/packages/7e/73/d405feee62b947f59dbde838ab46f36853d194ea7b4adfc2234ed7aec7d5/cmake-3.24.1.1-py2.py3-none-win_amd64.whl", hash = "sha256:04e1a874476ef03a433d49715295e2b9583ff9fdb5b6f34572281e1b61e55b5f"},
+    {url = "https://files.pythonhosted.org/packages/81/6c/bf01eeddc13812c14757458b238b083a1f53afd4318e8586733b9e725d8d/cmake-3.24.1.1-py2.py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cdff2c7fecbc122af8d75f3a2fb977f2bd361c2db3bd753b8ff817ec6eb217f1"},
+    {url = "https://files.pythonhosted.org/packages/89/62/88d24ca19dfa15c3a9517c09c3305e70f1acc201c269b04d0dcde2cb28da/cmake-3.24.1.1-py2.py3-none-musllinux_1_1_s390x.whl", hash = "sha256:e7e9e737a14b9e6ac6ae5ad89c697aa9ba5e061564822f708a19dde3f9e382a4"},
+    {url = "https://files.pythonhosted.org/packages/9f/96/2167de63811f695859dfe0705103021e0b213c029a345c7aaec32403aacd/cmake-3.24.1.1.tar.gz", hash = "sha256:7cccfc0388bfe4cb6a465fb8f8a57861c83c60956653b314cfde47865d94f03e"},
+    {url = "https://files.pythonhosted.org/packages/a7/53/d72cab8577e33d9ce965b0203283d09749a50420a33154c1c22980dc7332/cmake-3.24.1.1-py2.py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c9eca895c87c2d41d5766eacb1ece57e1ae51887bfa5501cb43b15f1b8d427ec"},
+    {url = "https://files.pythonhosted.org/packages/b7/e0/8536955d6a7dd97b30f7892b663aadde7acc1b1f32c6d793c9e793b4ed31/cmake-3.24.1.1-py2.py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:2811de77fe8be5c14b6be395a6b9f60cd921ad84ca2491f92f6f5cce8570d7fb"},
+    {url = "https://files.pythonhosted.org/packages/e1/2c/11d3c5044531cfda01b2a63687d863e90a17c6b954cae7cda292232e0df7/cmake-3.24.1.1-py2.py3-none-musllinux_1_1_i686.whl", hash = "sha256:36de1952e7ca22be42df591de192d0dbe1bf93f17e4a190dda9ecd4e6276e75d"},
+    {url = "https://files.pythonhosted.org/packages/e5/57/fd8510c78ee3cf12fb7d16dcc1a1ac993c23ad5ec702154f5c72b6de1385/cmake-3.24.1.1-py2.py3-none-musllinux_1_1_x86_64.whl", hash = "sha256:5f02962ef635429f7552a002701f2589c6ce061c2f0157722e03b9b3fefa7215"},
+    {url = "https://files.pythonhosted.org/packages/ee/0c/d10e9d8827ef71e323dc47667a34e5c3d3bd0d7f1e56fc0574dc83befdea/cmake-3.24.1.1-py2.py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:f4ebb3b09b19d9e244929c17367b7c899b68f871285e07fd72edd59cc819bd28"},
+]
 "colorama 0.4.5" = [
     {url = "https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz", hash = "sha256:e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4"},
     {url = "https://files.pythonhosted.org/packages/77/8b/7550e87b2d308a1b711725dfaddc19c695f8c5fa413c640b2be01662f4e6/colorama-0.4.5-py2.py3-none-any.whl", hash = "sha256:854bf444933e37f5824ae7bfc1e98d5bce2ebe4160d46b5edf346a89358e99da"},
@@ -367,9 +391,9 @@ content_hash = "sha256:3ead65fcd8eec498c2de1906e0abdeb0ceb05795023acd7632f61417f
     {url = "https://files.pythonhosted.org/packages/27/38/0c2fd158410a276a402386ec1c3b52571c87c5c04e9666bd5b9fb6f15000/cppython-0.7.1.dev18-py3-none-any.whl", hash = "sha256:511627ae1a0b0618a1e64c56ee643f7506afa913c805ac3e636146b5a772904a"},
     {url = "https://files.pythonhosted.org/packages/fb/f3/29580e747e1bca5808b6ca19c63409514b4cbaf69ddbabba52317e4d43c7/cppython-0.7.1.dev18.tar.gz", hash = "sha256:41d179411280137103562595cf0b1ab9322e17851f1951d390ca89423e5a46a5"},
 ]
-"cppython-cmake 0.1.0.dev9" = [
-    {url = "https://files.pythonhosted.org/packages/77/c9/454d99094e3706572680c67cee3c1cef4ec357c7b551afee330b827891ca/cppython_cmake-0.1.0.dev9-py3-none-any.whl", hash = "sha256:1ad47901c0f5e54fa6010837fdc2825eaff4d257e06c7fd939576c2721c16adf"},
-    {url = "https://files.pythonhosted.org/packages/91/71/7980af5ef87b1ba24dec8a2989d95e457c078d2520e01f74a36bf2f4be3d/cppython-cmake-0.1.0.dev9.tar.gz", hash = "sha256:3d02ac2be598526ab191bedb9ca606de59e1f977cef075a85673fe70ff601fd1"},
+"cppython-cmake 0.1.0.dev11" = [
+    {url = "https://files.pythonhosted.org/packages/07/53/d4110e1239daa1cc87d31e907325e892a66b605a741c38f6efcd6fc88d38/cppython-cmake-0.1.0.dev11.tar.gz", hash = "sha256:252a59ce9171d540b08f98a616a7cb360c3e80af87f818ebbd9c1694d4fd25a6"},
+    {url = "https://files.pythonhosted.org/packages/20/ef/8e4a6b91546fc9f318e66ce9365c986b6dad0cabe8bb7b7e976233d0859d/cppython_cmake-0.1.0.dev11-py3-none-any.whl", hash = "sha256:2cb44ca7caef291ccf97905d019b510b6dc80609ec778c6a8c66341b22d3549e"},
 ]
 "cppython-core 0.6.1.dev21" = [
     {url = "https://files.pythonhosted.org/packages/76/32/583c4ea26988a826b487e3e09ab2c4c1f2351d2b204dde737e0249fd75aa/cppython_core-0.6.1.dev21-py3-none-any.whl", hash = "sha256:65697e84f3d07338067a3954e1e3cd699265452edb7a781bdf2d46822e332770"},
@@ -502,9 +526,9 @@ content_hash = "sha256:3ead65fcd8eec498c2de1906e0abdeb0ceb05795023acd7632f61417f
     {url = "https://files.pythonhosted.org/packages/3a/5f/0f2f6bfb65b65f62fa0ccf0888d23da6791689e94e90b183155f75a1ccda/pdm-2.1.5-py3-none-any.whl", hash = "sha256:9ccf5703bf7a6512f25d3460760f7c5a66a418a652be64cba44cc1f29e5cb5b1"},
     {url = "https://files.pythonhosted.org/packages/69/c2/b2a6562c6abe254355d2f2056a11aa7fb4b960856d65155eca95c7b4aed0/pdm-2.1.5.tar.gz", hash = "sha256:5bee41d497cec93a49693fa57b5cf1c833701804eb12bc4d347c3ec7955d7ce7"},
 ]
-"pdm-pep517 1.0.4" = [
-    {url = "https://files.pythonhosted.org/packages/32/56/1d4b069d8c406ba85ef2992a56f6780de6f8e76fef98af7d291138c4221e/pdm_pep517-1.0.4-py3-none-any.whl", hash = "sha256:8fd42caeaa2031a41d86bce6519ad96edaf1dfc99cf0c2b6d310d1ae2089bb39"},
-    {url = "https://files.pythonhosted.org/packages/8a/8f/799f7b88c1333115db197dfc0ea3c3a7d57f1b9fb7d9f9151a92ebd2d2d6/pdm-pep517-1.0.4.tar.gz", hash = "sha256:392f8c2b47c6ec20550cb8e19e24b9dbd27373413f067b56ecd75f9767f93015"},
+"pdm-pep517 1.0.5" = [
+    {url = "https://files.pythonhosted.org/packages/2d/59/15ff8715a14fb26fec56a0d66f7a53d27e5d14a550fc12fefd446fc74684/pdm-pep517-1.0.5.tar.gz", hash = "sha256:74ece9694c4ff5f903fba000ec43f075143872c41248daccecf7464f98ce680c"},
+    {url = "https://files.pythonhosted.org/packages/fb/7b/249d92feb0f897b0a163776f45564a8e0ef95a378157fea1ed91887dba5c/pdm_pep517-1.0.5-py3-none-any.whl", hash = "sha256:17b92b3caaac7695f49eadef554a373f06736db34c444b56c52d99a8f1f3cb5b"},
 ]
 "pep517 0.13.0" = [
     {url = "https://files.pythonhosted.org/packages/4d/19/e11fcc88288f68ae48e3aa9cf5a6fd092a88e629cb723465666c44d487a0/pep517-0.13.0.tar.gz", hash = "sha256:ae69927c5c172be1add9203726d4b84cf3ebad1edcd5f71fcdc746e66e829f59"},
