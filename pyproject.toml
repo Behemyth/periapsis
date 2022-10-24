@@ -22,7 +22,6 @@ paths = ["LICENSE.md"]
 homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
-[project.optional-dependencies]
 [tool.cppython]
 dependencies = [
   'gtest',
