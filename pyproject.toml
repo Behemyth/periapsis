@@ -30,7 +30,6 @@ dependencies = [
 
 [tool.cppython.provider.vcpkg]
 
-[tool.pdm]
 [tool.pdm.dev-dependencies]
 dev = [
   "cppython-vcpkg>=0.3.2.dev2",
