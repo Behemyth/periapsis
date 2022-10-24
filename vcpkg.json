@@ -1,6 +1,6 @@
 {
     "name": "synodic-template-library",
-    "version": "2.1.5",
+    "version": "0.1.0",
     "dependencies": [
         {
             "name": "gtest"

@@ -30,8 +30,6 @@ dependencies = [
 
 [tool.cppython.provider.vcpkg]
 
-[tool.cppython.generator.cmake]
-
 [tool.pdm]
 [tool.pdm.dev-dependencies]
 dev = [
