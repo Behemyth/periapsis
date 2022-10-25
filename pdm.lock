@@ -195,7 +195,6 @@ dependencies = [
     "resolvelib<0.9,>=0.8",
     "rich>=12.3.0",
     "shellingham>=1.3.2",
-    "tomli>=1.1.0; python_version < \"3.11\"",
     "tomlkit<1,>=0.8.0",
     "unearth>=0.6.0",
     "virtualenv>=20",
@@ -212,9 +211,6 @@ name = "pep517"
 version = "0.13.0"
 requires_python = ">=3.6"
 summary = "Wrappers to build Python packages using PEP 517 hooks"
-dependencies = [
-    "tomli>=1.1.0; python_version < \"3.11\"",
-]
 
 [[package]]
 name = "platformdirs"
@@ -292,12 +288,6 @@ requires_python = ">=3.4"
 summary = "Tool to Detect Surrounding Shell"
 
 [[package]]
-name = "tomli"
-version = "2.0.1"
-requires_python = ">=3.7"
-summary = "A lil' TOML parser"
-
-[[package]]
 name = "tomlkit"
 version = "0.11.5"
 requires_python = ">=3.6,<4.0"
@@ -338,7 +328,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:3ead65fcd8eec498c2de1906e0abdeb0ceb05795023acd7632f61417fb378763"
+content_hash = "sha256:75aa227e8841a82ed0e0535285202b05c022a2326f7ccfc415f1ff37f4b5165e"
 
 [metadata.files]
 "blinker 1.5" = [
@@ -607,10 +597,6 @@ content_hash = "sha256:3ead65fcd8eec498c2de1906e0abdeb0ceb05795023acd7632f61417f
 "shellingham 1.5.0" = [
     {url = "https://files.pythonhosted.org/packages/3d/1a/d31fce69c119df1fddab3706b63c53d363982c55d841d9c3839b12f15327/shellingham-1.5.0-py2.py3-none-any.whl", hash = "sha256:a8f02ba61b69baaa13facdba62908ca8690a94b8119b69f5ec5873ea85f7391b"},
     {url = "https://files.pythonhosted.org/packages/bd/e6/fdf53ebbf08016dba98f2b047d4db95790157f0e2eed3b14bb5754271475/shellingham-1.5.0.tar.gz", hash = "sha256:72fb7f5c63103ca2cb91b23dee0c71fe8ad6fbfd46418ef17dbe40db51592dad"},
-]
-"tomli 2.0.1" = [
-    {url = "https://files.pythonhosted.org/packages/97/75/10a9ebee3fd790d20926a90a2547f0bf78f371b2f13aa822c759680ca7b9/tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
-    {url = "https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
 "tomlkit 0.11.5" = [
     {url = "https://files.pythonhosted.org/packages/0c/2b/7823f215c6aec294f5ab5ff2f529aca1d85e8bec2208ae7ea89ca1413620/tomlkit-0.11.5.tar.gz", hash = "sha256:571854ebbb5eac89abcb4a2e47d7ea27b89bf29e09c35395da6f03dd4ae23d1c"},
