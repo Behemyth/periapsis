@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.21.2 FATAL_ERROR)
+
 #Global Options
 set_property(GLOBAL PROPERTY USE_FOLDERS ON) # Group the default targets in a folder
 
