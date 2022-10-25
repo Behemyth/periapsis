@@ -37,8 +37,8 @@ dev = [
 ]
 
 [tool.pdm.scripts]
-build = {shell = "cmake --preset all"}
-test = {shell = "ctest --preset windows-msbuild-msvc-debug"}
+build = {shell = "cppython build"}
+test = {shell = "cppython test"}
 
 [build-system]
 build-backend = "pdm.pep517.api"
