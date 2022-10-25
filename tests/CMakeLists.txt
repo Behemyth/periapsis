@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.21.2 FATAL_ERROR)
-
 project(tests
 	DESCRIPTION "Test project for Synodic Template Library"
 	LANGUAGES CXX
