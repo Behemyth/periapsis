@@ -23,17 +23,17 @@ homepage = "https://github.com/Synodic-Software/Synodic-Template-Library"
 repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
 [tool.cppython]
+
+[tool.cppython.provider.vcpkg]
 dependencies = [
   'gtest',
 ]
 
-[tool.cppython.provider.vcpkg]
 
 [tool.pdm.dev-dependencies]
 dev = [
   "cppython-vcpkg>=0.3.2.dev2",
   "cppython-pdm>=0.2.8.dev2",
-  "cppython-cmake>=0.0.0.dev0",
 ]
 
 [tool.pdm.scripts]

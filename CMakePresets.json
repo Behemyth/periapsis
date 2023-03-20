@@ -8,6 +8,7 @@
     "include": [
         "tool/platform/linux/CMakePresets.json",
         "tool/platform/macos/CMakePresets.json",
-        "tool/platform/windows/CMakePresets.json"
+        "tool/platform/windows/CMakePresets.json",
+        "tool/cppython/cppython.json"
     ]
 }
