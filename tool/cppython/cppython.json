@@ -1,19 +1,19 @@
 {
-    "version": 4,
+    "version": 5,
     "cmakeMinimumRequired": {
         "major": 3,
-        "minor": 23,
+        "minor": 25,
         "patch": 1
     },
     "include": [
-        "providers/vcpkg.json"
+        "providers/conan.json"
     ],
     "configurePresets": [
         {
             "name": "cppython",
             "hidden": true,
             "inherits": [
-                "vcpkg"
+                "conan"
             ]
         }
     ]

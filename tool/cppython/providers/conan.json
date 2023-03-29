@@ -1,0 +1,15 @@
+{
+    "version": 5,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 1
+    },
+    "configurePresets": [
+        {
+            "name": "conan",
+            "hidden": true,
+            "toolchainFile": "C:\\Users\\asher\\Projects\\Synodic-Template-Library\\build\\generators\\conan_toolchain.cmake"
+        }
+    ]
+}
