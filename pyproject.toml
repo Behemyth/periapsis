@@ -24,16 +24,29 @@ repository = "https://github.com/Synodic-Software/Synodic-Template-Library"
 
 [tool.cppython]
 
-[tool.cppython.provider.vcpkg]
+[tool.cppython.provider.conan]
 dependencies = [
   'gtest',
 ]
 
-
 [tool.pdm.dev-dependencies]
 dev = [
-  "cppython-vcpkg>=0.3.2.dev2",
+  "cmake>=3.26.1",
+  "cppython-conan>=0.0.0.dev1",
   "cppython-pdm>=0.2.8.dev2",
+]
+lint = [
+  "black>=22.6.0",
+  "pylint>=2.14.5",
+  "isort>=5.10.1",
+  "mypy>=0.982",
+]
+test = [
+  "pytest>=7.1.2",
+  "pytest-cov>=3.0.0",
+  "pytest-click>=1.1",
+  "pytest-mock>=3.8.2",
+  "pytest-cppython>=0.2.0.dev0",
 ]
 
 [tool.pdm.scripts]
