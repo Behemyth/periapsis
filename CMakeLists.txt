@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.25.2 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.25.1 FATAL_ERROR)
 
 #Global Options
 set_property(GLOBAL PROPERTY USE_FOLDERS ON) # Group the default targets in a folder
@@ -15,7 +15,6 @@ include(CTest)
 # Provide a namespaced alias
 add_library(synodic-template-library INTERFACE)
 add_library(synodic::synodic-template-library ALIAS synodic-template-library)
-
 
 target_include_directories(synodic-template-library
 INTERFACE

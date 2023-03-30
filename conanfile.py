@@ -22,7 +22,7 @@ class SynodicTemplateLibraryRecipe(ConanFile):
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
 
-    generators = "CMakeToolchain", "CMakeDeps"
+    generators = "CMakeDeps"
 
     # Sources are located in the same place as this recipe, copy them to the recipe
     exports_sources = "CMakeLists.txt", "src/*", "include/*"

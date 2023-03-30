@@ -5,10 +5,9 @@
         "minor": 25,
         "patch": 1
     },
-    "include": [
-        "tool/platform/linux/CMakePresets.json",
-        "tool/platform/macos/CMakePresets.json",
-        "tool/platform/windows/CMakePresets.json",
-        "tool/cppython/cppython.json"
-    ]
+	"include": [
+		"tool/platform/linux/CMakePresets.json",
+		"tool/platform/macos/CMakePresets.json",
+		"tool/platform/windows/CMakePresets.json"
+	]
 }

@@ -1,341 +1,347 @@
 {
-    "version": 5,
-    "configurePresets": [
-        {
-            "name": "windows-default",
-            "hidden": true,
-            "description": "Base preset for Windows configurations",
-            "generator": "Ninja Multi-Config",
-            "binaryDir": "${sourceDir}/build/${presetName}",
-            "installDir": "${sourceDir}/install/${presetName}",
-            "architecture": {
-                "value": "x64"
-            },
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Windows"
-            }
-        },
-        {
-            "name": "windows-ninja-msvc",
-            "displayName": "Ninja - MSVC",
-            "description": "Default configuration using Ninja Multi-Config generator and the Microsoft Visual C++ compiler",
-            "architecture": {
-                "strategy": "external"
-            },
-            "inherits": [
-                "windows-default"
-            ]
-        },
-        {
-            "name": "windows-msbuild-msvc",
-            "displayName": "MSBuild - MSVC",
-            "description": "Default configuration using MSBuild and the Microsoft Visual C++ compiler",
-            "generator": "Visual Studio 17 2022",
-            "architecture": {
-                "strategy": "set"
-            },
-            "inherits": [
-                "windows-default"
-            ]
-        },
-        {
-            "name": "windows-ninja-clang",
-            "displayName": "Ninja - Clang",
-            "description": "Default configuration using Ninja Multi-Config generator and Clang",
-            "architecture": {
-                "strategy": "external"
-            },
-            "inherits": [
-                "windows-default"
-            ],
-            "cacheVariables": {
-                "CMAKE_CXX_COMPILER": "clang-cl"
-            }
-        },
-        {
-            "name": "windows-msbuild-clang",
-            "displayName": "MSBuild - Clang",
-            "description": "Default configuration using MSBuild and Clang",
-            "generator": "Visual Studio 17 2022",
-            "architecture": {
-                "strategy": "set"
-            },
-            "inherits": [
-                "windows-default"
-            ],
-            "toolset": "ClangCL"
-        }
-    ],
-    "buildPresets": [
-        {
-            "name": "windows-default",
-            "hidden": true,
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Windows"
-            }
-        },
-        {
-            "name": "windows-ninja-msvc-debug",
-            "displayName": "Debug",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-msvc",
-            "configuration": "Debug"
-        },
-        {
-            "name": "windows-ninja-msvc-release",
-            "displayName": "Release",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-msvc",
-            "configuration": "Release"
-        },
-        {
-            "name": "windows-ninja-msvc-development",
-            "displayName": "Development",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-msvc",
-            "configuration": "RelWithDebInfo"
-        },
-        {
-            "name": "windows-msbuild-msvc-debug",
-            "displayName": "Debug",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-msvc",
-            "configuration": "Debug"
-        },
-        {
-            "name": "windows-msbuild-msvc-release",
-            "displayName": "Release",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-msvc",
-            "configuration": "Release"
-        },
-        {
-            "name": "windows-msbuild-msvc-development",
-            "displayName": "Development",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-msvc",
-            "configuration": "RelWithDebInfo"
-        },
-        {
-            "name": "windows-ninja-clang-debug",
-            "displayName": "Debug",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-clang",
-            "configuration": "Debug"
-        },
-        {
-            "name": "windows-ninja-clang-release",
-            "displayName": "Release",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-clang",
-            "configuration": "Release"
-        },
-        {
-            "name": "windows-ninja-clang-development",
-            "displayName": "Development",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-clang",
-            "configuration": "RelWithDebInfo"
-        },
-        {
-            "name": "windows-msbuild-clang-debug",
-            "displayName": "Debug",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-clang",
-            "configuration": "Debug"
-        },
-        {
-            "name": "windows-msbuild-clang-release",
-            "displayName": "Release",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-clang",
-            "configuration": "Release"
-        },
-        {
-            "name": "windows-msbuild-clang-development",
-            "displayName": "Development",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-clang",
-            "configuration": "RelWithDebInfo"
-        }
-    ],
-    "testPresets": [
-        {
-            "name": "windows-default",
-            "hidden": true,
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Windows"
-            },
-            "output": {
-                "outputOnFailure": true,
-                "shortProgress": true
-            },
-            "execution": {
-                "noTestsAction": "error",
-                "stopOnFailure": true
-            }
-        },
-        {
-            "name": "windows-ninja-msvc-debug",
-            "displayName": "Debug",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-msvc",
-            "configuration": "Debug"
-        },
-        {
-            "name": "windows-ninja-msvc-release",
-            "displayName": "Release",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-msvc",
-            "configuration": "Release"
-        },
-        {
-            "name": "windows-ninja-msvc-development",
-            "displayName": "Development",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-msvc",
-            "configuration": "RelWithDebInfo"
-        },
-        {
-            "name": "windows-msbuild-msvc-debug",
-            "displayName": "Debug",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-msvc",
-            "configuration": "Debug"
-        },
-        {
-            "name": "windows-msbuild-msvc-release",
-            "displayName": "Release",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-msvc",
-            "configuration": "Release"
-        },
-        {
-            "name": "windows-msbuild-msvc-development",
-            "displayName": "Development",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-msvc",
-            "configuration": "RelWithDebInfo"
-        },
-        {
-            "name": "windows-ninja-clang-debug",
-            "displayName": "Debug",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-clang",
-            "configuration": "Debug"
-        },
-        {
-            "name": "windows-ninja-clang-release",
-            "displayName": "Release",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-clang",
-            "configuration": "Release"
-        },
-        {
-            "name": "windows-ninja-clang-development",
-            "displayName": "Development",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-ninja-clang",
-            "configuration": "RelWithDebInfo"
-        },
-        {
-            "name": "windows-msbuild-clang-debug",
-            "displayName": "Debug",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-clang",
-            "configuration": "Debug"
-        },
-        {
-            "name": "windows-msbuild-clang-release",
-            "displayName": "Release",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-clang",
-            "configuration": "Release"
-        },
-        {
-            "name": "windows-msbuild-clang-development",
-            "displayName": "Development",
-            "description": "",
-            "inherits": [
-                "windows-default"
-            ],
-            "configurePreset": "windows-msbuild-clang",
-            "configuration": "RelWithDebInfo"
-        }
-    ]
+	"version": 5,
+	"configurePresets": [
+		{
+			"name": "windows-default",
+			"hidden": true,
+			"description": "Base preset for Windows configurations",
+			"generator": "Ninja Multi-Config",
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"installDir": "${sourceDir}/install/${presetName}",
+			"cacheVariables": {
+				"CMAKE_PROJECT_TOP_LEVEL_INCLUDES": {
+					"type": "FILEPATH",
+					"value": "${sourceDir}/tool/conan/conan_provider.cmake"
+				}
+			},
+			"architecture": {
+				"value": "x64"
+			},
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Windows"
+			}
+		},
+		{
+			"name": "windows-ninja-msvc",
+			"displayName": "Ninja - MSVC",
+			"description": "Default configuration using Ninja Multi-Config generator and the Microsoft Visual C++ compiler",
+			"architecture": {
+				"strategy": "external"
+			},
+			"inherits": [
+				"windows-default"
+			]
+		},
+		{
+			"name": "windows-msbuild-msvc",
+			"displayName": "MSBuild - MSVC",
+			"description": "Default configuration using MSBuild and the Microsoft Visual C++ compiler",
+			"generator": "Visual Studio 17 2022",
+			"architecture": {
+				"strategy": "set"
+			},
+			"inherits": [
+				"windows-default"
+			]
+		},
+		{
+			"name": "windows-ninja-clang",
+			"displayName": "Ninja - Clang",
+			"description": "Default configuration using Ninja Multi-Config generator and Clang",
+			"architecture": {
+				"strategy": "external"
+			},
+			"inherits": [
+				"windows-default"
+			],
+			"cacheVariables": {
+				"CMAKE_CXX_COMPILER": "clang-cl"
+			}
+		},
+		{
+			"name": "windows-msbuild-clang",
+			"displayName": "MSBuild - Clang",
+			"description": "Default configuration using MSBuild and Clang",
+			"generator": "Visual Studio 17 2022",
+			"architecture": {
+				"strategy": "set"
+			},
+			"inherits": [
+				"windows-default"
+			],
+			"toolset": "ClangCL"
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "windows-default",
+			"hidden": true,
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Windows"
+			}
+		},
+		{
+			"name": "windows-ninja-msvc-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-msvc",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-ninja-msvc-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-msvc",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-ninja-msvc-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-msvc",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "windows-msbuild-msvc-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-msvc",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-msbuild-msvc-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-msvc",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-msbuild-msvc-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-msvc",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "windows-ninja-clang-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-clang",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-ninja-clang-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-clang",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-ninja-clang-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-clang",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "windows-msbuild-clang-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-clang",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-msbuild-clang-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-clang",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-msbuild-clang-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-clang",
+			"configuration": "RelWithDebInfo"
+		}
+	],
+	"testPresets": [
+		{
+			"name": "windows-default",
+			"hidden": true,
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Windows"
+			},
+			"output": {
+				"outputOnFailure": true,
+				"shortProgress": true
+			},
+			"execution": {
+				"noTestsAction": "error",
+				"stopOnFailure": true
+			}
+		},
+		{
+			"name": "windows-ninja-msvc-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-msvc",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-ninja-msvc-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-msvc",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-ninja-msvc-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-msvc",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "windows-msbuild-msvc-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-msvc",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-msbuild-msvc-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-msvc",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-msbuild-msvc-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-msvc",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "windows-ninja-clang-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-clang",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-ninja-clang-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-clang",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-ninja-clang-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-ninja-clang",
+			"configuration": "RelWithDebInfo"
+		},
+		{
+			"name": "windows-msbuild-clang-debug",
+			"displayName": "Debug",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-clang",
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-msbuild-clang-release",
+			"displayName": "Release",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-clang",
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-msbuild-clang-development",
+			"displayName": "Development",
+			"description": "",
+			"inherits": [
+				"windows-default"
+			],
+			"configurePreset": "windows-msbuild-clang",
+			"configuration": "RelWithDebInfo"
+		}
+	]
 }
