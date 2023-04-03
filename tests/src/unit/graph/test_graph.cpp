@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include "synodic/graph/graph.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types
@@ -10,4 +11,7 @@
 
 TEST(graph, TODO)
 {
+	constexpr synodic::Graph<int, int> graph;
+
+	EXPECT_TRUE(graph.Evaluate());
 }

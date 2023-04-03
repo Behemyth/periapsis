@@ -23,7 +23,13 @@ namespace synodic
 	{
 		using Vertices = V;
 		using Edges	   = E;
+		void Evaluate() const;
 	};
+
+	template <typename V, typename E>
+	void Graph<V, E>::Evaluate() const
+	{
+	}
 
 	// Exports
 
