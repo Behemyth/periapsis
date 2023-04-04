@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+#include "synodic/functional/executor.h"
+
 namespace synodic
 {
 	// TODO: Make the ID type configurable
@@ -23,11 +25,20 @@ namespace synodic
 	{
 		using Vertices = V;
 		using Edges	   = E;
-		void Evaluate() const;
+
+		constexpr Graph();
+
+		void Execute(executor::scheduler auto scheduler) const;
 	};
 
 	template <typename V, typename E>
-	void Graph<V, E>::Evaluate() const
+	constexpr Graph<V, E>::Graph()
+	{
+		
+	}
+
+	template <typename V, typename E>
+	void Graph<V, E>::Execute(executor::scheduler auto scheduler) const
 	{
 	}
 

@@ -1,8 +1,7 @@
 #pragma once
 
-class Executor
+namespace synodic::executor
 {
-public:
-
-private:
-};
+	template<typename T>
+	concept scheduler = true;
+}
