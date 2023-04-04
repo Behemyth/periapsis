@@ -1,47 +1,67 @@
 #pragma once
 
-#include <cstdint>
+#include <concepts>
 
-#include "synodic/functional/executor.h"
-
-namespace synodic
+namespace synodic::graph
 {
-	// TODO: Make the ID type configurable
-	template<uint16_t T>
-	struct Vertex
+
+	namespace Static
 	{
-		static constexpr uint16_t ID = T;
-	};
 
-	template<typename U, typename V>
-	struct Edge
-	{
-		using Tail = U;
-		using Head = V;
-	};
+		/**
+		 * \brief The base implementation details for all graphs
+		 * \tparam VertexIndexType The vertex index type
+		 * \tparam EdgeIndexType The edge index type
+		 */
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		class Base
+		{
+		};
 
-	template<typename V, typename E>
-	struct Graph
-	{
-		using Vertices = V;
-		using Edges	   = E;
-
-		constexpr Graph();
-
-		void Execute(executor::scheduler auto scheduler) const;
-	};
-
-	template <typename V, typename E>
-	constexpr Graph<V, E>::Graph()
-	{
-		
+		/**
+		 * \brief The implementation of a static forward graph
+		 * \tparam VertexIndexType The vertex index type
+		 * \tparam EdgeIndexType The edge index type
+		 */
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		class Directional : public Base<VertexIndexType, EdgeIndexType>
+		{
+		public:
+			constexpr Directional();
+		};
 	}
 
-	template <typename V, typename E>
-	void Graph<V, E>::Execute(executor::scheduler auto scheduler) const
+	namespace dynamic
 	{
+
+		/**
+		 * \brief The base implementation details for dynamic graphs
+		 * \tparam VertexIndexType The vertex index type
+		 * \tparam EdgeIndexType The edge index type
+		 */
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		class DynamicBase : public Static::Base<VertexIndexType, EdgeIndexType>
+		{
+		};
+
+		/**
+		 * \brief A forward graph
+		 * \tparam VertexIndexType The vertex index type
+		 * \tparam EdgeIndexType The edge index type
+		 */
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		class Directional : public DynamicBase<VertexIndexType, EdgeIndexType>
+		{
+		};
+
+		/**
+		 * \brief The base implementation details for all graphs
+		 * \tparam VertexIndexType The vertex index type
+		 * \tparam EdgeIndexType The edge index type
+		 */
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		class Unidirectional : public DynamicBase<VertexIndexType, EdgeIndexType>
+		{
+		};
 	}
-
-	// Exports
-
 }
