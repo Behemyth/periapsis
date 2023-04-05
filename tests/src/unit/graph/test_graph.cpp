@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "synodic/graph/graph.h"
+#include "synodic/structure/graph.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types
@@ -11,7 +11,7 @@
 
 TEST(graph, TODO)
 {
-	constexpr synodic::Graph<int, int> graph;
+	constexpr synodic::graph::directed::Graph<uint32_t, uint32_t> graph;
 
 	//EXPECT_TRUE(graph.Execute());
 }

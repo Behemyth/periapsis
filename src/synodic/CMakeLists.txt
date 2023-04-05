@@ -3,10 +3,6 @@ add_subdirectory(
 )
 
 add_subdirectory(
-	graph
-)
-
-add_subdirectory(
 	structure
 )
 
@@ -23,5 +19,5 @@ add_subdirectory(
 )
 
 add_subdirectory(
-	type
+	types
 )
