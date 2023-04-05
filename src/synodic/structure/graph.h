@@ -13,7 +13,24 @@ namespace synodic::graph
 	template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
 	class Base
 	{
+	public:
+		uint32_t VertexCount() const;
+		uint32_t EdgeCount() const;
+	private:
+
 	};
+
+	template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+	uint32_t Base<VertexIndexType, EdgeIndexType>::VertexCount() const
+	{
+		return 0;
+	}
+
+	template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+	uint32_t Base<VertexIndexType, EdgeIndexType>::EdgeCount() const
+	{
+		return 0;
+	}
 
 	namespace directed
 	{

@@ -2,7 +2,7 @@
 
 #include <utility>
 
-#include "synodic/type/concepts.h"
+#include "synodic/types/concepts.h"
 
 // Temporary implementation while the basis is considered for standardization.
 //	As a result, this implementation follows stl naming conventions
