@@ -13,10 +13,7 @@
 					"type": "FILEPATH",
 					"value": "${sourceDir}/tool/conan/conan_provider.cmake"
 				},
-				"CMAKE_CONFIGURATION_TYPES": {
-					"type": "STRING",
-					"value": "Release;RelWithDebInfo;Debug"
-				}
+				"CMAKE_CONFIGURATION_TYPES": "Debug;Release"
 			},
 			"architecture": {
 				"value": "x64"
@@ -87,6 +84,16 @@
 				"lhs": "${hostSystemName}",
 				"rhs": "Windows"
 			}
+		},
+		{
+			"name": "release",
+			"displayName": "Ninja - MSVC: Release",
+			"configurePreset": "windows-ninja-msvc"
+		},
+		{
+			"name": "debug",
+			"displayName": "Ninja - MSVC: Debug",
+			"configurePreset": "windows-ninja-msvc"
 		}
 	],
 	"testPresets": [

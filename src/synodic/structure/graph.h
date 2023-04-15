@@ -14,22 +14,24 @@ namespace synodic::graph
 	class Base
 	{
 	public:
-		uint32_t VertexCount() const;
-		uint32_t EdgeCount() const;
-	private:
+		[[nodiscard]] uint32_t VertexCount() const;
+		[[nodiscard]] uint32_t EdgeCount() const;
 
+	protected:
+		VertexIndexType vertexCount_;
+		EdgeIndexType edgeCount_;
 	};
 
-	template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+	template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
 	uint32_t Base<VertexIndexType, EdgeIndexType>::VertexCount() const
 	{
-		return 0;
+		return vertexCount_;
 	}
 
-	template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+	template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
 	uint32_t Base<VertexIndexType, EdgeIndexType>::EdgeCount() const
 	{
-		return 0;
+		return edgeCount_;
 	}
 
 	namespace directed
@@ -46,7 +48,7 @@ namespace synodic::graph
 			constexpr Graph();
 		};
 
-		template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
 		constexpr Graph<VertexIndexType, EdgeIndexType>::Graph()
 		{
 		}
@@ -63,10 +65,9 @@ namespace synodic::graph
 		class Graph : public Base<VertexIndexType, EdgeIndexType>
 		{
 			constexpr Graph();
-
 		};
 
-		template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
 		constexpr Graph<VertexIndexType, EdgeIndexType>::Graph()
 		{
 		}
