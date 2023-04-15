@@ -8,5 +8,5 @@ dist/
 .vs/
 
 #PDM
-.pdm.toml
+.pdm-python
 __pypackages__/
