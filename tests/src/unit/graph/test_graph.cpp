@@ -13,5 +13,5 @@ TEST(graph, TODO)
 {
 	constexpr synodic::graph::directed::Graph<uint32_t, uint32_t> graph;
 
-	//EXPECT_TRUE(graph.Execute());
+	EXPECT_FALSE(graph.EdgeCount());
 }

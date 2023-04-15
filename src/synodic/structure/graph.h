@@ -14,6 +14,8 @@ namespace synodic::graph
 	class Base
 	{
 	public:
+		constexpr Base();
+
 		[[nodiscard]] uint32_t VertexCount() const;
 		[[nodiscard]] uint32_t EdgeCount() const;
 
@@ -21,6 +23,13 @@ namespace synodic::graph
 		VertexIndexType vertexCount_;
 		EdgeIndexType edgeCount_;
 	};
+
+	template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+	constexpr Base<VertexIndexType, EdgeIndexType>::Base() :
+		vertexCount_(0),
+		edgeCount_(0)
+	{
+	}
 
 	template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
 	uint32_t Base<VertexIndexType, EdgeIndexType>::VertexCount() const
