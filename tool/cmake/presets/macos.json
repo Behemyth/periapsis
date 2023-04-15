@@ -1,0 +1,15 @@
+{
+	"version": 5,
+	"include": [
+		"platform.json"
+	],
+	"configurePresets": [
+
+	],
+	"buildPresets": [
+		
+	],
+	"testPresets": [
+	
+	]
+}

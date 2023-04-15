@@ -6,8 +6,8 @@
         "patch": 1
     },
 	"include": [
-		"tool/platform/linux/CMakePresets.json",
-		"tool/platform/macos/CMakePresets.json",
-		"tool/platform/windows/CMakePresets.json"
+		"tool/cmake/presets/linux.json",
+		"tool/cmake/presets/macos.json",
+		"tool/cmake/presets/windows.json"
 	]
 }
