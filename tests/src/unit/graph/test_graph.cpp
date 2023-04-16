@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "synodic/structure/graph.h"
+#include <array>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types
@@ -9,9 +10,21 @@
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+TEST(edge, TODO)
+{
+	
+}
+
 TEST(graph, TODO)
 {
-	constexpr synodic::graph::directed::Graph<uint32_t, uint32_t> graph;
+	constexpr synodic::graph::directed::Graph<uint32_t, uint32_t> empty;
 
-	EXPECT_FALSE(graph.EdgeCount());
+	EXPECT_FALSE(empty.EdgeCount());
+
+	constexpr std::array<const synodic::graph::Edge<std::uint8_t>, 1> edges{{{0,1}}};
+
+	constexpr std::span span = edges;
+	//constexpr synodic::graph::directed::StaticGraph graph(span);
+
+	//EXPECT_FALSE(graph.EdgeCount());
 }
