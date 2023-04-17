@@ -6,26 +6,6 @@
 namespace synodic::graph
 {
 	/**
-	 * \brief Vertex
-	 * \tparam T Data to be associated with each vertex
-	 */
-	template<typename T>
-	class VertexData
-	{
-		
-	};
-
-	/**
-	 * \brief Edge
-	 * \tparam T Data to be associated with each edge
-	 */
-	template<typename T>
-	class EdgeData
-	{
-		
-	};
-
-	/**
 	 * \brief Edge
 	 * \tparam VertexIndexType The index type to refer to vertices
 	 */
@@ -39,7 +19,7 @@ namespace synodic::graph
 		VertexIndexType tail;
 	};
 
-	using Edge8 = Edge<uint8_t>;
+	using Edge8	 = Edge<uint8_t>;
 	using Edge16 = Edge<uint16_t>;
 	using Edge32 = Edge<uint32_t>;
 	using Edge64 = Edge<uint64_t>;
@@ -59,7 +39,6 @@ namespace synodic::graph
 		[[nodiscard]] uint32_t EdgeCount() const;
 
 	protected:
-
 	};
 
 	template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
@@ -81,6 +60,7 @@ namespace synodic::graph
 
 	namespace directed
 	{
+
 		/**
 		 * \brief A directed graph
 		 * \tparam VertexIndexType The vertex index type
@@ -93,33 +73,58 @@ namespace synodic::graph
 			constexpr Graph();
 		};
 
+		template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		constexpr Graph<VertexIndexType, EdgeIndexType>::Graph()
+		{
+		}
+
+		/**
+		 * \brief A directed graph
+		 * \tparam VertexIndexType The vertex index type
+		 * \tparam EdgeIndexType The edge index type
+		 */
 		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
-		constexpr Graph<VertexIndexType, EdgeIndexType>::Graph() :
+		class GraphBuilder : public Base<VertexIndexType, EdgeIndexType>
+		{
+		public:
+			constexpr GraphBuilder();
+
+			Graph<VertexIndexType, EdgeIndexType> Build() const;
+		};
+
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		Graph<VertexIndexType, EdgeIndexType> GraphBuilder<VertexIndexType, EdgeIndexType>::Build() const
+		{
+			return Graph<VertexIndexType, EdgeIndexType>();
+		}
+
+
+
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType>
+		constexpr GraphBuilder<VertexIndexType, EdgeIndexType>::GraphBuilder() :
 			Base<VertexIndexType, EdgeIndexType>()
 		{
 		}
 
-		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType, size_t N>
+		template<std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType, size_t V, size_t E>
 		class StaticGraph : public Base<VertexIndexType, EdgeIndexType>
 		{
+
 		public:
-			constexpr StaticGraph(std::span<const Edge<VertexIndexType>, N> input);
+			explicit constexpr StaticGraph(std::span<const Edge<VertexIndexType>, E> edges);
 
 		private:
-
-			static constexpr size_t size = N; 
-
-			std::array<EdgeIndexType, size> head_;
-			std::array<EdgeIndexType, size> incidentEdge_;
-
+			std::array<VertexIndexType, E> head_;
+			std::array<EdgeIndexType, V> incidentEdge_;
 		};
 
-		template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType, size_t N>
-		constexpr StaticGraph<VertexIndexType, EdgeIndexType, N>::StaticGraph(
-			std::span<const Edge<VertexIndexType>, N> input)
+		template <std::unsigned_integral VertexIndexType, std::unsigned_integral EdgeIndexType, size_t V, size_t E>
+		constexpr StaticGraph<VertexIndexType, EdgeIndexType, V, E>::StaticGraph(
+			std::span<const Edge<VertexIndexType>, E> edges) :
+			head_(),
+			incidentEdge_()
 		{
 		}
-
 	}
 
 	namespace undirected
