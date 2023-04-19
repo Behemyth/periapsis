@@ -18,7 +18,7 @@ add_library(synodic::synodic-template-library ALIAS synodic-template-library)
 
 target_include_directories(synodic-template-library
 INTERFACE
-	src
+	${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 add_subdirectory(
