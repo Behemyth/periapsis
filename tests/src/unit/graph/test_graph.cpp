@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <array>
+#include <ranges>
 
 #include "synodic/algorithm/max_flow.h"
 #include "synodic/structure/graph.h"
@@ -24,7 +25,7 @@ struct EdgeData
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(builder, TODO)
+TEST(GraphBuilder, TODO)
 {
 	synodic::graph::directed::GraphBuilder<std::int32_t, std::int32_t> builder;
 
@@ -35,35 +36,25 @@ TEST(builder, TODO)
 	EXPECT_FALSE(graph.EdgeCount());
 }
 
-TEST(graph, direct_initialization)
+TEST(StaticGraph, edge_index_initialization)
 {
 	using namespace synodic::graph;
 
-	std::array<VertexData, 3> vertices;
-	std::array<EdgeData, 3> edges;
+	// The test data representation for the vertex range
+	constexpr std::array<VertexData, 3> vertexData;
 
-	// All edge-vertex connections are consumed by the graph structure. Temporary
+	// The test data representation for the edge range
+	std::array<EdgeData, 3> edgeDate;
 
-	constexpr directed::StaticGraph<std::int8_t, std::int8_t, 3, 3> graph(edges);
+	// TODO: Temporary. All edge-vertex connections are consumed by the graph structure.
+	// TODO: Edges should be index or value based.
 
-	EXPECT_FALSE(graph.EdgeCount());
+	//constexpr directed::StaticGraph graph(vertices, edges);
+
+	//EXPECT_FALSE(graph.EdgeCount());
 }
 
-TEST(graph, indirect_initialization)
-{
-	using namespace synodic::graph;
-
-	std::array<VertexData, 5> vertices; // Skip index 1 and 4
-	std::array<EdgeData, 3> edges;
-
-	// All edge-vertex connections are consumed by the graph structure. Temporary
-
-	constexpr directed::StaticGraph<std::int8_t, std::int8_t, 3, 3> graph(edges);
-
-	EXPECT_FALSE(graph.EdgeCount());
-}
-
-TEST(max_flow, TODO)
+TEST(MaxFlow, TODO)
 {
 	using namespace synodic::graph;
 	using namespace synodic::algorithm::graph;

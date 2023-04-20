@@ -1,3 +1,7 @@
+/**
+ * \brief Graph structures are independent of any data and therefor rely on indices for independent computation.
+ */
+
 #pragma once
 
 #include <concepts>
@@ -5,7 +9,10 @@
 
 namespace synodic::graph
 {
-
+	/**
+	 * \brief Users that want to accept multiple kinds of graphs can expect that the Graph concept is the shared scheme
+	 * for all
+	 */
 	template<typename T>
 	concept Graph = true;
 
@@ -174,12 +181,14 @@ namespace synodic::graph
 
 		private:
 			/**
-			 * \brief Stores the head node index at each arc element
+			 * \brief Stores the head node index at each edge element. The adjacency list for the node is stored via
+			 *		contiguous elements
 			 */
 			std::array<NodeIndexType, E> head_;
 
 			/**
-			 * \brief Stores the first incident arc index at each node element
+			 * \brief Stores the first incident edge index at each node element.
+			 *		Encoding: Positive sign points outwards and negative sign, inward.
 			 */
 			std::array<EdgeIndexType, N> incidentEdge_;
 		};
