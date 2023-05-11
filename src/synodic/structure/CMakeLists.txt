@@ -1,10 +1,13 @@
 target_sources(synodic-template-library
 PRIVATE
-	ring_buffer.h
-	sparse_array.h
-	sparse_bitmap.h
-	sparse_hashmap.h
-	sparse_hashset.h
-	sparse_vector.h
-	structure_types.h
+	"queue.h"
+	"sparse/array.h"
+	"sparse/bitmap.h"
+	"sparse/hashmap.h"
+	"sparse/hashset.h"
+	"sparse/vector.h"
+)
+
+add_subdirectory(
+	sparse
 )
