@@ -2,11 +2,11 @@
 
 #include <array>
 
-#include "Exception.h"
+#include "synodic/exception/not_implemented.h"
 #include "SparseBitMap.h"
 #include "SparseStructure.h"
 
-namespace synodic
+namespace synodic::sparse
 {
 	template<class T, size_t N, size_t GroupSize>
 	class SparseArray final : public SparseStructure

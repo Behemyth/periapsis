@@ -15,12 +15,12 @@ using Queue = synodic::Queue<int, std::vector<int>>;
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(Queue, type)
+TEST(queue, type)
 {
 	static_assert(synodic::sequence_container<Queue>);
 }
 
-TEST(Queue, construction)
+TEST(queue, construction)
 {
 	Queue queue;
 
