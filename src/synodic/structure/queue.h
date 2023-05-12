@@ -60,7 +60,7 @@ namespace synodic
 	template <class Self>
 	auto&& Queue<T, Container>::front(this Self&& self)
 	{
-		return data_.front();
+		return self.data_.front();
 	}
 
 	template<typename T, sequence_container Container>

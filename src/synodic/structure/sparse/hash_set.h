@@ -19,7 +19,7 @@ namespace synodic::sparse
 		~HashSet() = default;
 
 	private:
-		Vector<Key, Hash> indirectionTable_;
+		Vector<Key, 4> indirectionTable_;
 		std::vector<Key> keys_;
 	};
 
