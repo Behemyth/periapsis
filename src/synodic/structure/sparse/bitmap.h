@@ -80,14 +80,6 @@ namespace synodic::sparse
 		return {iter, true};
 	}
 
-	/*
-	 * Inserts
-	 *
-	 * @param	position	The hash.
-	 * @param	value	The indirection.
-	 *
-	 * @returns	A pair;
-	 */
 	template<class T, uint8_t N>
 	std::pair<typename BitMap<T, N>::iterator, bool> BitMap<T, N>::Insert(
 		size_type position,

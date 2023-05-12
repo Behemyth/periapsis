@@ -5,7 +5,7 @@
 #include "synodic/exception/not_implemented.h"
 #include "synodic/structure/sparse/vector.h"
 
-namespace synodic
+namespace synodic::sparse
 {
 	template<class Key, class Value, class Hash = std::hash<Key>>
 	class HashMap final
