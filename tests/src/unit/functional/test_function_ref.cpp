@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "synodic/functional/function_ref.h"
+#include "synodic/functional/FunctionRef.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types
@@ -35,17 +35,15 @@ struct TestStruct
 
 TEST(function_ref, Construction)
 {
-	synodic::function_ref function1 = []
-	{
-	};
-	synodic::function_ref function2					  = FreeFunction;
-	synodic::function_ref<void(TestStruct)> function3 = &TestStruct::MemberFunctionOne;
+	synodic::FunctionRef function1 = [](){};
+	synodic::FunctionRef function2					  = FreeFunction;
+	synodic::FunctionRef<void(TestStruct)> function3 = &TestStruct::MemberFunctionOne;
 }
 
 TEST(function_ref, Call)
 {
 	{
-		const synodic::function_ref function = FreeFunction;
+		const synodic::FunctionRef function = FreeFunction;
 		function();
 		EXPECT_TRUE(freeTest);
 	}
@@ -53,7 +51,7 @@ TEST(function_ref, Call)
 	{
 		TestStruct testStruct;
 		auto testFunction								  = &TestStruct::MemberFunctionOne;
-		synodic::function_ref<void(TestStruct&)> function = testFunction;
+		synodic::FunctionRef<void(TestStruct&)> function = testFunction;
 		function(testStruct);
 		EXPECT_TRUE(testStruct.oneTest);
 
@@ -68,7 +66,7 @@ TEST(function_ref, Call)
 		{
 			return 42;
 		};
-		const synodic::function_ref function = testFunction;
+		const synodic::FunctionRef function = testFunction;
 		EXPECT_TRUE(function() == 42);
 	}
 
@@ -78,7 +76,7 @@ TEST(function_ref, Call)
 		{
 			i = 42;
 		};
-		const synodic::function_ref function = testFunction;
+		const synodic::FunctionRef function = testFunction;
 		function();
 		EXPECT_TRUE(i == 42);
 	}
@@ -87,14 +85,14 @@ TEST(function_ref, Call)
 TEST(function_ref, Assignment)
 {
 	{
-		synodic::function_ref function = FreeFunction;
+		synodic::FunctionRef function = FreeFunction;
 		function					   = []
 		{
 		};
 	}
 
 	{
-		synodic::function_ref<void(TestStruct)> function = &TestStruct::MemberFunctionOne;
+		synodic::FunctionRef<void(TestStruct)> function = &TestStruct::MemberFunctionOne;
 		function										 = &TestStruct::MemberFunctionTwo;
 	}
 }
@@ -103,7 +101,7 @@ TEST(function_ref, Deduction)
 {
 	{
 		const int i				= 5;
-		synodic::function_ref g = [&](double)
+		synodic::FunctionRef g = [&](double)
 		{
 			return i;
 		};

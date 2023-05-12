@@ -11,3 +11,7 @@ PRIVATE
 add_subdirectory(
 	sparse
 )
+
+add_subdirectory(
+	lockfree
+)

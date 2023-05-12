@@ -9,31 +9,31 @@
 namespace synodic
 {
 	template<class F>
-	class function_ref;
+	class FunctionRef;
 
 	template<class R, class... Args>
-	class function_ref<R(Args...)>
+	class FunctionRef<R(Args...)>
 	{
 	public:
-		constexpr function_ref() noexcept = delete;
+		constexpr FunctionRef() noexcept = delete;
 
-		// Construct the function_ref referring to the same Callable as the input
-		constexpr function_ref(const function_ref<R(Args...)>& function) noexcept = default;
+		// Construct the FunctionRef referring to the same Callable as the input
+		constexpr FunctionRef(const FunctionRef<R(Args...)>& function) noexcept = default;
 
 		// Constructs from a Callable object
 		template<callable<R, Args...> Fn>
-		constexpr function_ref(Fn&& function) noexcept;
+		constexpr FunctionRef(Fn&& function) noexcept;
 
-		constexpr ~function_ref() = default;
+		constexpr ~FunctionRef() = default;
 
-		// Assigns this function_ref the same Callable as the input
-		constexpr function_ref<R(Args...)>& operator=(const function_ref<R(Args...)>& other) noexcept = default;
+		// Assigns this FunctionRef the same Callable as the input
+		constexpr FunctionRef<R(Args...)>& operator=(const FunctionRef<R(Args...)>& other) noexcept = default;
 
 		template<callable<R, Args...> Fn>
-		constexpr function_ref<R(Args...)>& operator=(Fn&& function) noexcept;
+		constexpr FunctionRef<R(Args...)>& operator=(Fn&& function) noexcept;
 
 		constexpr R operator()(Args... arguments) const;
-		constexpr void swap(function_ref& other) noexcept;
+		constexpr void swap(FunctionRef& other) noexcept;
 
 	private:
 		void* object_				   = nullptr;
@@ -42,7 +42,7 @@ namespace synodic
 
 	template<class R, class... Args>
 	template<callable<R, Args...> Fn>
-	constexpr function_ref<R(Args...)>::function_ref(Fn&& function) noexcept :
+	constexpr FunctionRef<R(Args...)>::FunctionRef(Fn&& function) noexcept :
 		object_(const_cast<void*>(reinterpret_cast<const void*>(std::addressof(function)))),
 		callback_(
 			[](void* object, Args... arguments) -> R
@@ -54,7 +54,7 @@ namespace synodic
 
 	template<class R, class... Args>
 	template<callable<R, Args...> Fn>
-	constexpr function_ref<R(Args...)>& function_ref<R(Args...)>::operator=(Fn&& function) noexcept
+	constexpr FunctionRef<R(Args...)>& FunctionRef<R(Args...)>::operator=(Fn&& function) noexcept
 	{
 		object_	  = reinterpret_cast<void*>(std::addressof(function));
 		callback_ = [](void* object, Args... arguments)
@@ -66,27 +66,27 @@ namespace synodic
 	}
 
 	template<class R, class... Args>
-	constexpr R function_ref<R(Args...)>::operator()(Args... arguments) const
+	constexpr R FunctionRef<R(Args...)>::operator()(Args... arguments) const
 	{
 		return std::invoke(callback_, object_, std::forward<Args>(arguments)...);
 	}
 
 	template<class R, class... Args>
-	constexpr void function_ref<R(Args...)>::swap(function_ref& other) noexcept
+	constexpr void FunctionRef<R(Args...)>::swap(FunctionRef& other) noexcept
 	{
 		std::swap(object_, other.object_);
 		std::swap(callback_, other.callback_);
 	}
 
 	template<class Fn>
-	constexpr void swap(function_ref<Fn>& left, function_ref<Fn>& right) noexcept
+	constexpr void swap(FunctionRef<Fn>& left, FunctionRef<Fn>& right) noexcept
 	{
 		left.swap(right);
 	}
 
 	// Function pointer deduction guide
 	template<typename R, typename... Args>
-	function_ref(R (*)(Args...)) -> function_ref<R(Args...)>;
+	FunctionRef(R (*)(Args...)) -> FunctionRef<R(Args...)>;
 
 	// Signature deduction guide
 	// STD: Only participates in overload resolution if &F::operator() is well-formed
@@ -138,6 +138,6 @@ namespace synodic
 	};
 
 	template<class Fn, class Stripped = typename SignatureStripper<decltype(&Fn::operator())>::type>
-	function_ref(Fn) -> function_ref<Stripped>;
+	FunctionRef(Fn) -> FunctionRef<Stripped>;
 
 }

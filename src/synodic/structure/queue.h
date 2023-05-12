@@ -1,15 +1,15 @@
 #pragma once
 
-#include <array>
+#include "synodic/types/concepts.h"
 
 namespace synodic
 {
 	/**
-	 * \brief A container adapter that closely follows the interface of std::queue while implemented as a ring buffer
+	 * \brief A container adapter that closely follows the interface of std::queue with a ring buffer backend
 	 * \tparam T The type to store
 	 * \tparam Container The container
 	 */
-	template<typename T, typename Container>
+	template<typename T, container Container>
 	class Queue
 	{
 	public:
@@ -20,34 +20,47 @@ namespace synodic
 		using const_reference = typename Container::const_reference;
 
 		Queue();
+		explicit Queue(const Container& container);
+		explicit Queue(Container&& container);
+
 		~Queue() = default;
 
-		Queue(const Queue&)	  = delete;
-		Queue(Queue&&) noexcept = default;
-
-		Queue& operator=(const Queue&)	 = delete;
-		Queue& operator=(Queue&&) noexcept = default;
-
-		bool operator==(const Queue& other);
-		bool operator==(Queue& other);
-
-		[[nodiscard]] const T& Back() const;
-
-		const T& Front();
-
-		Reference operator[](std::size_t i);
-
-		void Push(const T&);
-		void Push(T&&);
-
-		[[nodiscard]] SizeType Size() const;
+		[[nodiscard]] bool Empty() const;
 
 	private:
-		SizeType front_;
-		SizeType size_;
+		size_type front_;
+		size_type size_;
 
-		std::array<T, Capacity> data_;
-
-		void Push_();
+		Container data_;
 	};
+
+	template<typename T, container Container>
+	Queue<T, Container>::Queue() :
+		Queue(Container())
+	{
+	}
+
+	template<typename T, container Container>
+	Queue<T, Container>::Queue(const Container& container)
+	{
+	}
+
+	template<typename T, container Container>
+	Queue<T, Container>::Queue(Container&& container)
+	{
+	}
+
+	template <typename T, container Container>
+	bool Queue<T, Container>::Empty() const
+	{
+		return data_.empty();
+	}
+
+	// Deduction guides as specified: https://en.cppreference.com/w/cpp/container/queue/deduction_guides
+
+	template<class Container>
+	Queue(Container) -> Queue<typename Container::value_type, Container>;
+
+	template<class Container, class Alloc>
+	Queue(Container, Alloc) -> Queue<typename Container::value_type, Container>;
 }
