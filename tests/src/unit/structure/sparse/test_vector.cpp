@@ -13,7 +13,7 @@ using Vector = synodic::sparse::Vector<int, 3>;
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(sparse_array, type)
+TEST(sparse_vector, type)
 {
 	static_assert(synodic::sequence_container<Vector>);
 }

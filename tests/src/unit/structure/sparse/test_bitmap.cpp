@@ -13,7 +13,7 @@ using BitMap = synodic::sparse::BitMap<int, 3>;
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(sparse_array, type)
+TEST(sparse_bitmap, type)
 {
 	static_assert(synodic::sequence_container<BitMap>);
 }

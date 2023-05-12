@@ -13,7 +13,7 @@ using HashMap = synodic::sparse::HashMap<int, int>;
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(sparse_array, type)
+TEST(sparse_hash_map, type)
 {
 	static_assert(synodic::sequence_container<HashMap>);
 }

@@ -13,7 +13,7 @@ using HashSet = synodic::sparse::HashSet<int>;
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(sparse_array, type)
+TEST(sparse_hash_set, type)
 {
 	static_assert(synodic::sequence_container<HashSet>);
 }

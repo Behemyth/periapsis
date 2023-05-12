@@ -10,3 +10,7 @@ add_subdirectory(
 add_subdirectory(
 	sparse
 )
+
+add_subdirectory(
+	lockfree
+)
