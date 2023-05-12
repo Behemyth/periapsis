@@ -37,26 +37,9 @@ namespace synodic
 
 	};
 
-    template <typename T>
-    concept sized_container =
-		container<T> and
-		requires(T const& constContainer)
-	{
-		{ constContainer.size() } -> std::same_as<typename T::size_type>;
-	};
-
 	template <typename T>
     concept reversible_container =
 		container<T>;
-
-	template <typename T>
-    concept clearable_container =
-		container<T> and
-		requires(T& container)
-	{
-		container.clear();
-	};
-
 
 	// A concept implementation of the named requirement 'SequenceContainer' with Standard naming styles
 	//		This definition is devoid of backwards compatibility requirements
@@ -74,10 +57,12 @@ namespace synodic
     template <typename T>
     concept double_ended_container =
 		sequence_container<T> and
-		sized_container<T> and
 		reversible_container<T> and
 		requires(T& container, T const& constContainer)
 	{
+		{ constContainer.size() } -> std::same_as<typename T::size_type>;
+
+
 		{ container.back() } -> std::same_as<typename T::reference>;
 		{ constContainer.back() } -> std::same_as<typename T::const_reference>;
 	};
@@ -116,12 +101,14 @@ namespace synodic
 	template <typename T>
     concept associative_container =
 		container<T> and
-		sized_container<T> and
-		clearable_container<T> and
 		std::default_initializable<T> and
 		requires(T& container, T const& constContainer)
 	{
 		typename T::key_type;
+
+		container.clear();
+
+		{ constContainer.size() } -> std::same_as<typename T::size_type>;
 
 		requires
 			requires(typename T::key_type const& key)

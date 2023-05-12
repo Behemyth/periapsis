@@ -15,5 +15,5 @@ using HashMap = synodic::sparse::HashMap<int, int>;
 
 TEST(sparse_hash_map, type)
 {
-	static_assert(synodic::sequence_container<HashMap>);
+	static_assert(synodic::associative_container<HashMap>);
 }

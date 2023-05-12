@@ -15,5 +15,5 @@ using HashSet = synodic::sparse::HashSet<int>;
 
 TEST(sparse_hash_set, type)
 {
-	static_assert(synodic::sequence_container<HashSet>);
+	static_assert(synodic::associative_container<HashSet>);
 }
