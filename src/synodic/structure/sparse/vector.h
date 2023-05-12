@@ -2,21 +2,15 @@
 
 #include <vector>
 
-#include "Exception.h"
-#include "SparseBitMap.h"
-#include "SparseStructure.h"
+#include "synodic/exception/not_implemented.h"
 
-namespace synodic
+#include "SparseBitMap.h"
+
+namespace synodic::sparse
 {
-	/*
-	 * A sparse table.
-	 *
-	 * @tparam	T		 	Generic type parameter.
-	 * @tparam	BlockSize	Elements in a single block.
-	 */
 
 	template<class T, uint8_t BlockSize>
-	class SparseVector : public SparseStructure
+	class Vector 
 	{
 		using BlockType = SparseBitMap<size_t, BlockSize>;
 
@@ -50,8 +44,8 @@ namespace synodic
 		using iterator		 = SparseVectorIterator<false>;
 		using const_iterator = SparseVectorIterator<true>;
 
-		SparseVector();
-		~SparseVector() override = default;
+		Vector();
+		~Vector() override = default;
 
 		[[nodiscard]] size_type Size() const noexcept;
 		void Reserve(size_type count);
@@ -76,7 +70,7 @@ namespace synodic
 
 	template<class T, uint8_t BlockSize>
 	template<bool Const>
-	SparseVector<T, BlockSize>::SparseVectorIterator<Const>::SparseVectorIterator(
+	Vector<T, BlockSize>::SparseVectorIterator<Const>::SparseVectorIterator(
 		OuterIteratorType outerIterator,
 		InnerIteratorType innerIterator) :
 		outerIterator_(outerIterator), innerIterator_(innerIterator)
@@ -85,13 +79,13 @@ namespace synodic
 
 	template<class T, uint8_t BlockSize>
 	template<bool Const>
-	T& SparseVector<T, BlockSize>::SparseVectorIterator<Const>::operator*()
+	T& Vector<T, BlockSize>::SparseVectorIterator<Const>::operator*()
 	{
 		return *innerIterator_;
 	}
 
 	template<class T, uint8_t BlockSize>
-	SparseVector<T, BlockSize>::SparseVector() : blocks_(4), size_(0)
+	Vector<T, BlockSize>::Vector() : blocks_(4), size_(0)
 	{
 	}
 
@@ -102,26 +96,26 @@ namespace synodic
 	 */
 
 	template<class T, uint8_t BlockSize>
-	typename SparseVector<T, BlockSize>::size_type SparseVector<T, BlockSize>::Size() const noexcept
+	typename Vector<T, BlockSize>::size_type Vector<T, BlockSize>::Size() const noexcept
 	{
 		return size_;
 	}
 
 	template<class T, uint8_t BlockSize>
-	void SparseVector<T, BlockSize>::Reserve(size_type count)
+	void Vector<T, BlockSize>::Reserve(size_type count)
 	{
 		blocks_.reserve((count - 1) / BlockSize + 1);
 	}
 
 	template<class T, uint8_t BlockSize>
-	void SparseVector<T, BlockSize>::Clear() noexcept
+	void Vector<T, BlockSize>::Clear() noexcept
 	{
 		blocks_.clear();
 		size_ = 0;
 	}
 
 	template<class T, uint8_t BlockSize>
-	std::pair<typename SparseVector<T, BlockSize>::iterator, bool> SparseVector<T, BlockSize>::Insert(
+	std::pair<typename Vector<T, BlockSize>::iterator, bool> Vector<T, BlockSize>::Insert(
 		const size_type position,
 		const T& value)
 	{
@@ -140,7 +134,7 @@ namespace synodic
 
 	template<class T, uint8_t BlockSize>
 	template<typename... Args>
-	std::pair<typename SparseVector<T, BlockSize>::iterator, bool> SparseVector<T, BlockSize>::Emplace(
+	std::pair<typename Vector<T, BlockSize>::iterator, bool> Vector<T, BlockSize>::Emplace(
 		const size_type position,
 		Args&&... args)
 	{
@@ -148,13 +142,13 @@ namespace synodic
 	}
 
 	template<class T, uint8_t BlockSize>
-	typename SparseVector<T, BlockSize>::iterator SparseVector<T, BlockSize>::Erase(const_iterator pos)
+	typename Vector<T, BlockSize>::iterator Vector<T, BlockSize>::Erase(const_iterator pos)
 	{
 		throw NotImplemented();
 	}
 
 	template<class T, uint8_t BlockSize>
-	typename SparseVector<T, BlockSize>::iterator SparseVector<T, BlockSize>::Find(const size_type position)
+	typename Vector<T, BlockSize>::iterator Vector<T, BlockSize>::Find(const size_type position)
 	{
 		auto index	 = position / BlockSize;
 		auto& bitMap = blocks_.at(index);
@@ -168,19 +162,19 @@ namespace synodic
 	}
 
 	template<class T, uint8_t BlockSize>
-	typename SparseVector<T, BlockSize>::size_type SparseVector<T, BlockSize>::BucketCount() const noexcept
+	typename Vector<T, BlockSize>::size_type Vector<T, BlockSize>::BucketCount() const noexcept
 	{
 		return blocks_.size();
 	}
 
 	template<class T, uint8_t BlockSize>
-	typename SparseVector<T, BlockSize>::iterator SparseVector<T, BlockSize>::begin() noexcept
+	typename Vector<T, BlockSize>::iterator Vector<T, BlockSize>::begin() noexcept
 	{
 		return {blocks_.begin(), blocks_.front().begin()};
 	}
 
 	template<class T, uint8_t BlockSize>
-	typename SparseVector<T, BlockSize>::iterator SparseVector<T, BlockSize>::end() noexcept
+	typename Vector<T, BlockSize>::iterator Vector<T, BlockSize>::end() noexcept
 	{
 		return {blocks_.end(), blocks_.back().end()};
 	}

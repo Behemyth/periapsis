@@ -1,5 +1,6 @@
 #pragma once
 
+#include "synodic/exception/not_implemented.h"
 #include "synodic/types/concepts.h"
 
 namespace synodic
@@ -46,24 +47,26 @@ namespace synodic
 	template<typename T, sequence_container Container>
 	Queue<T, Container>::Queue(const Container& container)
 	{
+		throw NotImplemented();
 	}
 
 	template<typename T, sequence_container Container>
 	Queue<T, Container>::Queue(Container&& container)
 	{
+		throw NotImplemented();
 	}
 
 	template <typename T, sequence_container Container>
 	template <class Self>
 	auto&& Queue<T, Container>::front(this Self&& self)
 	{
-		return self.data_.front();
+		throw NotImplemented();
 	}
 
 	template<typename T, sequence_container Container>
 	bool Queue<T, Container>::empty() const
 	{
-		return data_.empty();
+		throw NotImplemented();
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

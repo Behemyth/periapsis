@@ -1,10 +1,8 @@
 #pragma once
 
-#include <array>
-
 namespace synodic::lockfree
 {
-	class SPSCQueue
+	class Queue
 	{
 		
 	};

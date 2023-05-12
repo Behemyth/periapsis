@@ -2,21 +2,21 @@
 
 #include <vector>
 
-#include "SparseStructure.h"
-#include "SparseVector.h"
+#include "synodic/exception/not_implemented.h"
+#include "synodic/structure/sparse/vector.h"
 
-namespace synodic
+namespace synodic::sparse
 {
 	template<class Key, class Hash = std::hash<Key>>
-	class SparseHashSet final : public SparseStructure
+	class HashSet final
 	{
 		using size_type = size_t;
 
 		static constexpr size_type blockSize_ = 8;
 
 	public:
-		SparseHashSet()			  = default;
-		~SparseHashSet() override = default;
+		HashSet()			  = default;
+		~HashSet() override = default;
 
 	private:
 		SparseVector<Key, Hash> indirectionTable_;

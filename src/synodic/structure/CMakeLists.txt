@@ -3,8 +3,8 @@ PRIVATE
 	"queue.h"
 	"sparse/array.h"
 	"sparse/bitmap.h"
-	"sparse/hashmap.h"
-	"sparse/hashset.h"
+	"sparse/hash_map.h"
+	"sparse/hash_set.h"
 	"sparse/vector.h"
 )
 

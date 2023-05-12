@@ -6,13 +6,12 @@
 #include <type_traits>
 #include <vector>
 
-#include "Exception.h"
-#include "SparseStructure.h"
+#include "synodic/exception/not_implemented.h"
 
-namespace synodic
+namespace synodic::sparse
 {
 	template<class T, uint8_t N>
-	class SparseBitMap final : public SparseStructure
+	class BitMap final
 	{
 		static_assert(N % 4 == 0, "N must be byte aligned.");
 
@@ -20,8 +19,8 @@ namespace synodic
 		using size_type = uint8_t;
 		using iterator	= typename std::vector<T>::iterator;
 
-		SparseBitMap()	= default;
-		~SparseBitMap() = default;
+		BitMap()	= default;
+		~BitMap() = default;
 
 		T& operator[](size_type);
 		[[nodiscard]] bool Test(size_type) const;
@@ -45,7 +44,7 @@ namespace synodic
 	};
 
 	template<class T, uint8_t N>
-	T& SparseBitMap<T, N>::operator[](size_type position)
+	T& BitMap<T, N>::operator[](size_type position)
 	{
 		assert(mapping_.test(position));
 
@@ -57,14 +56,14 @@ namespace synodic
 	}
 
 	template<class T, uint8_t N>
-	bool SparseBitMap<T, N>::Test(size_type position) const
+	bool BitMap<T, N>::Test(size_type position) const
 	{
 		return mapping_.test(position);
 	}
 
 	template<class T, uint8_t N>
 	template<typename... Args>
-	std::pair<typename SparseBitMap<T, N>::iterator, bool> SparseBitMap<T, N>::Emplace(
+	std::pair<typename BitMap<T, N>::iterator, bool> BitMap<T, N>::Emplace(
 		size_type position,
 		Args&&... args)
 	{
@@ -90,7 +89,7 @@ namespace synodic
 	 * @returns	A pair;
 	 */
 	template<class T, uint8_t N>
-	std::pair<typename SparseBitMap<T, N>::iterator, bool> SparseBitMap<T, N>::Insert(
+	std::pair<typename BitMap<T, N>::iterator, bool> BitMap<T, N>::Insert(
 		size_type position,
 		const T& value)
 	{
@@ -108,14 +107,14 @@ namespace synodic
 	}
 
 	template<class T, uint8_t N>
-	void SparseBitMap<T, N>::Clear()
+	void BitMap<T, N>::Clear()
 	{
 		mapping_.reset();
 		data_.resize(0);
 	}
 
 	template<class T, uint8_t N>
-	typename SparseBitMap<T, N>::iterator SparseBitMap<T, N>::Find(const size_type position)
+	typename BitMap<T, N>::iterator BitMap<T, N>::Find(const size_type position)
 	{
 		if(!Test(position))
 		{
@@ -128,19 +127,19 @@ namespace synodic
 	}
 
 	template<class T, uint8_t N>
-	typename SparseBitMap<T, N>::iterator SparseBitMap<T, N>::begin() noexcept
+	typename BitMap<T, N>::iterator BitMap<T, N>::begin() noexcept
 	{
 		return data_.begin();
 	}
 
 	template<class T, uint8_t N>
-	typename SparseBitMap<T, N>::iterator SparseBitMap<T, N>::end() noexcept
+	typename BitMap<T, N>::iterator BitMap<T, N>::end() noexcept
 	{
 		return data_.end();
 	}
 
 	template<class T, uint8_t N>
-	uint8_t SparseBitMap<T, N>::CountPosition(const size_type position) const
+	uint8_t BitMap<T, N>::CountPosition(const size_type position) const
 	{
 		std::bitset<N> mask;
 		mask = ~(~mask << position) & mapping_;

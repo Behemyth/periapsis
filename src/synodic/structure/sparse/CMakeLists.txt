@@ -2,7 +2,7 @@ target_sources(synodic-template-library
 PRIVATE
 	array.h
 	bitmap.h
-	hashmap.h
-	hashset.h
+	hash_map.h
+	hash_set.h
 	vector.h
 )

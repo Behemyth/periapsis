@@ -4,20 +4,19 @@
 
 #include "synodic/exception/not_implemented.h"
 #include "SparseBitMap.h"
-#include "SparseStructure.h"
 
 namespace synodic::sparse
 {
 	template<class T, size_t N, size_t GroupSize>
-	class SparseArray final : public SparseStructure
+	class Array final
 	{
 		using size_type = size_t;
 
 		static constexpr size_type blockCount_ = (N + GroupSize - 1) / GroupSize;
 
 	public:
-		SparseArray()			= default;
-		~SparseArray() override = default;
+		Array()			= default;
+		~Array() override = default;
 
 		T& operator[](size_type);
 		bool Test(size_type) const;
@@ -27,13 +26,13 @@ namespace synodic::sparse
 	};
 
 	template<class T, size_t N, size_t GroupSize>
-	T& SparseArray<T, N, GroupSize>::operator[](size_type index)
+	T& Array<T, N, GroupSize>::operator[](size_type index)
 	{
 		throw NotImplemented();
 	}
 
 	template<class T, size_t N, size_t GroupSize>
-	bool SparseArray<T, N, GroupSize>::Test(size_type index) const
+	bool Array<T, N, GroupSize>::Test(size_type index) const
 	{
 		throw NotImplemented();
 	}

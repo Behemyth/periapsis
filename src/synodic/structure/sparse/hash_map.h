@@ -2,14 +2,13 @@
 
 #include <vector>
 
-#include "Exception.h"
-#include "SparseStructure.h"
-#include "SparseVector.h"
+#include "synodic/exception/not_implemented.h"
+#include "synodic/structure/sparse/vector.h"
 
 namespace synodic
 {
 	template<class Key, class Value, class Hash = std::hash<Key>>
-	class SparseHashMap final : public SparseStructure
+	class HashMap final
 	{
 		template<bool Const = false>
 		class SparseHashMapIterator
@@ -39,8 +38,8 @@ namespace synodic
 		using iterator		 = SparseHashMapIterator<false>;
 		using const_iterator = SparseHashMapIterator<true>;
 
-		SparseHashMap();
-		~SparseHashMap() override = default;
+		HashMap();
+		~HashMap() override = default;
 
 		Value& At(const Key&);
 		Value& operator[](const Key&);
@@ -75,7 +74,7 @@ namespace synodic
 
 	template<class Key, class Value, class Hash>
 	template<bool Const>
-	SparseHashMap<Key, Value, Hash>::SparseHashMapIterator<Const>::SparseHashMapIterator(
+	HashMap<Key, Value, Hash>::SparseHashMapIterator<Const>::SparseHashMapIterator(
 		KeyIteratorType keyIterator,
 		ValueIteratorType valueIterator) :
 		keyIterator_(keyIterator), valueIterator_(valueIterator)
@@ -84,25 +83,25 @@ namespace synodic
 
 	template<class Key, class Value, class Hash>
 	template<bool Const>
-	Value& SparseHashMap<Key, Value, Hash>::SparseHashMapIterator<Const>::operator*()
+	Value& HashMap<Key, Value, Hash>::SparseHashMapIterator<Const>::operator*()
 	{
 		return *valueIterator_;
 	}
 
 	template<class Key, class Value, class Hash>
 	template<bool Const>
-	Value* SparseHashMap<Key, Value, Hash>::SparseHashMapIterator<Const>::operator->() const
+	Value* HashMap<Key, Value, Hash>::SparseHashMapIterator<Const>::operator->() const
 	{
 		return &*valueIterator_;
 	}
 
 	template<class Key, class Value, class Hash>
-	SparseHashMap<Key, Value, Hash>::SparseHashMap() : minLoadFactor_(0.20f), maxLoadFactor_(0.80f)
+	HashMap<Key, Value, Hash>::HashMap() : minLoadFactor_(0.20f), maxLoadFactor_(0.80f)
 	{
 	}
 
 	template<class Key, class Value, class Hash>
-	Value& SparseHashMap<Key, Value, Hash>::At(const Key& key)
+	Value& HashMap<Key, Value, Hash>::At(const Key& key)
 	{
 		const size_t hash  = hasher_(key);
 		const size_t index = ReduceHash(hash);
@@ -112,7 +111,7 @@ namespace synodic
 	}
 
 	template<class Key, class Value, class Hash>
-	Value& SparseHashMap<Key, Value, Hash>::operator[](const Key& key)
+	Value& HashMap<Key, Value, Hash>::operator[](const Key& key)
 	{
 		// TODO: should not be a part of []
 		if(Full())
@@ -134,20 +133,20 @@ namespace synodic
 	}
 
 	template<class Key, class Value, class Hash>
-	Value* SparseHashMap<Key, Value, Hash>::Data() noexcept
+	Value* HashMap<Key, Value, Hash>::Data() noexcept
 	{
 		return values_.data();
 	}
 
 	template<class Key, class Value, class Hash>
-	typename SparseHashMap<Key, Value, Hash>::size_type SparseHashMap<Key, Value, Hash>::Size() const noexcept
+	typename HashMap<Key, Value, Hash>::size_type HashMap<Key, Value, Hash>::Size() const noexcept
 	{
 		return values_.size();
 	}
 
 	template<class Key, class Value, class Hash>
 	template<typename... Args>
-	std::pair<typename SparseHashMap<Key, Value, Hash>::iterator, bool> SparseHashMap<Key, Value, Hash>::Emplace(
+	std::pair<typename HashMap<Key, Value, Hash>::iterator, bool> HashMap<Key, Value, Hash>::Emplace(
 		const Key& key,
 		Args&&... args)
 	{
@@ -188,7 +187,7 @@ namespace synodic
 	}
 
 	template<class Key, class Value, class Hash>
-	void SparseHashMap<Key, Value, Hash>::Clear()
+	void HashMap<Key, Value, Hash>::Clear()
 	{
 		indirectionTable_.Clear();
 		keys_.clear();
@@ -206,7 +205,7 @@ namespace synodic
 	 */
 
 	template<class Key, class Value, class Hash>
-	std::pair<size_t&, bool> SparseHashMap<Key, Value, Hash>::Insert(const Key& key, size_t indirection)
+	std::pair<size_t&, bool> HashMap<Key, Value, Hash>::Insert(const Key& key, size_t indirection)
 	{
 		size_t hash	 = hasher_(key);
 		size_t index = ReduceHash(hash);
@@ -237,13 +236,13 @@ namespace synodic
 	}
 
 	template<class Key, class Value, class Hash>
-	bool SparseHashMap<Key, Value, Hash>::Full() const
+	bool HashMap<Key, Value, Hash>::Full() const
 	{
 		return values_.size() + 1 > indirectionTable_.BucketCount() * blockSize_ * maxLoadFactor_;
 	}
 
 	template<class Key, class Value, class Hash>
-	void SparseHashMap<Key, Value, Hash>::Rehash(size_t newBlockSize)
+	void HashMap<Key, Value, Hash>::Rehash(size_t newBlockSize)
 	{
 		indirectionTable_.Clear();
 		indirectionTable_.Reserve(std::max(newBlockSize, static_cast<size_t>(4)));
@@ -255,7 +254,7 @@ namespace synodic
 	}
 
 	template<class Key, class Value, class Hash>
-	void SparseHashMap<Key, Value, Hash>::Erase(const Key& key)
+	void HashMap<Key, Value, Hash>::Erase(const Key& key)
 	{
 		// auto indirectionIterator = SparseTable<Key, Hash>::Find(key);
 
@@ -292,7 +291,7 @@ namespace synodic
 
 	// TODO: this should be a part of a hash library.
 	template<class Key, class Value, class Hash>
-	size_t SparseHashMap<Key, Value, Hash>::ReduceHash(size_t hash) const
+	size_t HashMap<Key, Value, Hash>::ReduceHash(size_t hash) const
 	{
 		hash ^= hash >> 7;
 		hash *= 11400714819323198485llu >> 7;
