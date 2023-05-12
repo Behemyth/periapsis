@@ -2,11 +2,8 @@
 
 #include <bitset>
 #include <cassert>
-#include <memory>
 #include <type_traits>
 #include <vector>
-
-#include "synodic/exception/not_implemented.h"
 
 namespace synodic::sparse
 {
