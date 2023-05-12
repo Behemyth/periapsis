@@ -7,9 +7,9 @@ namespace synodic
 	/**
 	 * \brief A container adapter that closely follows the interface of std::queue with a ring buffer backend
 	 * \tparam T The type to store
-	 * \tparam Container The container
+	 * \tparam Container A container fulfilling the sequence_container named requirement
 	 */
-	template<typename T, container Container>
+	template<typename T, sequence_container Container>
 	class Queue
 	{
 	public:
@@ -25,38 +25,49 @@ namespace synodic
 
 		~Queue() = default;
 
-		[[nodiscard]] bool Empty() const;
+		template <class Self>
+		auto&& front(this Self&& self);
+
+		[[nodiscard]] bool empty() const;
 
 	private:
 		size_type front_;
-		size_type size_;
 
 		Container data_;
 	};
 
-	template<typename T, container Container>
+	template<typename T, sequence_container Container>
 	Queue<T, Container>::Queue() :
 		Queue(Container())
 	{
 	}
 
-	template<typename T, container Container>
+	template<typename T, sequence_container Container>
 	Queue<T, Container>::Queue(const Container& container)
 	{
 	}
 
-	template<typename T, container Container>
+	template<typename T, sequence_container Container>
 	Queue<T, Container>::Queue(Container&& container)
 	{
 	}
 
-	template <typename T, container Container>
-	bool Queue<T, Container>::Empty() const
+	template <typename T, sequence_container Container>
+	template <class Self>
+	auto&& Queue<T, Container>::front(this Self&& self)
+	{
+		return self.data_.front();
+	}
+
+	template<typename T, sequence_container Container>
+	bool Queue<T, Container>::empty() const
 	{
 		return data_.empty();
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Deduction guides as specified: https://en.cppreference.com/w/cpp/container/queue/deduction_guides
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	template<class Container>
 	Queue(Container) -> Queue<typename Container::value_type, Container>;

@@ -30,10 +30,18 @@ namespace synodic
 
 		requires decayed<typename T::value_type>;
 
-		requires
-			requires{{constContainer.Empty()} -> std::convertible_to<bool>;} or
-			requires{{constContainer.empty()} -> std::convertible_to<bool>;};
+		{constContainer.empty()} -> std::convertible_to<bool>;
 
+	};
+	// A concept implementation of the named requirement 'SequenceContainer' with Synodic and Standard naming styles
+	//		This definition is devoid of backwards compatibility requirements
+	//		https://en.cppreference.com/w/cpp/named_req/SequenceContainer
+	template <typename T>
+    concept sequence_container = container<T> and
+		requires(T& cont, T const& const_cont)
+	{
+		{cont.front()} -> std::same_as<typename T::reference>;
+		{const_cont.front()} -> std::same_as<typename T::const_reference>;
 	};
 
 }
