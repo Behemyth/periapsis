@@ -49,6 +49,14 @@ namespace synodic
     concept reversible_container =
 		container<T>;
 
+	template <typename T>
+    concept clearable_container =
+		container<T> and
+		requires(T& container)
+	{
+		container.clear();
+	};
+
 
 	// A concept implementation of the named requirement 'SequenceContainer' with Standard naming styles
 	//		This definition is devoid of backwards compatibility requirements
@@ -101,5 +109,27 @@ namespace synodic
         { container.data() } -> std::same_as<typename T::pointer>;
         { constContainer.data() } -> std::same_as<typename T::const_pointer>;
     };
+
+	// A concept implementation of the named requirement 'AssociativeContainer' with Standard naming styles
+	//		This definition is devoid of backwards compatibility requirements
+	//		https://en.cppreference.com/w/cpp/named_req/AssociativeContainer
+	template <typename T>
+    concept associative_container =
+		container<T> and
+		sized_container<T> and
+		clearable_container<T> and
+		std::default_initializable<T> and
+		requires(T& container, T const& constContainer)
+	{
+		typename T::key_type;
+
+		requires
+			requires(typename T::key_type const& key)
+			{
+				{ constContainer.count(key) } -> std::same_as<typename T::size_type>;
+				{ constContainer.contains(key) } -> std::same_as<bool>;
+				{ container.find(key) } -> std::same_as<typename T::iterator>;
+			};
+	};
 
 }
