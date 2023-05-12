@@ -4,7 +4,7 @@
 
 #include "synodic/exception/not_implemented.h"
 
-#include "SparseBitMap.h"
+#include "synodic/structure/sparse/bitmap.h"
 
 namespace synodic::sparse
 {
@@ -12,7 +12,7 @@ namespace synodic::sparse
 	template<class T, uint8_t BlockSize>
 	class Vector 
 	{
-		using BlockType = SparseBitMap<size_t, BlockSize>;
+		using BlockType = BitMap<size_t, BlockSize>;
 
 		template<bool Const = false>
 		class SparseVectorIterator
@@ -45,7 +45,7 @@ namespace synodic::sparse
 		using const_iterator = SparseVectorIterator<true>;
 
 		Vector();
-		~Vector() override = default;
+		~Vector() = default;
 
 		[[nodiscard]] size_type Size() const noexcept;
 		void Reserve(size_type count);

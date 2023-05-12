@@ -10,6 +10,11 @@
 
 namespace synodic::sparse
 {
+	/**
+	 * \brief Faster creation than unordered_set, but suffers from worse intersection
+	 * \tparam T  The type to store
+	 * \tparam N  The capacity
+	 */
 	template<class T, uint8_t N>
 	class BitMap final
 	{

@@ -39,7 +39,7 @@ namespace synodic::sparse
 		using const_iterator = SparseHashMapIterator<true>;
 
 		HashMap();
-		~HashMap() override = default;
+		~HashMap() = default;
 
 		Value& At(const Key&);
 		Value& operator[](const Key&);
@@ -67,7 +67,7 @@ namespace synodic::sparse
 		float minLoadFactor_;
 		float maxLoadFactor_;
 
-		SparseVector<size_type, blockSize_> indirectionTable_;
+		Vector<size_type, blockSize_> indirectionTable_;
 		std::vector<Key> keys_;
 		std::vector<Value> values_;
 	};

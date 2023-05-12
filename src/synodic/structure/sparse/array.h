@@ -3,7 +3,7 @@
 #include <array>
 
 #include "synodic/exception/not_implemented.h"
-#include "SparseBitMap.h"
+#include "synodic/structure/sparse/bitmap.h"
 
 namespace synodic::sparse
 {
@@ -16,13 +16,13 @@ namespace synodic::sparse
 
 	public:
 		Array()			= default;
-		~Array() override = default;
+		~Array() = default;
 
 		T& operator[](size_type);
 		bool Test(size_type) const;
 
 	private:
-		std::array<SparseBitMap<T, GroupSize>, blockCount_> data_;
+		std::array<BitMap<T, GroupSize>, blockCount_> data_;
 	};
 
 	template<class T, size_t N, size_t GroupSize>

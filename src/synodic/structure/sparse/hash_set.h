@@ -16,10 +16,10 @@ namespace synodic::sparse
 
 	public:
 		HashSet()			  = default;
-		~HashSet() override = default;
+		~HashSet() = default;
 
 	private:
-		SparseVector<Key, Hash> indirectionTable_;
+		Vector<Key, Hash> indirectionTable_;
 		std::vector<Key> keys_;
 	};
 
