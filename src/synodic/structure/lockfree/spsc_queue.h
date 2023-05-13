@@ -7,7 +7,7 @@
 namespace synodic::lockfree
 {
 	/**
-	 * \brief An adapter for containers that enforce single producer, single consumer semantics on atomic data 
+	 * \brief An adapter for containers that enforce single producer, single consumer semantics on atomic data
 	 * \tparam T The type to store
 	 * \tparam Container The container
 	 */
@@ -26,8 +26,8 @@ namespace synodic::lockfree
 
 		// Construction
 		SPSCQueue();
-		explicit SPSCQueue(const Container& cont);
-		explicit SPSCQueue(Container&& cont);
+		explicit SPSCQueue(const Container& container);
+		explicit SPSCQueue(Container&& container);
 		SPSCQueue(const SPSCQueue& other);
 		SPSCQueue(SPSCQueue&& other);
 
@@ -38,10 +38,10 @@ namespace synodic::lockfree
 		explicit SPSCQueue(const Alloc& alloc);
 
 		template<class Alloc>
-		SPSCQueue(const Container& cont, const Alloc& alloc);
+		SPSCQueue(const Container& container, const Alloc& alloc);
 
 		template<class Alloc>
-		SPSCQueue(Container&& cont, const Alloc& alloc);
+		SPSCQueue(Container&& container, const Alloc& alloc);
 
 		template<class Alloc>
 		SPSCQueue(const SPSCQueue& other, const Alloc& alloc);
@@ -53,30 +53,54 @@ namespace synodic::lockfree
 		SPSCQueue(InputIt first, InputIt last, const Alloc& alloc);
 
 		// Assignment
-		SPSCQueue& operator=( const SPSCQueue& other );
-		SPSCQueue& operator=( SPSCQueue&& other );
+		SPSCQueue& operator=(const SPSCQueue& other);
+		SPSCQueue& operator=(SPSCQueue&& other);
 
 		// Accessors
 		constexpr reference front();
 		constexpr const_reference front() const;
 
-		// Iterators - Does not protect against non-atomic modification
-
+		/**
+		 * \brief Not thread-safe
+		 * \return Iterator
+		 */
 		constexpr iterator begin() noexcept;
+
+		/**
+		 * \brief Not thread-safe
+		 * \return Constant iterator
+		 */
 		constexpr const_iterator begin() const noexcept;
 
+		/**
+		 * \brief Not thread-safe
+		 * \return Iterator
+		 */
 		constexpr iterator end() noexcept;
+
+		/**
+		 * \brief Not thread-safe
+		 * \return Constant iterator
+		 */
 		constexpr const_iterator end() const noexcept;
 
+		/**
+		 * \brief Not thread-safe
+		 * \return Constant iterator
+		 */
 		constexpr const_iterator cbegin() const noexcept;
+
+		/**
+		 * \brief Not thread-safe
+		 * \return Constant iterator
+		 */
 		constexpr const_iterator cend() const noexcept;
 
 		// Capacity
-		[[nodiscard]] constexpr  bool empty() const noexcept;
+		[[nodiscard]] constexpr bool empty() const noexcept;
 		constexpr size_type max_size() const noexcept;
 
 		// Modifiers
-
 
 		auto operator<=>(const SPSCQueue&) const = default;
 
@@ -95,50 +119,44 @@ namespace synodic::lockfree
 		std::array<std::byte, cacheLineSize - sizeof cachedWriteIndex_> padding_;
 	};
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::reference SPSCQueue<T, Container>::front()
 	{
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_reference SPSCQueue<T, Container>::front() const
 	{
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::iterator SPSCQueue<T, Container>::begin() noexcept
 	{
-		return container_.begin();
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_iterator SPSCQueue<T, Container>::begin() const noexcept
 	{
-		return container_.begin();
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::iterator SPSCQueue<T, Container>::end() noexcept
 	{
-		return container_.end();
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_iterator SPSCQueue<T, Container>::end() const noexcept
 	{
-		return container_.end();
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_iterator SPSCQueue<T, Container>::cbegin() const noexcept
 	{
-		return container_.cbegin();
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_iterator SPSCQueue<T, Container>::cend() const noexcept
 	{
-		return container_.cend();
 	}
 
 	template<typename T, sequence_container_of<T> Container>
@@ -148,12 +166,12 @@ namespace synodic::lockfree
 	}
 
 	template<typename T, sequence_container_of<T> Container>
-	SPSCQueue<T, Container>::SPSCQueue(const Container& cont)
+	SPSCQueue<T, Container>::SPSCQueue(const Container& container)
 	{
 	}
 
 	template<typename T, sequence_container_of<T> Container>
-	SPSCQueue<T, Container>::SPSCQueue(Container&& cont)
+	SPSCQueue<T, Container>::SPSCQueue(Container&& container)
 	{
 	}
 
@@ -181,13 +199,13 @@ namespace synodic::lockfree
 
 	template<typename T, sequence_container_of<T> Container>
 	template<class Alloc>
-	SPSCQueue<T, Container>::SPSCQueue(const Container& cont, const Alloc& alloc)
+	SPSCQueue<T, Container>::SPSCQueue(const Container& container, const Alloc& alloc)
 	{
 	}
 
 	template<typename T, sequence_container_of<T> Container>
 	template<class Alloc>
-	SPSCQueue<T, Container>::SPSCQueue(Container&& cont, const Alloc& alloc)
+	SPSCQueue<T, Container>::SPSCQueue(Container&& container, const Alloc& alloc)
 	{
 	}
 
@@ -209,12 +227,12 @@ namespace synodic::lockfree
 	{
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(const SPSCQueue& other)
 	{
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(SPSCQueue&& other)
 	{
 	}
@@ -225,7 +243,7 @@ namespace synodic::lockfree
 		return writeIndex_.load(std::memory_order_acquire) == readIndex_.load(std::memory_order_acquire);
 	}
 
-	template <typename T, sequence_container_of<T> Container>
+	template<typename T, sequence_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::size_type SPSCQueue<T, Container>::max_size() const noexcept
 	{
 		return container_.max_size();
