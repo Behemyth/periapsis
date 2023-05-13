@@ -1,3 +1,5 @@
+// Verifies that the container concepts work for all standard containers
+
 #include <gtest/gtest.h>
 
 #include <array>
@@ -32,14 +34,15 @@ using UnorderedSet		= std::unordered_set<int>;
 using UnorderedMultiSet = std::unordered_multiset<int>;
 using Vector			= std::vector<int>;
 
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(container, TODO)
+TEST(container, clearable)
 {
-
+	static_assert(synodic::clearable_container<Deque>);
+	static_assert(synodic::clearable_container<ForwardList>);
+	static_assert(synodic::clearable_container<List>);
+	static_assert(synodic::clearable_container<String>);
+	static_assert(synodic::clearable_container<Vector>);
 }

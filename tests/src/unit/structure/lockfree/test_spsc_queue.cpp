@@ -15,5 +15,5 @@ using Queue = synodic::lockfree::SPSCQueue<int, std::array<int, 3>>;
 
 TEST(spsc_queue, type)
 {
-	//static_assert(synodic::sequence_container<Queue>);
+	static_assert(synodic::sequence_container<Queue>);
 }

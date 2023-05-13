@@ -1,3 +1,6 @@
+// TODO: Comply with MIT license of https://github.com/MiSo1289/more_concepts for the container concepts
+// Container concepts inspired by https://github.com/MiSo1289/more_concepts
+
 #pragma once
 
 #include <concepts>
@@ -35,7 +38,25 @@ namespace synodic
 		typename T::difference_type;
         typename T::size_type;
 
-		requires decayed<typename T::value_type>;
+		requires
+			decayed<typename T::value_type>;
+
+		requires
+			not std::equality_comparable<typename T::value_type> or
+			std::equality_comparable<T>;
+
+		requires
+			not std::movable<typename T::value_type> or
+            std::movable<T>;
+        requires
+			not std::copyable<typename T::value_type> or
+			 std::copyable<T>;
+        requires
+			not std::semiregular<typename T::value_type> or
+            std::semiregular<T>;
+        requires
+			not std::regular<typename T::value_type> or
+            std::regular<T>;
 
 		{ container.begin() } -> std::same_as<typename T::iterator>;
 		{ container.end() } -> std::same_as<typename T::iterator>;
@@ -49,13 +70,47 @@ namespace synodic
 
 	};
 
-	// Convenience function for identifying a Container of a specific type
+	// Convenience concept for identifying a container of a specific type
 	template <typename T, typename ValueType>
 	concept container_of = container<T> and std::same_as<ValueType, typename T::value_type>;
 
 	template <typename T>
+	concept mutable_container = container<T> and
+		std::same_as<std::iter_reference_t<typename T::iterator>, typename T::reference>;
+
+	// Convenience concept for identifying a mutable container of a specific type
+	template <typename T, typename ValueType>
+    concept mutable_container_of = container_of<T, ValueType> and mutable_container<T>;
+
+	template <typename T>
+	concept sized_container = container<T> and
+		requires(T const& constContainer)
+	{
+		{ constContainer.size() } -> std::same_as<typename T::size_type>;
+	};
+
+	// Convenience concept for identifying a sized container of a specific type
+	template <typename T, typename ValueType>
+    concept sized_container_of = container_of<T, ValueType> and sized_container<T>;
+
+	template <typename T>
+	concept clearable_container = container<T> and
+		requires(T& container)
+	{
+		container.clear();
+	};
+
+	// Convenience concept for identifying a clearable container of a specific type
+	template <typename T, typename ValueType>
+    concept clearable_container_of = container_of<T, ValueType> and clearable_container<T>;
+
+	template <typename T>
     concept reversible_container =
 		container<T>;
+
+	// Convenience concept for identifying a reversable container of a specific type
+	template <typename T, typename ValueType>
+    concept reversible_container_of = container_of<T, ValueType> and reversible_container<T>;
 
 	// A concept implementation of the named requirement 'SequenceContainer' with Standard naming styles
 	//		This definition is devoid of backwards compatibility requirements
@@ -78,6 +133,7 @@ namespace synodic
     template <typename T>
     concept double_ended_container =
 		sequence_container<T> and
+		sized_container<T> and
 		reversible_container<T> and
 		requires(T& container, T const& constContainer)
 	{
