@@ -38,37 +38,37 @@ namespace synodic::lockfree
 
 		// Construction
 
-		SPSCQueue();
-		explicit SPSCQueue(const Container& container);
-		explicit SPSCQueue(Container&& container);
-		SPSCQueue(const SPSCQueue& other);
-		SPSCQueue(SPSCQueue&& other);
+		constexpr SPSCQueue();
+		constexpr explicit SPSCQueue(const Container& container);
+		constexpr explicit SPSCQueue(Container&& container);
+		constexpr SPSCQueue(const SPSCQueue& other);
+		constexpr SPSCQueue(SPSCQueue&& other);
 
 		template<class InputIt>
-		SPSCQueue(InputIt first, InputIt last);
+		constexpr SPSCQueue(InputIt first, InputIt last);
 
 		template<class Alloc>
-		explicit SPSCQueue(const Alloc& alloc);
+		constexpr explicit SPSCQueue(const Alloc& alloc);
 
 		template<class Alloc>
-		SPSCQueue(const Container& container, const Alloc& alloc);
+		constexpr SPSCQueue(const Container& container, const Alloc& alloc);
 
 		template<class Alloc>
-		SPSCQueue(Container&& container, const Alloc& alloc);
+		constexpr SPSCQueue(Container&& container, const Alloc& alloc);
 
 		template<class Alloc>
-		SPSCQueue(const SPSCQueue& other, const Alloc& alloc);
+		constexpr SPSCQueue(const SPSCQueue& other, const Alloc& alloc);
 
 		template<class Alloc>
-		SPSCQueue(SPSCQueue&& other, const Alloc& alloc);
+		constexpr SPSCQueue(SPSCQueue&& other, const Alloc& alloc);
 
 		template<class InputIt, class Alloc>
-		SPSCQueue(InputIt first, InputIt last, const Alloc& alloc);
+		constexpr SPSCQueue(InputIt first, InputIt last, const Alloc& alloc);
 
 		// Assignment
 
-		SPSCQueue& operator=(const SPSCQueue& other);
-		SPSCQueue& operator=(SPSCQueue&& other);
+		constexpr SPSCQueue& operator=(const SPSCQueue& other);
+		constexpr SPSCQueue& operator=(SPSCQueue&& other);
 
 		// Accessors
 
@@ -162,10 +162,10 @@ namespace synodic::lockfree
 
 		constexpr void pop_back();
 
-		template< class... Args >
-		constexpr reference emplace_back( Args&&... args );
+		template<class... Args>
+		constexpr reference emplace_back(Args&&... args);
 
-		auto operator<=>(const SPSCQueue&) const = default;
+		constexpr auto operator<=>(const SPSCQueue&) const = default;
 
 	private:
 		// Thank you standard writers for including this system information
@@ -279,93 +279,93 @@ namespace synodic::lockfree
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	SPSCQueue<T, Container>::SPSCQueue() :
+	constexpr SPSCQueue<T, Container>::SPSCQueue() :
 		SPSCQueue(Container())
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	SPSCQueue<T, Container>::SPSCQueue(const Container& container)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(const Container& container)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	SPSCQueue<T, Container>::SPSCQueue(Container&& container)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(Container&& container)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	SPSCQueue<T, Container>::SPSCQueue(const SPSCQueue& other)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(const SPSCQueue& other)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	SPSCQueue<T, Container>::SPSCQueue(SPSCQueue&& other)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(SPSCQueue&& other)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class InputIt>
-	SPSCQueue<T, Container>::SPSCQueue(InputIt first, InputIt last)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(InputIt first, InputIt last)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
-	SPSCQueue<T, Container>::SPSCQueue(const Alloc& alloc)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(const Alloc& alloc)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
-	SPSCQueue<T, Container>::SPSCQueue(const Container& container, const Alloc& alloc)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(const Container& container, const Alloc& alloc)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
-	SPSCQueue<T, Container>::SPSCQueue(Container&& container, const Alloc& alloc)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(Container&& container, const Alloc& alloc)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
-	SPSCQueue<T, Container>::SPSCQueue(const SPSCQueue& other, const Alloc& alloc)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(const SPSCQueue& other, const Alloc& alloc)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
-	SPSCQueue<T, Container>::SPSCQueue(SPSCQueue&& other, const Alloc& alloc)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(SPSCQueue&& other, const Alloc& alloc)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class InputIt, class Alloc>
-	SPSCQueue<T, Container>::SPSCQueue(InputIt first, InputIt last, const Alloc& alloc)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(InputIt first, InputIt last, const Alloc& alloc)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(const SPSCQueue& other)
+	constexpr SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(const SPSCQueue& other)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(SPSCQueue&& other)
+	constexpr SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(SPSCQueue&& other)
 	{
 		throw NotImplemented();
 	}
@@ -400,14 +400,14 @@ namespace synodic::lockfree
 		throw NotImplemented();
 	}
 
-	template <typename T, spsc_queue_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr void SPSCQueue<T, Container>::pop_back()
 	{
 		throw NotImplemented();
 	}
 
-	template <typename T, spsc_queue_container_of<T> Container>
-	template <class ... Args>
+	template<typename T, spsc_queue_container_of<T> Container>
+	template<class... Args>
 	constexpr typename SPSCQueue<T, Container>::reference SPSCQueue<T, Container>::emplace_back(Args&&... args)
 	{
 		throw NotImplemented();
