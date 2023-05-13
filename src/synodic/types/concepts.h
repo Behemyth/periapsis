@@ -326,21 +326,21 @@ namespace synodic
     template <typename T>
     concept inplace_constructing_sequence_container
     = resizable_sequence_container<T> and
-      requires(T& cont, typename T::const_iterator const& pos)
+      requires(T& container, typename T::const_iterator const& pos)
       {
           // Emplacement (default constructor)
           requires not std::default_initializable<typename T::value_type> or
-                   requires {{ cont.emplace(pos) } -> std::same_as<typename T::iterator>; };
+                   requires {{ container.emplace(pos) } -> std::same_as<typename T::iterator>; };
 
           // Emplacement (copy constructor)
           requires not std::copyable<typename T::value_type> or
                    requires(typename T::value_type const& value)
-                   {{ cont.emplace(pos, value) } -> std::same_as<typename T::iterator>; };
+                   {{ container.emplace(pos, value) } -> std::same_as<typename T::iterator>; };
 
           // Emplacement (move constructor)
           requires not std::movable<typename T::value_type> or
                    requires(typename T::value_type&& value)
-                   {{ cont.emplace(pos, std::move(value)) } -> std::same_as<typename T::iterator>; };
+                   {{ container.emplace(pos, std::move(value)) } -> std::same_as<typename T::iterator>; };
       };
 
     /// A sequence container that allows efficient insertion and erasure at the front.
@@ -349,18 +349,18 @@ namespace synodic
     concept front_growable_container
     = sequence_container<T> and
       std::default_initializable<T> and
-      requires(T& cont, typename T::value_type const& value, typename T::value_type&& tmp_value)
+      requires(T& container, typename T::value_type const& value, typename T::value_type&& tmp_value)
       {
           // Front copy insertion
           requires not std::copyable<typename T::value_type> or
-                   requires { cont.push_front(value); };
+                   requires { container.push_front(value); };
 
           // Front move insertion
           requires not std::movable<typename T::value_type> or
-                   requires { cont.push_front(std::move(tmp_value)); };
+                   requires { container.push_front(std::move(tmp_value)); };
 
           // Front erasure
-          cont.pop_front();
+          container.pop_front();
       };
 
     /// A front-growable container that also allows inplace front construction.
@@ -371,19 +371,19 @@ namespace synodic
     template <typename T>
     concept inplace_front_constructing_container
     = front_growable_container<T> and
-      requires(T& cont, typename T::value_type const& value, typename T::value_type&& tmp_value)
+      requires(T& container, typename T::value_type const& value, typename T::value_type&& tmp_value)
       {
           // Front emplacement (default constructor)
           requires not std::default_initializable<typename T::value_type> or
-                   requires {{ cont.emplace_front() } -> std::same_as<typename T::reference>; };
+                   requires {{ container.emplace_front() } -> std::same_as<typename T::reference>; };
 
           // Front emplacement (copy constructor)
           requires not std::copyable<typename T::value_type> or
-                   requires {{ cont.emplace_front(value) } -> std::same_as<typename T::reference>; };
+                   requires {{ container.emplace_front(value) } -> std::same_as<typename T::reference>; };
 
           // Front emplacement (move constructor)
           requires not std::movable<typename T::value_type> or
-                   requires {{ cont.emplace_front(std::move(tmp_value)) } -> std::same_as<typename T::reference>; };
+                   requires {{ container.emplace_front(std::move(tmp_value)) } -> std::same_as<typename T::reference>; };
       };
 
     /// A double-ended container that allows efficient insertion and erasure at the back.
@@ -392,18 +392,18 @@ namespace synodic
     concept back_growable_container
     = double_ended_container<T> and
       std::default_initializable<T> and
-      requires(T& cont, typename T::value_type const& value, typename T::value_type&& tmp_value)
+      requires(T& container, typename T::value_type const& value, typename T::value_type&& tmp_value)
       {
           // Back copy insertion
           requires not std::copyable<typename T::value_type> or
-                   requires { cont.push_back(value); };
+                   requires { container.push_back(value); };
 
           // Back move insertion
           requires not std::movable<typename T::value_type> or
-                   requires { cont.push_back(std::move(tmp_value)); };
+                   requires { container.push_back(std::move(tmp_value)); };
 
           // Back erasure
-          cont.pop_back();
+          container.pop_back();
       };
 
     /// A back-growable container that also allows inplace back construction.
@@ -414,19 +414,19 @@ namespace synodic
     template <typename T>
     concept inplace_back_constructing_container
     = back_growable_container<T> and
-      requires(T& cont, typename T::value_type const& value, typename T::value_type&& tmp_value)
+      requires(T& container, typename T::value_type const& value, typename T::value_type&& tmp_value)
       {
           // Back emplacement (default constructor)
           requires not std::default_initializable<typename T::value_type> or
-                   requires {{ cont.emplace_back() } -> std::same_as<typename T::reference>; };
+                   requires {{ container.emplace_back() } -> std::same_as<typename T::reference>; };
 
           // Back emplacement (copy constructor)
           requires not std::copyable<typename T::value_type> or
-                   requires {{ cont.emplace_back(value) } -> std::same_as<typename T::reference>; };
+                   requires {{ container.emplace_back(value) } -> std::same_as<typename T::reference>; };
 
           // Back emplacement (move constructor)
           requires not std::movable<typename T::value_type> or
-                   requires {{ cont.emplace_back(std::move(tmp_value)) } -> std::same_as<typename T::reference>; };
+                   requires {{ container.emplace_back(std::move(tmp_value)) } -> std::same_as<typename T::reference>; };
       };
 
     template <typename T, typename ValueType>
@@ -469,7 +469,7 @@ namespace synodic
       sized_container<C> and
       clearable_container<C> and
       std::default_initializable<C> and
-      requires(C& cont, C const& const_cont)
+      requires(C& container, C const& const_cont)
       {
           typename C::key_type;
 
@@ -479,10 +479,10 @@ namespace synodic
           {
               { const_cont.count(key) } -> std::same_as<typename C::size_type>;
               { const_cont.contains(key) } -> std::same_as<bool>;
-              { cont.find(key) } -> std::same_as<typename C::iterator>;
+              { container.find(key) } -> std::same_as<typename C::iterator>;
               { const_cont.find(key) } -> std::same_as<typename C::const_iterator>;
               {
-              cont.equal_range(key)
+              container.equal_range(key)
               } -> std::same_as<std::pair<typename C::iterator, typename C::iterator>>;
               {
               const_cont.equal_range(key)
@@ -492,7 +492,7 @@ namespace synodic
           // Emplacement (default constructor)
           requires not std::default_initializable<typename C::value_type> or
                    requires(typename C::const_iterator const& hint)
-                   {{ cont.emplace_hint(hint) } -> std::same_as<typename C::iterator>; };
+                   {{ container.emplace_hint(hint) } -> std::same_as<typename C::iterator>; };
 
           // Copy-enabled operations
           requires not std::copyable<typename C::value_type> or
@@ -506,17 +506,17 @@ namespace synodic
                        // Range construction and assignment
                        C(first, last);
                        C(init_list);
-                       cont = init_list;
+                       container = init_list;
 
                        // Copy insertion
-                       { cont.insert(hint, value) } -> std::same_as<typename C::iterator>;
+                       { container.insert(hint, value) } -> std::same_as<typename C::iterator>;
 
                        // Range insertion
-                       cont.insert(first, last);
-                       cont.insert(init_list);
+                       container.insert(first, last);
+                       container.insert(init_list);
 
                        // Emplacement (copy constructor)
-                       { cont.emplace_hint(hint, value) } -> std::same_as<typename C::iterator>;
+                       { container.emplace_hint(hint, value) } -> std::same_as<typename C::iterator>;
                    };
 
           // Move-enabled operations
@@ -526,10 +526,10 @@ namespace synodic
                        typename C::const_iterator const& hint)
                    {
                        // Move insertion
-                       { cont.insert(hint, std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
+                       { container.insert(hint, std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
 
                        // Emplacement (move constructor)
-                       { cont.emplace_hint(hint, std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
+                       { container.emplace_hint(hint, std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
                    };
 
           // Erasure
@@ -540,9 +540,9 @@ namespace synodic
               typename C::const_iterator const& last,
               typename C::key_type const& key)
           {
-              { cont.erase(pos) } -> std::same_as<typename C::iterator>;
-              { cont.erase(first, last) } -> std::same_as<typename C::iterator>;
-              { cont.erase(key) } -> std::same_as<typename C::size_type>;
+              { container.erase(pos) } -> std::same_as<typename C::iterator>;
+              { container.erase(first, last) } -> std::same_as<typename C::iterator>;
+              { container.erase(key) } -> std::same_as<typename C::size_type>;
           };
       };
 
@@ -554,22 +554,22 @@ namespace synodic
     template <typename C>
     concept unique_associative_container
     = associative_container<C> and
-      requires(C& cont, C const& const_cont)
+      requires(C& container, C const& const_cont)
       {
           // Emplacement (default constructor)
           requires not std::default_initializable<typename C::value_type> or
                    requires(typename C::const_iterator const& hint)
-                   {{ cont.emplace() } -> std::same_as<std::pair<typename C::iterator, bool>>; };
+                   {{ container.emplace() } -> std::same_as<std::pair<typename C::iterator, bool>>; };
 
           // Copy-enabled operations
           requires not std::copyable<typename C::value_type> or
                    requires(typename C::value_type const& value)
                    {
                        // Copy insertion
-                       { cont.insert(value) } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                       { container.insert(value) } -> std::same_as<std::pair<typename C::iterator, bool>>;
 
                        // Emplacement (copy constructor)
-                       { cont.emplace(value) } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                       { container.emplace(value) } -> std::same_as<std::pair<typename C::iterator, bool>>;
                    };
 
           // Move-enabled operations
@@ -577,10 +577,10 @@ namespace synodic
                    requires(typename C::value_type&& tmp_value)
                    {
                        // Move insertion
-                       { cont.insert(std::move(tmp_value)) } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                       { container.insert(std::move(tmp_value)) } -> std::same_as<std::pair<typename C::iterator, bool>>;
 
                        // Emplacement (move constructor)
-                       { cont.emplace(std::move(tmp_value)) } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                       { container.emplace(std::move(tmp_value)) } -> std::same_as<std::pair<typename C::iterator, bool>>;
                    };
       };
 
@@ -592,22 +592,22 @@ namespace synodic
     template <typename C>
     concept multiple_associative_container
     = associative_container<C> and
-      requires(C& cont, C const& const_cont)
+      requires(C& container, C const& const_cont)
       {
           // Emplacement (default constructor)
           requires not std::default_initializable<typename C::value_type> or
                    requires(typename C::const_iterator const& hint)
-                   {{ cont.emplace() } -> std::same_as<typename C::iterator>; };
+                   {{ container.emplace() } -> std::same_as<typename C::iterator>; };
 
           // Copy-enabled operations
           requires not std::copyable<typename C::value_type> or
                    requires(typename C::value_type const& value)
                    {
                        // Copy insertion
-                       { cont.insert(value) } -> std::same_as<typename C::iterator>;
+                       { container.insert(value) } -> std::same_as<typename C::iterator>;
 
                        // Emplacement (copy constructor)
-                       { cont.emplace(value) } -> std::same_as<typename C::iterator>;
+                       { container.emplace(value) } -> std::same_as<typename C::iterator>;
                    };
 
           // Move-enabled operations
@@ -615,10 +615,10 @@ namespace synodic
                    requires(typename C::value_type&& tmp_value)
                    {
                        // Move insertion
-                       { cont.insert(std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
+                       { container.insert(std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
 
                        // Emplacement (move constructor)
-                       { cont.emplace(std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
+                       { container.emplace(std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
                    };
       };
 
@@ -629,7 +629,7 @@ namespace synodic
     template <typename C>
     concept ordered_associative_container
     = associative_container<C> and
-      requires(C& cont, C const& const_cont)
+      requires(C& container, C const& const_cont)
       {
           // Comparators
           typename C::key_compare;
@@ -668,9 +668,9 @@ namespace synodic
           requires
           requires(typename C::key_type const& key)
           {
-              { cont.lower_bound(key) } -> std::same_as<typename C::iterator>;
+              { container.lower_bound(key) } -> std::same_as<typename C::iterator>;
               { const_cont.lower_bound(key) } -> std::same_as<typename C::const_iterator>;
-              { cont.upper_bound(key) } -> std::same_as<typename C::iterator>;
+              { container.upper_bound(key) } -> std::same_as<typename C::iterator>;
               { const_cont.upper_bound(key) } -> std::same_as<typename C::const_iterator>;
           };
       };
@@ -694,7 +694,7 @@ namespace synodic
     template <typename C>
     concept unordered_associative_container
     = associative_container<C> and
-      requires(C& cont, C const& const_cont)
+      requires(C& container, C const& const_cont)
       {
           // Key hash function
           typename C::hasher;
@@ -714,9 +714,9 @@ namespace synodic
           requires(float const& ml, std::size_t n) {
               { const_cont.load_factor() } -> std::same_as<float>;
               { const_cont.max_load_factor() } -> std::same_as<float>;
-              cont.max_load_factor(ml);
-              cont.rehash(n);
-              cont.reserve(n);
+              container.max_load_factor(ml);
+              container.rehash(n);
+              container.reserve(n);
           };
 
           // Minimal bucket interface
@@ -768,7 +768,7 @@ namespace synodic
     template <typename C>
     concept map_container
     = associative_container<C> and
-      requires(C& cont, C const& const_cont)
+      requires(C& container, C const& const_cont)
       {
           typename C::mapped_type;
 
@@ -783,10 +783,10 @@ namespace synodic
                                     requires
                                     {
                                         {
-                                        cont.emplace_hint(hint, key)
+                                        container.emplace_hint(hint, key)
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace_hint(
+                                        container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
@@ -799,10 +799,10 @@ namespace synodic
                                     requires(typename C::mapped_type const& obj)
                                     {
                                         {
-                                        cont.emplace_hint(hint, key, obj)
+                                        container.emplace_hint(hint, key, obj)
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace_hint(
+                                        container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
@@ -815,10 +815,10 @@ namespace synodic
                                     requires(typename C::mapped_type&& obj)
                                     {
                                         {
-                                        cont.emplace_hint(hint, key, std::move(obj))
+                                        container.emplace_hint(hint, key, std::move(obj))
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace_hint(
+                                        container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
@@ -835,10 +835,10 @@ namespace synodic
                                     requires
                                     {
                                         {
-                                        cont.emplace_hint(hint, std::move(key))
+                                        container.emplace_hint(hint, std::move(key))
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace_hint(
+                                        container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
@@ -851,10 +851,10 @@ namespace synodic
                                     requires(typename C::mapped_type const& obj)
                                     {
                                         {
-                                        cont.emplace_hint(hint, std::move(key), obj)
+                                        container.emplace_hint(hint, std::move(key), obj)
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace_hint(
+                                        container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
@@ -867,10 +867,10 @@ namespace synodic
                                     requires(typename C::mapped_type&& obj)
                                     {
                                         {
-                                        cont.emplace_hint(hint, std::move(key), std::move(obj))
+                                        container.emplace_hint(hint, std::move(key), std::move(obj))
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace_hint(
+                                        container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
@@ -898,7 +898,7 @@ namespace synodic
     template <typename C>
     concept unique_map_container
     = map_container<C> and
-      requires(C& cont, C const& const_cont)
+      requires(C& container, C const& const_cont)
       {
           // Element access
           requires
@@ -910,16 +910,16 @@ namespace synodic
                        {
                            // Key copy
                            requires not std::copyable<typename C::key_type> or
-                                    requires {{ cont[key] } -> std::same_as<typename C::mapped_type&>; };
+                                    requires {{ container[key] } -> std::same_as<typename C::mapped_type&>; };
 
                            // Key move
                            requires not std::movable<typename C::key_type> or
                                     requires
-                                    {{ cont[std::move(tmp_key)] } -> std::same_as<typename C::mapped_type&>; };
+                                    {{ container[std::move(tmp_key)] } -> std::same_as<typename C::mapped_type&>; };
                        };
 
               // Checked access
-              { cont.at(key) } -> std::same_as<typename C::mapped_type&>;
+              { container.at(key) } -> std::same_as<typename C::mapped_type&>;
               { const_cont.at(key) } -> std::same_as<typename C::mapped_type const&>;
           };
 
@@ -935,19 +935,19 @@ namespace synodic
                                     requires
                                     {
                                         {
-                                        cont.emplace(key)
+                                        container.emplace(key)
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple())
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(key)
+                                        container.try_emplace(key)
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(hint, key)
+                                        container.try_emplace(hint, key)
                                         } -> std::same_as<typename C::iterator>;
                                     };
 
@@ -957,27 +957,27 @@ namespace synodic
                                     {
                                         // Insertion
                                         {
-                                        cont.insert_or_assign(key, obj)
+                                        container.insert_or_assign(key, obj)
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.insert_or_assign(hint, key, obj)
+                                        container.insert_or_assign(hint, key, obj)
                                         } -> std::same_as<typename C::iterator>;
 
                                         // Emplacement (key copy, mapped object copy constructor)
                                         {
-                                        cont.emplace(key, obj)
+                                        container.emplace(key, obj)
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(obj))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(key, obj)
+                                        container.try_emplace(key, obj)
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(hint, key, obj)
+                                        container.try_emplace(hint, key, obj)
                                         } -> std::same_as<typename C::iterator>;
                                     };
 
@@ -987,27 +987,27 @@ namespace synodic
                                     {
                                         // Insertion
                                         {
-                                        cont.insert_or_assign(key, std::move(obj))
+                                        container.insert_or_assign(key, std::move(obj))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.insert_or_assign(hint, key, std::move(obj))
+                                        container.insert_or_assign(hint, key, std::move(obj))
                                         } -> std::same_as<typename C::iterator>;
 
                                         // Emplacement (key copy, mapped object move constructor)
                                         {
-                                        cont.emplace(key, std::move(obj))
+                                        container.emplace(key, std::move(obj))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(std::move(obj)))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(key, std::move(obj))
+                                        container.try_emplace(key, std::move(obj))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(hint, key, std::move(obj))
+                                        container.try_emplace(hint, key, std::move(obj))
                                         } -> std::same_as<typename C::iterator>;
                                     };
                        };
@@ -1021,19 +1021,19 @@ namespace synodic
                                     requires
                                     {
                                         {
-                                        cont.emplace(std::move(key))
+                                        container.emplace(std::move(key))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple())
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(std::move(key))
+                                        container.try_emplace(std::move(key))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(hint, std::move(key))
+                                        container.try_emplace(hint, std::move(key))
                                         } -> std::same_as<typename C::iterator>;
                                     };
 
@@ -1043,27 +1043,27 @@ namespace synodic
                                     {
                                         // Insertion
                                         {
-                                        cont.insert_or_assign(std::move(key), obj)
+                                        container.insert_or_assign(std::move(key), obj)
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.insert_or_assign(hint, std::move(key), obj)
+                                        container.insert_or_assign(hint, std::move(key), obj)
                                         } -> std::same_as<typename C::iterator>;
 
                                         // Emplacement (key move, mapped object copy constructor)
                                         {
-                                        cont.emplace(std::move(key), obj)
+                                        container.emplace(std::move(key), obj)
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(obj))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(std::move(key), obj)
+                                        container.try_emplace(std::move(key), obj)
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(hint, std::move(key), obj)
+                                        container.try_emplace(hint, std::move(key), obj)
                                         } -> std::same_as<typename C::iterator>;
                                     };
 
@@ -1073,27 +1073,27 @@ namespace synodic
                                     {
                                         // Insertion
                                         {
-                                        cont.insert_or_assign(std::move(key), std::move(obj))
+                                        container.insert_or_assign(std::move(key), std::move(obj))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.insert_or_assign(hint, std::move(key), std::move(obj))
+                                        container.insert_or_assign(hint, std::move(key), std::move(obj))
                                         } -> std::same_as<typename C::iterator>;
 
                                         // Emplacement (key move, mapped object move constructor)
                                         {
-                                        cont.emplace(std::move(key), std::move(obj))
+                                        container.emplace(std::move(key), std::move(obj))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(std::move(obj)))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(std::move(key), std::move(obj))
+                                        container.try_emplace(std::move(key), std::move(obj))
                                         } -> std::same_as<std::pair<typename C::iterator, bool>>;
                                         {
-                                        cont.try_emplace(hint, std::move(key), std::move(obj))
+                                        container.try_emplace(hint, std::move(key), std::move(obj))
                                         } -> std::same_as<typename C::iterator>;
                                     };
                        };
@@ -1105,7 +1105,7 @@ namespace synodic
     template <typename C>
     concept multiple_map_container
     = map_container<C> and
-      requires(C& cont, C const& const_cont)
+      requires(C& container, C const& const_cont)
       {
           requires
           requires(typename C::const_iterator const& hint)
@@ -1118,10 +1118,10 @@ namespace synodic
                                     requires
                                     {
                                         {
-                                        cont.emplace(key)
+                                        container.emplace(key)
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple())
@@ -1133,10 +1133,10 @@ namespace synodic
                                     requires(typename C::mapped_type const& obj)
                                     {
                                         {
-                                        cont.emplace(key, obj)
+                                        container.emplace(key, obj)
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(obj))
@@ -1148,10 +1148,10 @@ namespace synodic
                                     requires(typename C::mapped_type&& obj)
                                     {
                                         {
-                                        cont.emplace(key, std::move(obj))
+                                        container.emplace(key, std::move(obj))
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(std::move(obj)))
@@ -1167,10 +1167,10 @@ namespace synodic
                                     requires
                                     {
                                         {
-                                        cont.emplace(std::move(key))
+                                        container.emplace(std::move(key))
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple())
@@ -1182,10 +1182,10 @@ namespace synodic
                                     requires(typename C::mapped_type const& obj)
                                     {
                                         {
-                                        cont.emplace(std::move(key), obj)
+                                        container.emplace(std::move(key), obj)
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(obj))
@@ -1197,10 +1197,10 @@ namespace synodic
                                     requires(typename C::mapped_type&& obj)
                                     {
                                         {
-                                        cont.emplace(std::move(key), std::move(obj))
+                                        container.emplace(std::move(key), std::move(obj))
                                         } -> std::same_as<typename C::iterator>;
                                         {
-                                        cont.emplace(
+                                        container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(std::move(obj)))

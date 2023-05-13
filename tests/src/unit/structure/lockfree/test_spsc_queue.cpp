@@ -46,12 +46,12 @@ TEST(spsc_queue, adapter_type)
 {
 	static_assert(synodic::lockfree::spsc_queue_container<Array>);
 	static_assert(synodic::lockfree::spsc_queue_container<Deque>);
-	static_assert(synodic::lockfree::spsc_queue_container<ForwardList>);
 	static_assert(synodic::lockfree::spsc_queue_container<List>);
 	static_assert(synodic::lockfree::spsc_queue_container<String>);
 	static_assert(synodic::lockfree::spsc_queue_container<Vector>);
 
-	static_assert(not synodic::lockfree::spsc_queue_container< Map>);
+	static_assert(not synodic::lockfree::spsc_queue_container<ForwardList>);
+	static_assert(not synodic::lockfree::spsc_queue_container<Map>);
 	static_assert(not synodic::lockfree::spsc_queue_container<MultiMap>);
 	static_assert(not synodic::lockfree::spsc_queue_container<Set>);
 	static_assert(not synodic::lockfree::spsc_queue_container<MultiSet>);
@@ -62,7 +62,7 @@ TEST(spsc_queue, adapter_type)
 }
 
 /**
- * \brief Verifies the best constraint possible for the SPSCQueue using expected, supported standard containers
+ * \brief Verifies the strongest constraint possible for the SPSCQueue using expected, supported standard containers
  */
 TEST(spsc_queue, standard_sequence_container)
 {

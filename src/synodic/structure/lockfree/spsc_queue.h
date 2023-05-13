@@ -10,7 +10,7 @@ namespace synodic::lockfree
 
 	// Defines a subset of the named requirement SequenceContainer that SPSCQueue supports
 	template<typename T>
-	concept spsc_queue_container = sequence_container<T> && inplace_back_constructing_container<T>;
+	concept spsc_queue_container = sequence_container<T> and double_ended_container<T>;
 
 	// Convenience concept for identifying containers for SPSCQueue
 	template<typename T, typename ValueType>
