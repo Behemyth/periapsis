@@ -42,13 +42,13 @@ namespace synodic::lockfree
 		constexpr explicit SPSCQueue(const Container& container);
 		constexpr explicit SPSCQueue(Container&& container);
 		constexpr SPSCQueue(const SPSCQueue& other);
-		constexpr SPSCQueue(SPSCQueue&& other);
+		constexpr SPSCQueue(SPSCQueue&& other) noexcept;
 
 		template<class InputIt>
 		constexpr SPSCQueue(InputIt first, InputIt last);
 
 		template<class Alloc>
-		constexpr explicit SPSCQueue(const Alloc& alloc);
+		constexpr explicit SPSCQueue(const Alloc& alloc) noexcept;
 
 		template<class Alloc>
 		constexpr SPSCQueue(const Container& container, const Alloc& alloc);
@@ -68,7 +68,7 @@ namespace synodic::lockfree
 		// Assignment
 
 		constexpr SPSCQueue& operator=(const SPSCQueue& other);
-		constexpr SPSCQueue& operator=(SPSCQueue&& other);
+		constexpr SPSCQueue& operator=(SPSCQueue&& other) noexcept;
 
 		// Accessors
 
@@ -232,7 +232,7 @@ namespace synodic::lockfree
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(SPSCQueue&& other)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(SPSCQueue&& other) noexcept
 	{
 		throw NotImplemented();
 	}
@@ -246,7 +246,7 @@ namespace synodic::lockfree
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(const Alloc& alloc)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(const Alloc& alloc) noexcept
 	{
 		throw NotImplemented();
 	}
@@ -293,7 +293,7 @@ namespace synodic::lockfree
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(SPSCQueue&& other)
+	constexpr SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(SPSCQueue&& other) noexcept
 	{
 		throw NotImplemented();
 	}
