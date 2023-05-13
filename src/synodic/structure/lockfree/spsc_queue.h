@@ -6,12 +6,21 @@
 
 namespace synodic::lockfree
 {
+
+	// Defines a subset of the named requirement SequenceContainer that SPSCQueue supports
+	template<typename T>
+	concept spsc_queue_container = sequence_container<T> && inplace_back_constructing_container<T>;
+
+	// Convenience concept for identifying containers for SPSCQueue
+	template<typename T, typename ValueType>
+	concept spsc_queue_container_of = container_of<T, ValueType> && spsc_queue_container<T>;
+
 	/**
-	 * \brief An adapter for containers that enforce single producer, single consumer semantics on atomic data
+	 * \brief An adapter for containers that enforce single producer, single consumer atomic access
 	 * \tparam T The type to store
-	 * \tparam Container The container
+	 * \tparam Container The container for storage backing
 	 */
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	class SPSCQueue
 	{
 	public:
@@ -119,131 +128,131 @@ namespace synodic::lockfree
 		std::array<std::byte, cacheLineSize - sizeof cachedWriteIndex_> padding_;
 	};
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::reference SPSCQueue<T, Container>::front()
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_reference SPSCQueue<T, Container>::front() const
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::iterator SPSCQueue<T, Container>::begin() noexcept
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_iterator SPSCQueue<T, Container>::begin() const noexcept
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::iterator SPSCQueue<T, Container>::end() noexcept
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_iterator SPSCQueue<T, Container>::end() const noexcept
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_iterator SPSCQueue<T, Container>::cbegin() const noexcept
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_iterator SPSCQueue<T, Container>::cend() const noexcept
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	SPSCQueue<T, Container>::SPSCQueue() :
 		SPSCQueue(Container())
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	SPSCQueue<T, Container>::SPSCQueue(const Container& container)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	SPSCQueue<T, Container>::SPSCQueue(Container&& container)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	SPSCQueue<T, Container>::SPSCQueue(const SPSCQueue& other)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	SPSCQueue<T, Container>::SPSCQueue(SPSCQueue&& other)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	template<class InputIt>
 	SPSCQueue<T, Container>::SPSCQueue(InputIt first, InputIt last)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
 	SPSCQueue<T, Container>::SPSCQueue(const Alloc& alloc)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
 	SPSCQueue<T, Container>::SPSCQueue(const Container& container, const Alloc& alloc)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
 	SPSCQueue<T, Container>::SPSCQueue(Container&& container, const Alloc& alloc)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
 	SPSCQueue<T, Container>::SPSCQueue(const SPSCQueue& other, const Alloc& alloc)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	template<class Alloc>
 	SPSCQueue<T, Container>::SPSCQueue(SPSCQueue&& other, const Alloc& alloc)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	template<class InputIt, class Alloc>
 	SPSCQueue<T, Container>::SPSCQueue(InputIt first, InputIt last, const Alloc& alloc)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(const SPSCQueue& other)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	SPSCQueue<T, Container>& SPSCQueue<T, Container>::operator=(SPSCQueue&& other)
 	{
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr bool SPSCQueue<T, Container>::empty() const noexcept
 	{
 		return writeIndex_.load(std::memory_order_acquire) == readIndex_.load(std::memory_order_acquire);
 	}
 
-	template<typename T, sequence_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::size_type SPSCQueue<T, Container>::max_size() const noexcept
 	{
 		return container_.max_size();
