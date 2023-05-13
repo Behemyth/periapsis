@@ -2,6 +2,7 @@
 
 namespace synodic::lockfree
 {
+	template<typename T>
 	class SPSCQueue
 	{
 		
