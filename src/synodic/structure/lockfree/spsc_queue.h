@@ -8,11 +8,11 @@
 namespace synodic::lockfree
 {
 
-	// Defines a subset of the named requirement SequenceContainer that SPSCQueue supports
+	// Defines the set of containers that SPSCQueue supports
 	template<typename T>
-	concept spsc_queue_container = sequence_container<T> and double_ended_container<T>;
+	concept spsc_queue_container = sequence_container<T> and double_ended_container<T> && sized_container<T>;
 
-	// Convenience concept for identifying containers for SPSCQueue
+	// Convenience concept for identifying SPSCQueue backing containers
 	template<typename T, typename ValueType>
 	concept spsc_queue_container_of = container_of<T, ValueType> && spsc_queue_container<T>;
 
@@ -116,6 +116,7 @@ namespace synodic::lockfree
 		// Capacity
 
 		[[nodiscard]] constexpr bool empty() const noexcept;
+		constexpr size_type size() const noexcept;
 		constexpr size_type max_size() const noexcept;
 
 		// Modifiers
@@ -301,6 +302,12 @@ namespace synodic::lockfree
 	constexpr bool SPSCQueue<T, Container>::empty() const noexcept
 	{
 		return writeIndex_.load(std::memory_order_acquire) == readIndex_.load(std::memory_order_acquire);
+	}
+
+	template <typename T, spsc_queue_container_of<T> Container>
+	constexpr typename SPSCQueue<T, Container>::size_type SPSCQueue<T, Container>::size() const noexcept
+	{
+		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
