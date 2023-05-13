@@ -7,11 +7,11 @@ namespace synodic
 {
 	/**
 	 * \brief A container adapter that closely follows the interface of std::queue with a ring buffer backend. Queue fulfills the
-	 *	sequence_container constraints itself
+	 *	sequence_container constraint
 	 * \tparam T The type to store
 	 * \tparam Container A container fulfilling the sequence_container named requirement
 	 */
-	template<typename T, sequence_container Container>
+	template<typename T, sequence_container_of<T> Container>
 	class Queue
 	{
 	public:
@@ -38,32 +38,32 @@ namespace synodic
 		Container data_;
 	};
 
-	template<typename T, sequence_container Container>
+	template<typename T, sequence_container_of<T> Container>
 	Queue<T, Container>::Queue() :
 		Queue(Container())
 	{
 	}
 
-	template<typename T, sequence_container Container>
+	template<typename T, sequence_container_of<T> Container>
 	Queue<T, Container>::Queue(const Container& container)
 	{
 		throw NotImplemented();
 	}
 
-	template<typename T, sequence_container Container>
+	template<typename T, sequence_container_of<T> Container>
 	Queue<T, Container>::Queue(Container&& container)
 	{
 		throw NotImplemented();
 	}
 
-	template <typename T, sequence_container Container>
+	template <typename T, sequence_container_of<T> Container>
 	template <class Self>
 	auto&& Queue<T, Container>::front(this Self&& self)
 	{
 		return self.data_.front();
 	}
 
-	template<typename T, sequence_container Container>
+	template<typename T, sequence_container_of<T> Container>
 	bool Queue<T, Container>::empty() const
 	{
 		throw NotImplemented();

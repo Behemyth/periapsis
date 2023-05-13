@@ -30,12 +30,28 @@ namespace synodic
 		typename T::value_type;
 		typename T::reference;
         typename T::const_reference;
+		typename T::iterator;
+        typename T::const_iterator;
+		typename T::difference_type;
+        typename T::size_type;
 
 		requires decayed<typename T::value_type>;
 
-		{constContainer.empty()} -> std::convertible_to<bool>;
+		{ container.begin() } -> std::same_as<typename T::iterator>;
+		{ container.end() } -> std::same_as<typename T::iterator>;
+		{ constContainer.begin() } -> std::same_as<typename T::const_iterator>;
+		{ constContainer.end() } -> std::same_as<typename T::const_iterator>;
+		{ container.cbegin() } -> std::same_as<typename T::const_iterator>;
+		{ container.cend() } -> std::same_as<typename T::const_iterator>;
+
+		{ constContainer.max_size() } -> std::same_as<typename T::size_type>;
+		{ constContainer.empty() } -> std::convertible_to<bool>;
 
 	};
+
+	// Convenience function for identifying a Container of a specific type
+	template <typename T, typename ValueType>
+	concept container_of = container<T> and std::same_as<ValueType, typename T::value_type>;
 
 	template <typename T>
     concept reversible_container =
@@ -49,9 +65,14 @@ namespace synodic
 		container<T> and
 		requires(T& container, T const& constContainer)
 	{
-		{container.front()} -> std::same_as<typename T::reference>;
-		{constContainer.front()} -> std::same_as<typename T::const_reference>;
+		{ container.front() } -> std::same_as<typename T::reference>;
+		{ constContainer.front() } -> std::same_as<typename T::const_reference>;
 	};
+
+
+	// Convenience function for identifying a SequenceContainer of a specific type
+	template <typename T, typename ValueType>
+	concept sequence_container_of = container_of<T, ValueType> and sequence_container<T>;
 
 
     template <typename T>
