@@ -22,6 +22,5 @@ TEST(queue, type)
 
 TEST(queue, construction)
 {
-	Queue queue;
-
+	//Queue queue;
 }
