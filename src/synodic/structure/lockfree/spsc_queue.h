@@ -113,57 +113,20 @@ namespace synodic::lockfree
 		 */
 		constexpr const_iterator cend() const noexcept;
 
-		/**
-		 * \brief Not thread-safe
-		 * \return Constant iterator
-		 */
-		constexpr reverse_iterator rbegin() noexcept;
-
-		/**
-		 * \brief Not thread-safe
-		 * \return Constant iterator
-		 */
-		constexpr const_reverse_iterator rbegin() const noexcept;
-
-		/**
-		 * \brief Not thread-safe
-		 * \return Constant iterator
-		 */
-		constexpr const_reverse_iterator crbegin() const noexcept;
-
-		/**
-		 * \brief Not thread-safe
-		 * \return Constant iterator
-		 */
-		constexpr reverse_iterator rend() noexcept;
-
-		/**
-		 * \brief Not thread-safe
-		 * \return Constant iterator
-		 */
-		constexpr const_reverse_iterator rend() const noexcept;
-
-		/**
-		 * \brief Not thread-safe
-		 * \return Constant iterator
-		 */
-		constexpr const_reverse_iterator crend() const noexcept;
-
 		// Capacity
 
 		[[nodiscard]] constexpr bool empty() const noexcept;
-		constexpr size_type size() const noexcept;
 		constexpr size_type max_size() const noexcept;
 
 		// Modifiers
 
-		constexpr void push_back(const T& value);
-		constexpr void push_back(T&& value);
+		constexpr void push(const T& value);
+		constexpr void push(T&& value);
 
-		constexpr void pop_back();
+		constexpr void pop();
 
 		template<class... Args>
-		constexpr reference emplace_back(Args&&... args);
+		constexpr decltype(auto) emplace_back(Args&&... args);
 
 		constexpr auto operator<=>(const SPSCQueue&) const = default;
 
@@ -238,42 +201,6 @@ namespace synodic::lockfree
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::const_iterator SPSCQueue<T, Container>::cend() const noexcept
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::reverse_iterator SPSCQueue<T, Container>::rbegin() noexcept
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::const_reverse_iterator SPSCQueue<T, Container>::rbegin() const noexcept
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::const_reverse_iterator SPSCQueue<T, Container>::crbegin() const noexcept
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::reverse_iterator SPSCQueue<T, Container>::rend() noexcept
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::const_reverse_iterator SPSCQueue<T, Container>::rend() const noexcept
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::const_reverse_iterator SPSCQueue<T, Container>::crend() const noexcept
 	{
 		throw NotImplemented();
 	}
@@ -377,38 +304,32 @@ namespace synodic::lockfree
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::size_type SPSCQueue<T, Container>::size() const noexcept
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::size_type SPSCQueue<T, Container>::max_size() const noexcept
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr void SPSCQueue<T, Container>::push_back(const T& value)
+	constexpr void SPSCQueue<T, Container>::push(const T& value)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr void SPSCQueue<T, Container>::push_back(T&& value)
+	constexpr void SPSCQueue<T, Container>::push(T&& value)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr void SPSCQueue<T, Container>::pop_back()
+	constexpr void SPSCQueue<T, Container>::pop()
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class... Args>
-	constexpr typename SPSCQueue<T, Container>::reference SPSCQueue<T, Container>::emplace_back(Args&&... args)
+	constexpr decltype(auto) SPSCQueue<T, Container>::emplace_back(Args&&... args)
 	{
 		throw NotImplemented();
 	}
