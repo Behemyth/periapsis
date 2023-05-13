@@ -65,6 +65,10 @@ namespace synodic::lockfree
 		template<class InputIt, class Alloc>
 		constexpr SPSCQueue(InputIt first, InputIt last, const Alloc& alloc);
 
+		// Destructor
+
+		constexpr ~SPSCQueue() = default;
+
 		// Assignment
 
 		constexpr SPSCQueue& operator=(const SPSCQueue& other);
