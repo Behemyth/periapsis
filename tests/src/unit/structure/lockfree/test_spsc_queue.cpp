@@ -35,6 +35,19 @@ using Vector			= std::vector<int>;
 template<typename T>
 using Queue = synodic::lockfree::SPSCQueue<int, T>;
 
+/**
+ * \brief Queue test fixture
+ * \tparam T Parameterized type
+ */
+template<typename T>
+class QueueTest : public testing::Test
+{
+};
+
+using StandardTypes = testing::Types<Array, Deque, List, String, Vector>;
+TYPED_TEST_SUITE(QueueTest, StandardTypes);
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tests
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,24 +74,39 @@ TEST(spsc_queue, storage_type)
 	static_assert(not synodic::lockfree::spsc_queue_container<UnorderedMultiSet>);
 }
 
-/**
- * \brief Verifies the strongest constraint possible for the SPSCQueue using expected, supported standard containers
- */
-TEST(spsc_queue, container_constraint)
+TYPED_TEST(QueueTest, default_construction)
 {
-	static_assert(synodic::sequence_container<Queue<Array>>);
-	static_assert(synodic::sequence_container<Queue<Deque>>);
-	static_assert(synodic::sequence_container<Queue<List>>);
-	static_assert(synodic::sequence_container<Queue<String>>);
-	static_assert(synodic::sequence_container<Queue<Vector>>);
+	Queue<TypeParam> queue;
 }
 
-/**
- * \brief Verifies constructors
- */
-TEST(spsc_queue, contruction)
+TYPED_TEST(QueueTest, copy_container_construction)
 {
-	Queue<Array> staticQueue;
+	TypeParam container;
+	Queue<TypeParam> queue(container);
+}
 
-	Queue<Vector> dynamicQueue;
+TYPED_TEST(QueueTest, move_container_construction)
+{
+	TypeParam container;
+	Queue<TypeParam> queue(std::move(container));
+}
+
+TEST(QueueTest, range_construction)
+{
+	const Vector vector(3, 2);
+	Queue queue(vector.begin(), vector.end());
+
+	// TODO: Verify all values are 2
+}
+
+TYPED_TEST(QueueTest, empty)
+{
+	TypeParam container;
+	Queue<TypeParam> queue(std::move(container));
+}
+
+TYPED_TEST(QueueTest, not_empty)
+{
+	TypeParam container;
+	Queue<TypeParam> queue(std::move(container));
 }
