@@ -42,7 +42,7 @@ using Queue = synodic::lockfree::SPSCQueue<int, T>;
 /**
  * \brief Verifies that the expected, supported standard containers fulfill the queue storage concept
  */
-TEST(spsc_queue, adapter_type)
+TEST(spsc_queue, storage_type)
 {
 	static_assert(synodic::lockfree::spsc_queue_container<Array>);
 	static_assert(synodic::lockfree::spsc_queue_container<Deque>);
@@ -64,11 +64,21 @@ TEST(spsc_queue, adapter_type)
 /**
  * \brief Verifies the strongest constraint possible for the SPSCQueue using expected, supported standard containers
  */
-TEST(spsc_queue, standard_sequence_container)
+TEST(spsc_queue, container_constraint)
 {
 	static_assert(synodic::sequence_container<Queue<Array>>);
 	static_assert(synodic::sequence_container<Queue<Deque>>);
 	static_assert(synodic::sequence_container<Queue<List>>);
 	static_assert(synodic::sequence_container<Queue<String>>);
 	static_assert(synodic::sequence_container<Queue<Vector>>);
+}
+
+/**
+ * \brief Verifies constructors
+ */
+TEST(spsc_queue, contruction)
+{
+	Queue<Array> staticQueue;
+
+	Queue<Vector> dynamicQueue;
 }

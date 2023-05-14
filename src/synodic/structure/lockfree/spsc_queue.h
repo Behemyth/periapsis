@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <optional>
 
 #include "synodic/exception/not_implemented.h"
 #include "synodic/types/concepts.h"
@@ -128,10 +129,18 @@ namespace synodic::lockfree
 		constexpr void push(const T& value);
 		constexpr void push(T&& value);
 
+		constexpr bool try_push(const T& value);
+		constexpr bool try_push(T&& value);
+
 		constexpr void pop();
 
 		template<class... Args>
-		constexpr decltype(auto) emplace_back(Args&&... args);
+		constexpr void emplace(Args&&... args);
+
+		template<class... Args>
+		constexpr bool try_emplace(Args&&... args);
+
+		// Comparison
 
 		constexpr auto operator<=>(const SPSCQueue&) const = default;
 
@@ -308,7 +317,7 @@ namespace synodic::lockfree
 		return writeIndex_.load(std::memory_order_acquire) == readIndex_.load(std::memory_order_acquire);
 	}
 
-	template <typename T, spsc_queue_container_of<T> Container>
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::size_type SPSCQueue<T, Container>::size() const noexcept
 	{
 		throw NotImplemented();
@@ -333,6 +342,18 @@ namespace synodic::lockfree
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
+	constexpr bool SPSCQueue<T, Container>::try_push(const T& value)
+	{
+		throw NotImplemented();
+	}
+
+	template<typename T, spsc_queue_container_of<T> Container>
+	constexpr bool SPSCQueue<T, Container>::try_push(T&& value)
+	{
+		throw NotImplemented();
+	}
+
+	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr void SPSCQueue<T, Container>::pop()
 	{
 		throw NotImplemented();
@@ -340,7 +361,14 @@ namespace synodic::lockfree
 
 	template<typename T, spsc_queue_container_of<T> Container>
 	template<class... Args>
-	constexpr decltype(auto) SPSCQueue<T, Container>::emplace_back(Args&&... args)
+	constexpr void SPSCQueue<T, Container>::emplace(Args&&... args)
+	{
+		throw NotImplemented();
+	}
+
+	template<typename T, spsc_queue_container_of<T> Container>
+	template<class... Args>
+	constexpr bool SPSCQueue<T, Container>::try_emplace(Args&&... args)
 	{
 		throw NotImplemented();
 	}
