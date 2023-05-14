@@ -280,7 +280,7 @@ namespace synodic
 		       typename T::size_type const& size,
 		       typename T::value_type const& value,
 		       typename T::iterator const& first,
-		       typename T::iteratorconst& last,
+		       typename T::iterator const& last,
 		       std::initializer_list<typename T::value_type> const& init_list)
 		       {
 		           // Copy insertion
