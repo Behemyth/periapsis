@@ -91,14 +91,6 @@ TYPED_TEST(QueueTest, move_container_construction)
 	Queue<TypeParam> queue(std::move(container));
 }
 
-TEST(QueueTest, range_construction)
-{
-	const Vector vector(3, 2);
-	Queue queue(vector.begin(), vector.end());
-
-	// TODO: Verify all values are 2
-}
-
 TYPED_TEST(QueueTest, empty)
 {
 	TypeParam container;

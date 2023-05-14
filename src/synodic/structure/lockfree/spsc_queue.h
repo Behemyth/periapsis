@@ -1,12 +1,11 @@
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <optional>
 
 #include "synodic/exception/not_implemented.h"
 #include "synodic/types/concepts.h"
-
-// TODO: Write note that internal backing container size/capacity tracking is wasted
 
 namespace synodic::lockfree
 {
@@ -19,7 +18,10 @@ namespace synodic::lockfree
 	concept spsc_queue_container_of = container_of<T, ValueType> && spsc_queue_container<T>;
 
 	/**
-	 * \brief An adapter for containers that enforce single producer, single consumer atomic access
+	 * \brief An adapter for containers that enforces single producer, single consumer atomic access. This queue is an
+	 *		adapter and stores all relevant tracking information external to the wrapped container. As a result the
+	 *		internal size tracking of the container is wasted. If you need memory efficiency for the queue itself this
+	 *		is not the type to use.
 	 * \tparam T The type to store
 	 * \tparam Container The container for storage backing
 	 */
@@ -43,31 +45,21 @@ namespace synodic::lockfree
 		constexpr SPSCQueue();
 		constexpr explicit SPSCQueue(const Container& container);
 		constexpr explicit SPSCQueue(Container&& container);
-		constexpr SPSCQueue(const SPSCQueue& other) = delete;
+		constexpr SPSCQueue(const SPSCQueue& other)		= delete;
 		constexpr SPSCQueue(SPSCQueue&& other) noexcept = delete;
 
-		template<class InputIt>
-		constexpr SPSCQueue(InputIt first, InputIt last);
-
-		template<class Alloc>
-		constexpr explicit SPSCQueue(const Alloc& alloc) noexcept;
-
-		template<class Alloc>
-		constexpr SPSCQueue(const Container& container, const Alloc& alloc);
-
-		template<class Alloc>
-		constexpr SPSCQueue(Container&& container, const Alloc& alloc);
-
-		template<class InputIt, class Alloc>
-		constexpr SPSCQueue(InputIt first, InputIt last, const Alloc& alloc);
+		// TODO: Implement range construction
+		//template<typename InputIt>
+		//constexpr SPSCQueue(InputIt first, InputIt last);
 
 		// Destructor
 
+		// TODO: Guard against invalid usage
 		constexpr ~SPSCQueue() = default;
 
 		// Assignment
 
-		constexpr SPSCQueue& operator=(const SPSCQueue& other) = delete;
+		constexpr SPSCQueue& operator=(const SPSCQueue& other)	   = delete;
 		constexpr SPSCQueue& operator=(SPSCQueue&& other) noexcept = delete;
 
 		// Accessors
@@ -78,7 +70,9 @@ namespace synodic::lockfree
 		constexpr const_reference back() const;
 
 		/**
-		 * \brief Moves the wrapped container from the queue
+		 * \brief Removes the wrapped container from the queue. As any usage other than a single reader and
+		 *		single writer is invalid, this function expects that there will be no reads or writes
+		 *		during its execution. TODO: Guard against invalid usage
 		 * \return The underlying container
 		 */
 		constexpr container_type extract() noexcept;
@@ -99,10 +93,10 @@ namespace synodic::lockfree
 
 		constexpr void pop();
 
-		template<class... Args>
+		template<typename... Args>
 		constexpr void emplace(Args&&... args);
 
-		template<class... Args>
+		template<typename... Args>
 		constexpr bool try_emplace(Args&&... args);
 
 		// Comparison
@@ -112,10 +106,10 @@ namespace synodic::lockfree
 	private:
 		static constexpr size_t cacheLineSize = std::hardware_destructive_interference_size;
 
-		alignas(cacheLineSize) Container container_;
-
-		// Track capacity external to the container to guarantee alignment
+		// Track capacity external to the container to guarantee alignment. Placed by front for 'pop' focus
 		alignas(cacheLineSize) size_type capacity_;
+
+		alignas(cacheLineSize) Container container_;
 
 		alignas(cacheLineSize) std::atomic<size_type> writeIndex_;
 		alignas(cacheLineSize) size_type cachedReadIndex_;
@@ -153,7 +147,14 @@ namespace synodic::lockfree
 	template<typename T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::container_type SPSCQueue<T, Container>::extract() noexcept
 	{
-		capacity_ = 0;
+		std::rotate(container_.begin(), container_.begin(), container_.begin());
+
+		// TODO: Mark as full, as if in a constructed state
+		capacity_		  = 0;
+		writeIndex_		  = 0;
+		cachedReadIndex_  = 0;
+		readIndex_		  = 0;
+		cachedWriteIndex_ = 0;
 
 		return std::move(container_);
 	}
@@ -162,54 +163,28 @@ namespace synodic::lockfree
 	constexpr SPSCQueue<T, Container>::SPSCQueue() :
 		SPSCQueue(Container())
 	{
-		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(const Container& container)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(const Container& container) :
+		capacity_(0),
+		container_(container),
+		writeIndex_(0),
+		cachedReadIndex_(0),
+		readIndex_(0),
+		cachedWriteIndex_(0)
 	{
-		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(Container&& container)
+	constexpr SPSCQueue<T, Container>::SPSCQueue(Container&& container) :
+		capacity_(0),
+		container_(std::move(container)),
+		writeIndex_(0),
+		cachedReadIndex_(0),
+		readIndex_(0),
+		cachedWriteIndex_(0)
 	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	template<class InputIt>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(InputIt first, InputIt last)
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	template<class Alloc>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(const Alloc& alloc) noexcept
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	template<class Alloc>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(const Container& container, const Alloc& alloc)
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	template<class Alloc>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(Container&& container, const Alloc& alloc)
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	template<class InputIt, class Alloc>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(InputIt first, InputIt last, const Alloc& alloc)
-	{
-		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
@@ -266,14 +241,14 @@ namespace synodic::lockfree
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	template<class... Args>
+	template<typename... Args>
 	constexpr void SPSCQueue<T, Container>::emplace(Args&&... args)
 	{
 		throw NotImplemented();
 	}
 
 	template<typename T, spsc_queue_container_of<T> Container>
-	template<class... Args>
+	template<typename... Args>
 	constexpr bool SPSCQueue<T, Container>::try_emplace(Args&&... args)
 	{
 		throw NotImplemented();
@@ -283,10 +258,12 @@ namespace synodic::lockfree
 	// Deduction guides as specified: https://en.cppreference.com/w/cpp/container/queue/deduction_guides
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	template<class Container>
+	template<typename Container>
 	SPSCQueue(Container) -> SPSCQueue<typename Container::value_type, Container>;
 
-	template<class Container, class Alloc>
-	SPSCQueue(Container, Alloc) -> SPSCQueue<typename Container::value_type, Container>;
+	template<typename InputIt>
+	SPSCQueue(InputIt, InputIt) -> SPSCQueue<
+		typename std::iterator_traits<InputIt>::value_type::value_type,
+		typename std::iterator_traits<InputIt>::value_type>;
 
 }
