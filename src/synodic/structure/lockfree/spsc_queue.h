@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <array>
-#include <optional>
 
 #include "synodic/exception/not_implemented.h"
 #include "synodic/types/concepts.h"
@@ -11,7 +10,7 @@ namespace synodic::lockfree
 {
 	// Defines the set of containers that SPSCQueue supports
 	template<typename T>
-	concept spsc_queue_container = sequence_container<T> and double_ended_container<T> && sized_container<T>;
+	concept spsc_queue_container = sequence_container<T> and inplace_back_constructing_container<T>;
 
 	// Convenience concept for identifying SPSCQueue backing containers
 	template<typename T, typename ValueType>
@@ -21,7 +20,8 @@ namespace synodic::lockfree
 	 * \brief An adapter for containers that enforces single producer, single consumer atomic access. This queue is an
 	 *		adapter and stores all relevant tracking information external to the wrapped container. As a result the
 	 *		internal size tracking of the container is wasted. If you need memory efficiency for the queue itself this
-	 *		is not the type to use.
+	 *		is not the type to use. However, this design allows the extraction the underlying container into a
+	 *		single-threaded context.
 	 * \tparam T The type to store
 	 * \tparam Container The container for storage backing
 	 */
