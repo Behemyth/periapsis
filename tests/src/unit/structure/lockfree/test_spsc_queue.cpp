@@ -74,11 +74,6 @@ TEST(spsc_queue, storage_type)
 	static_assert(not synodic::lockfree::spsc_queue_container<UnorderedMultiSet>);
 }
 
-TYPED_TEST(QueueTest, default_construction)
-{
-	Queue<TypeParam> queue;
-}
-
 TYPED_TEST(QueueTest, copy_container_construction)
 {
 	TypeParam container;
@@ -101,7 +96,7 @@ TYPED_TEST(QueueTest, empty)
 
 TEST(QueueTest, not_empty)
 {
-	Vector container(2, 3);
+	Vector container(1, 2);
 	const Queue queue(std::move(container));
 
 	EXPECT_FALSE(queue.empty());

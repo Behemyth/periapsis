@@ -2,15 +2,20 @@
 
 #include <algorithm>
 #include <array>
+#include <optional>
 
 #include "synodic/exception/not_implemented.h"
 #include "synodic/types/concepts.h"
 
 namespace synodic::lockfree
 {
+	// Defines the set of types that SPSCQueue supports
+	template<typename T>
+	concept spsc_queue_type = std::is_nothrow_constructible_v<T> and std::is_nothrow_destructible_v<T>;
+
 	// Defines the set of containers that SPSCQueue supports
 	template<typename T>
-	concept spsc_queue_container = sequence_container<T> and inplace_back_constructing_container<T>;
+	concept spsc_queue_container = inplace_constructing_sequence_container<T>;
 
 	// Convenience concept for identifying SPSCQueue backing containers
 	template<typename T, typename ValueType>
@@ -25,7 +30,7 @@ namespace synodic::lockfree
 	 * \tparam T The type to store
 	 * \tparam Container The container for storage backing
 	 */
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	class SPSCQueue
 	{
 	public:
@@ -42,15 +47,14 @@ namespace synodic::lockfree
 
 		// Construction
 
-		constexpr SPSCQueue();
 		constexpr explicit SPSCQueue(const Container& container);
 		constexpr explicit SPSCQueue(Container&& container);
 		constexpr SPSCQueue(const SPSCQueue& other)		= delete;
 		constexpr SPSCQueue(SPSCQueue&& other) noexcept = delete;
 
 		// TODO: Implement range construction
-		//template<typename InputIt>
-		//constexpr SPSCQueue(InputIt first, InputIt last);
+		// template<typename InputIt>
+		// constexpr SPSCQueue(InputIt first, InputIt last);
 
 		// Destructor
 
@@ -63,11 +67,6 @@ namespace synodic::lockfree
 		constexpr SPSCQueue& operator=(SPSCQueue&& other) noexcept = delete;
 
 		// Accessors
-
-		constexpr reference front();
-		constexpr const_reference front() const;
-		constexpr reference back();
-		constexpr const_reference back() const;
 
 		/**
 		 * \brief Removes the wrapped container from the queue. As any usage other than a single reader and
@@ -91,7 +90,10 @@ namespace synodic::lockfree
 		constexpr bool try_push(const T& value);
 		constexpr bool try_push(T&& value);
 
-		constexpr void pop();
+		/**
+		 * \brief
+		 */
+		constexpr std::optional<T> pop() noexcept;
 
 		template<typename... Args>
 		constexpr void emplace(Args&&... args);
@@ -106,7 +108,8 @@ namespace synodic::lockfree
 	private:
 		static constexpr size_t cacheLineSize = std::hardware_destructive_interference_size;
 
-		// Track capacity external to the container to guarantee alignment. Placed by front for 'pop' focus
+		// Tracks capacity external to the container to guarantee alignment. Placed by front
+		// to get bundled with container_
 		alignas(cacheLineSize) size_type capacity_;
 
 		alignas(cacheLineSize) Container container_;
@@ -116,38 +119,40 @@ namespace synodic::lockfree
 		alignas(cacheLineSize) std::atomic<size_type> readIndex_;
 		alignas(cacheLineSize) size_type cachedWriteIndex_;
 
-		// The padding used to avoid cache line overlap with the cached write index
+		alignas(cacheLineSize) std::atomic_flag full_;
+
+		// The padding used to avoid cache line overlap with the full flag
 		std::array<std::byte, cacheLineSize - sizeof cachedWriteIndex_> padding_;
 	};
 
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::reference SPSCQueue<T, Container>::front()
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
+	constexpr SPSCQueue<T, Container>::SPSCQueue(const Container& container) :
+		capacity_(container.max_size()),
+		container_(container),
+		writeIndex_(0),
+		cachedReadIndex_(0),
+		readIndex_(0),
+		cachedWriteIndex_(0)
 	{
-		throw NotImplemented();
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::const_reference SPSCQueue<T, Container>::front() const
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
+	constexpr SPSCQueue<T, Container>::SPSCQueue(Container&& container) :
+		capacity_(container.max_size()),
+		container_(std::move(container)),
+		writeIndex_(0),
+		cachedReadIndex_(0),
+		readIndex_(0),
+		cachedWriteIndex_(0)
 	{
-		throw NotImplemented();
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::reference SPSCQueue<T, Container>::back()
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr typename SPSCQueue<T, Container>::const_reference SPSCQueue<T, Container>::back() const
-	{
-		throw NotImplemented();
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::container_type SPSCQueue<T, Container>::extract() noexcept
 	{
 		std::rotate(container_.begin(), container_.begin(), container_.begin());
+
+		//container_
 
 		// TODO: Mark as full, as if in a constructed state
 		capacity_		  = 0;
@@ -159,95 +164,85 @@ namespace synodic::lockfree
 		return std::move(container_);
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr SPSCQueue<T, Container>::SPSCQueue() :
-		SPSCQueue(Container())
-	{
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(const Container& container) :
-		capacity_(0),
-		container_(container),
-		writeIndex_(0),
-		cachedReadIndex_(0),
-		readIndex_(0),
-		cachedWriteIndex_(0)
-	{
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr SPSCQueue<T, Container>::SPSCQueue(Container&& container) :
-		capacity_(0),
-		container_(std::move(container)),
-		writeIndex_(0),
-		cachedReadIndex_(0),
-		readIndex_(0),
-		cachedWriteIndex_(0)
-	{
-	}
-
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr bool SPSCQueue<T, Container>::empty() const noexcept
 	{
 		return writeIndex_.load(std::memory_order_acquire) == readIndex_.load(std::memory_order_acquire);
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::size_type SPSCQueue<T, Container>::size() const noexcept
 	{
-		std::ptrdiff_t diff = writeIndex_.load(std::memory_order_acquire) - readIndex_.load(std::memory_order_acquire);
-		if(diff < 0)
+		std::ptrdiff_t difference =
+			writeIndex_.load(std::memory_order_acquire) - readIndex_.load(std::memory_order_acquire);
+		if(difference < 0)
 		{
-			diff += capacity_;
+			difference += capacity_;
 		}
-		return static_cast<size_type>(diff);
+		return static_cast<size_type>(difference);
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr typename SPSCQueue<T, Container>::size_type SPSCQueue<T, Container>::max_size() const noexcept
 	{
-		return container_.max_size();
+		return capacity_;
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr void SPSCQueue<T, Container>::push(const T& value)
 	{
 		throw NotImplemented();
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr void SPSCQueue<T, Container>::push(T&& value)
 	{
 		throw NotImplemented();
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr bool SPSCQueue<T, Container>::try_push(const T& value)
 	{
 		throw NotImplemented();
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr bool SPSCQueue<T, Container>::try_push(T&& value)
 	{
 		throw NotImplemented();
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
-	constexpr void SPSCQueue<T, Container>::pop()
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
+	constexpr std::optional<T> SPSCQueue<T, Container>::pop() noexcept
 	{
-		throw NotImplemented();
+		const auto readIndex = readIndex_.load(std::memory_order_relaxed);
+		if(readIndex == cachedWriteIndex_)
+		{
+			cachedWriteIndex_ = writeIndex_.load(std::memory_order_acquire);
+			if(cachedWriteIndex_ == readIndex)
+			{
+				return {};
+			}
+		}
+
+		auto nextReadIdx = readIndex + 1;
+		if(nextReadIdx == capacity_)
+		{
+			nextReadIdx = 0;
+		}
+		readIndex_.store(nextReadIdx, std::memory_order_release);
+
+		return std::move(container_[readIndex]);
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	template<typename... Args>
 	constexpr void SPSCQueue<T, Container>::emplace(Args&&... args)
 	{
 		throw NotImplemented();
 	}
 
-	template<typename T, spsc_queue_container_of<T> Container>
+	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	template<typename... Args>
 	constexpr bool SPSCQueue<T, Container>::try_emplace(Args&&... args)
 	{

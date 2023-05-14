@@ -279,8 +279,8 @@ namespace synodic
 		       requires(
 		       typename T::size_type const& size,
 		       typename T::value_type const& value,
-		       std::iter_const_reference_t<typename T::value_type> const& first,
-		       std::iter_const_reference_t<typename T::value_type> const& last,
+		       typename T::iterator const& first,
+		       typename T::iteratorconst& last,
 		       std::initializer_list<typename T::value_type> const& init_list)
 		       {
 		           // Copy insertion
@@ -463,86 +463,86 @@ namespace synodic
 	// A concept implementation of the named requirement 'AssociativeContainer' with Standard naming styles
 	//		This definition is devoid of backwards compatibility requirements
 	//		https://en.cppreference.com/w/cpp/named_req/AssociativeContainer
-	template <typename C>
+	template <typename T>
     concept associative_container
-    = container<C> and
-      sized_container<C> and
-      clearable_container<C> and
-      std::default_initializable<C> and
-      requires(C& container, C const& const_cont)
+    = container<T> and
+      sized_container<T> and
+      clearable_container<T> and
+      std::default_initializable<T> and
+      requires(T& container, T const& const_cont)
       {
-          typename C::key_type;
+          typename T::key_type;
 
           // Searching
           requires
-          requires(typename C::key_type const& key)
+          requires(typename T::key_type const& key)
           {
-              { const_cont.count(key) } -> std::same_as<typename C::size_type>;
+              { const_cont.count(key) } -> std::same_as<typename T::size_type>;
               { const_cont.contains(key) } -> std::same_as<bool>;
-              { container.find(key) } -> std::same_as<typename C::iterator>;
-              { const_cont.find(key) } -> std::same_as<typename C::const_iterator>;
+              { container.find(key) } -> std::same_as<typename T::iterator>;
+              { const_cont.find(key) } -> std::same_as<typename T::const_iterator>;
               {
               container.equal_range(key)
-              } -> std::same_as<std::pair<typename C::iterator, typename C::iterator>>;
+              } -> std::same_as<std::pair<typename T::iterator, typename T::iterator>>;
               {
               const_cont.equal_range(key)
-              } -> std::same_as<std::pair<typename C::const_iterator, typename C::const_iterator>>;
+              } -> std::same_as<std::pair<typename T::const_iterator, typename T::const_iterator>>;
           };
 
           // Emplacement (default constructor)
-          requires not std::default_initializable<typename C::value_type> or
-                   requires(typename C::const_iterator const& hint)
-                   {{ container.emplace_hint(hint) } -> std::same_as<typename C::iterator>; };
+          requires not std::default_initializable<typename T::value_type> or
+                   requires(typename T::const_iterator const& hint)
+                   {{ container.emplace_hint(hint) } -> std::same_as<typename T::iterator>; };
 
           // Copy-enabled operations
-          requires not std::copyable<typename C::value_type> or
+          requires not std::copyable<typename T::value_type> or
                    requires(
-                       typename C::value_type const& value,
-                       typename C::const_iterator const& hint,
-                       std::iter_const_reference_t<typename C::value_type> const& first,
-                       std::iter_const_reference_t<typename C::value_type> const& last,
-                       std::initializer_list<typename C::value_type> const& init_list)
+                       typename T::value_type const& value,
+                       typename T::const_iterator const& hint,
+                       typename T::iterator const& first,
+                       typename T::iterator const& last,
+                       std::initializer_list<typename T::value_type> const& init_list)
                    {
                        // Range construction and assignment
-                       C(first, last);
-                       C(init_list);
+                       T(first, last);
+                       T(init_list);
                        container = init_list;
 
                        // Copy insertion
-                       { container.insert(hint, value) } -> std::same_as<typename C::iterator>;
+                       { container.insert(hint, value) } -> std::same_as<typename T::iterator>;
 
                        // Range insertion
                        container.insert(first, last);
                        container.insert(init_list);
 
                        // Emplacement (copy constructor)
-                       { container.emplace_hint(hint, value) } -> std::same_as<typename C::iterator>;
+                       { container.emplace_hint(hint, value) } -> std::same_as<typename T::iterator>;
                    };
 
           // Move-enabled operations
-          requires not std::movable<typename C::value_type> or
+          requires not std::movable<typename T::value_type> or
                    requires(
-                       typename C::value_type&& tmp_value,
-                       typename C::const_iterator const& hint)
+                       typename T::value_type&& tmp_value,
+                       typename T::const_iterator const& hint)
                    {
                        // Move insertion
-                       { container.insert(hint, std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
+                       { container.insert(hint, std::move(tmp_value)) } -> std::same_as<typename T::iterator>;
 
                        // Emplacement (move constructor)
-                       { container.emplace_hint(hint, std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
+                       { container.emplace_hint(hint, std::move(tmp_value)) } -> std::same_as<typename T::iterator>;
                    };
 
           // Erasure
           requires
           requires(
-              typename C::const_iterator const& pos,
-              typename C::const_iterator const& first,
-              typename C::const_iterator const& last,
-              typename C::key_type const& key)
+              typename T::const_iterator const& pos,
+              typename T::const_iterator const& first,
+              typename T::const_iterator const& last,
+              typename T::key_type const& key)
           {
-              { container.erase(pos) } -> std::same_as<typename C::iterator>;
-              { container.erase(first, last) } -> std::same_as<typename C::iterator>;
-              { container.erase(key) } -> std::same_as<typename C::size_type>;
+              { container.erase(pos) } -> std::same_as<typename T::iterator>;
+              { container.erase(first, last) } -> std::same_as<typename T::iterator>;
+              { container.erase(key) } -> std::same_as<typename T::size_type>;
           };
       };
 
@@ -551,36 +551,36 @@ namespace synodic
     ///
     /// Note: the container is required to support .emplace(Args...) for every constructor
     /// of the form value_type(Args...).
-    template <typename C>
+    template <typename T>
     concept unique_associative_container
-    = associative_container<C> and
-      requires(C& container, C const& const_cont)
+    = associative_container<T> and
+      requires(T& container, T const& const_cont)
       {
           // Emplacement (default constructor)
-          requires not std::default_initializable<typename C::value_type> or
-                   requires(typename C::const_iterator const& hint)
-                   {{ container.emplace() } -> std::same_as<std::pair<typename C::iterator, bool>>; };
+          requires not std::default_initializable<typename T::value_type> or
+                   requires(typename T::const_iterator const& hint)
+                   {{ container.emplace() } -> std::same_as<std::pair<typename T::iterator, bool>>; };
 
           // Copy-enabled operations
-          requires not std::copyable<typename C::value_type> or
-                   requires(typename C::value_type const& value)
+          requires not std::copyable<typename T::value_type> or
+                   requires(typename T::value_type const& value)
                    {
                        // Copy insertion
-                       { container.insert(value) } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                       { container.insert(value) } -> std::same_as<std::pair<typename T::iterator, bool>>;
 
                        // Emplacement (copy constructor)
-                       { container.emplace(value) } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                       { container.emplace(value) } -> std::same_as<std::pair<typename T::iterator, bool>>;
                    };
 
           // Move-enabled operations
-          requires not std::movable<typename C::value_type> or
-                   requires(typename C::value_type&& tmp_value)
+          requires not std::movable<typename T::value_type> or
+                   requires(typename T::value_type&& tmp_value)
                    {
                        // Move insertion
-                       { container.insert(std::move(tmp_value)) } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                       { container.insert(std::move(tmp_value)) } -> std::same_as<std::pair<typename T::iterator, bool>>;
 
                        // Emplacement (move constructor)
-                       { container.emplace(std::move(tmp_value)) } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                       { container.emplace(std::move(tmp_value)) } -> std::same_as<std::pair<typename T::iterator, bool>>;
                    };
       };
 
@@ -589,36 +589,36 @@ namespace synodic
     ///
     /// Note: the container is required to support .emplace(Args...) for every constructor
     /// of the form value_type(Args...).
-    template <typename C>
+    template <typename T>
     concept multiple_associative_container
-    = associative_container<C> and
-      requires(C& container, C const& const_cont)
+    = associative_container<T> and
+      requires(T& container, T const& const_cont)
       {
           // Emplacement (default constructor)
-          requires not std::default_initializable<typename C::value_type> or
-                   requires(typename C::const_iterator const& hint)
-                   {{ container.emplace() } -> std::same_as<typename C::iterator>; };
+          requires not std::default_initializable<typename T::value_type> or
+                   requires(typename T::const_iterator const& hint)
+                   {{ container.emplace() } -> std::same_as<typename T::iterator>; };
 
           // Copy-enabled operations
-          requires not std::copyable<typename C::value_type> or
-                   requires(typename C::value_type const& value)
+          requires not std::copyable<typename T::value_type> or
+                   requires(typename T::value_type const& value)
                    {
                        // Copy insertion
-                       { container.insert(value) } -> std::same_as<typename C::iterator>;
+                       { container.insert(value) } -> std::same_as<typename T::iterator>;
 
                        // Emplacement (copy constructor)
-                       { container.emplace(value) } -> std::same_as<typename C::iterator>;
+                       { container.emplace(value) } -> std::same_as<typename T::iterator>;
                    };
 
           // Move-enabled operations
-          requires not std::movable<typename C::value_type> or
-                   requires(typename C::value_type&& tmp_value)
+          requires not std::movable<typename T::value_type> or
+                   requires(typename T::value_type&& tmp_value)
                    {
                        // Move insertion
-                       { container.insert(std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
+                       { container.insert(std::move(tmp_value)) } -> std::same_as<typename T::iterator>;
 
                        // Emplacement (move constructor)
-                       { container.emplace(std::move(tmp_value)) } -> std::same_as<typename C::iterator>;
+                       { container.emplace(std::move(tmp_value)) } -> std::same_as<typename T::iterator>;
                    };
       };
 
@@ -626,88 +626,88 @@ namespace synodic
     /// Satisfied by set, map, multiset and multimap.
     ///
     /// Note: corresponds to the standard AssociativeContainer named requirement.
-    template <typename C>
+    template <typename T>
     concept ordered_associative_container
-    = associative_container<C> and
-      requires(C& container, C const& const_cont)
+    = associative_container<T> and
+      requires(T& container, T const& const_cont)
       {
           // Comparators
-          typename C::key_compare;
-          typename C::value_compare;
+          typename T::key_compare;
+          typename T::value_compare;
           requires std::strict_weak_order<
-              typename C::key_compare, typename C::key_type, typename C::key_type>;
+              typename T::key_compare, typename T::key_type, typename T::key_type>;
           requires std::strict_weak_order<
-              typename C::value_compare, typename C::value_type, typename C::value_type>;
+              typename T::value_compare, typename T::value_type, typename T::value_type>;
 
           // Ordered associative containers of ordered values should provide a lexicographical ordering
-          requires not std::totally_ordered<typename C::value_type> or
-                   std::totally_ordered<C>;
+          requires not std::totally_ordered<typename T::value_type> or
+                   std::totally_ordered<T>;
 
           // Observers
-          { const_cont.key_comp() } -> std::same_as<typename C::key_compare>;
-          { const_cont.value_comp() } -> std::same_as<typename C::value_compare>;
+          { const_cont.key_comp() } -> std::same_as<typename T::key_compare>;
+          { const_cont.value_comp() } -> std::same_as<typename T::value_compare>;
 
           // Construction with comparator
           requires
-          requires(typename C::key_compare const& key_comp)
+          requires(typename T::key_compare const& key_comp)
           {
-              C(key_comp);
+              T(key_comp);
 
-              requires not std::copyable<typename C::value_type> or
+              requires not std::copyable<typename T::value_type> or
                        requires(
-                            std::iter_const_reference_t<typename C::value_type> const& first,
-                            std::iter_const_reference_t<typename C::value_type> const& last,
-                           std::initializer_list<typename C::value_type> const& init_list)
+                            typename T::iterator const& first,
+                            typename T::iterator const& last,
+                           std::initializer_list<typename T::value_type> const& init_list)
                        {
-                           C(first, last, key_comp);
-                           C(init_list, key_comp);
+                           T(first, last, key_comp);
+                           T(init_list, key_comp);
                        };
           };
 
           // Binary searching
           requires
-          requires(typename C::key_type const& key)
+          requires(typename T::key_type const& key)
           {
-              { container.lower_bound(key) } -> std::same_as<typename C::iterator>;
-              { const_cont.lower_bound(key) } -> std::same_as<typename C::const_iterator>;
-              { container.upper_bound(key) } -> std::same_as<typename C::iterator>;
-              { const_cont.upper_bound(key) } -> std::same_as<typename C::const_iterator>;
+              { container.lower_bound(key) } -> std::same_as<typename T::iterator>;
+              { const_cont.lower_bound(key) } -> std::same_as<typename T::const_iterator>;
+              { container.upper_bound(key) } -> std::same_as<typename T::iterator>;
+              { const_cont.upper_bound(key) } -> std::same_as<typename T::const_iterator>;
           };
       };
 
     /// An ordered associative container without multiple key occurrence.
     /// Satisfied by set and map.
-    template <typename C>
+    template <typename T>
     concept ordered_unique_associative_container
-    = unique_associative_container<C> and ordered_associative_container<C>;
+    = unique_associative_container<T> and ordered_associative_container<T>;
 
     /// An ordered associative container with multiple key occurrence.
     /// Satisfied by multiset and multimap.
-    template <typename C>
+    template <typename T>
     concept ordered_multiple_associative_container
-    = multiple_associative_container<C> and ordered_associative_container<C>;
+    = multiple_associative_container<T> and ordered_associative_container<T>;
 
     /// An associative container based on key hashing (hash table).
     /// Satisfied by unordered_set, unordered_map, unordered_multiset and unordered_multimap.
     ///
     /// Note: corresponds to the standard UnorderedAssociativeContainer named requirement.
-    template <typename C>
+    template <typename T>
     concept unordered_associative_container
-    = associative_container<C> and
-      requires(C& container, C const& const_cont)
+    = associative_container<T> and
+      requires(T& container, T const& const_cont)
       {
           // Key hash function
-          typename C::hasher;
-          requires hash_function<typename C::hasher, typename C::key_type>;
+          typename T::hasher;
+          requires hash_function<typename T::hasher, typename T::key_type>;
 
           // Key equality predicate
-          typename C::key_equal;
+          typename T::key_equal;
           requires std::equivalence_relation<
-              typename C::key_equal, typename C::key_type, typename C::key_type>;
+              typename T::key_equal, typename T::key_type, typename T::key_type>;
 
           // Observers
-          { const_cont.hash_function() } -> std::same_as<typename C::hasher>;
-          { const_cont.key_eq() } -> std::same_as<typename C::key_equal>;
+          { const_cont.hash_function() } -> std::same_as<typename T::hasher>;
+          { const_cont.key_eq() } -> std::same_as<typename T::key_equal>;
 
           // Hash policy
           requires
@@ -728,154 +728,154 @@ namespace synodic
           requires
           requires(
               std::size_t const& bucket_count,
-              typename C::hasher const& hash,
-              typename C::key_equal const& equal)
+              typename T::hasher const& hash,
+              typename T::key_equal const& equal)
           {
-              C(bucket_count);
-              C(bucket_count, hash);
-              C(bucket_count, hash, equal);
+              T(bucket_count);
+              T(bucket_count, hash);
+              T(bucket_count, hash, equal);
 
-              requires not std::copyable<typename C::value_type> or
+              requires not std::copyable<typename T::value_type> or
                        requires(
-                            std::iter_const_reference_t<typename C::value_type> const& first,
-                            std::iter_const_reference_t<typename C::value_type> const& last,
-                           std::initializer_list<typename C::value_type> const& init_list)
+                            typename T::iterator const& first,
+                            typename T::iterator const& last,
+                           std::initializer_list<typename T::value_type> const& init_list)
                        {
-                           C(first, last, bucket_count);
-                           C(first, last, bucket_count, hash);
-                           C(first, last, bucket_count, hash, equal);
-                           C(init_list, bucket_count);
-                           C(init_list, bucket_count, hash);
-                           C(init_list, bucket_count, hash, equal);
+                           T(first, last, bucket_count);
+                           T(first, last, bucket_count, hash);
+                           T(first, last, bucket_count, hash, equal);
+                           T(init_list, bucket_count);
+                           T(init_list, bucket_count, hash);
+                           T(init_list, bucket_count, hash, equal);
                        };
           };
       };
 
     /// A hash-based associative container without multiple key occurrence.
     /// Satisfied by unordered_set and unordered_map.
-    template <typename C>
+    template <typename T>
     concept unordered_unique_associative_container
-    = unique_associative_container<C> and unordered_associative_container<C>;
+    = unique_associative_container<T> and unordered_associative_container<T>;
 
     /// A hash-based associative container with multiple key occurrence.
     /// Satisfied by unordered_multiset and unordered_multimap.
-    template <typename C>
+    template <typename T>
     concept unordered_multiple_associative_container
-    = multiple_associative_container<C> and unordered_associative_container<C>;
+    = multiple_associative_container<T> and unordered_associative_container<T>;
 
     /// An associative container that stores a mapped object alongside its keys.
     /// Satisfied by map, multimap, unordered_map and unordered_multimap.
-    template <typename C>
+    template <typename T>
     concept map_container
-    = associative_container<C> and
-      requires(C& container, C const& const_cont)
+    = associative_container<T> and
+      requires(T& container, T const& const_cont)
       {
-          typename C::mapped_type;
+          typename T::mapped_type;
 
           requires
-          requires(typename C::const_iterator const& hint)
+          requires(typename T::const_iterator const& hint)
           {
-              requires not std::copyable<typename C::key_type> or
-                       requires(typename C::key_type const& key)
+              requires not std::copyable<typename T::key_type> or
+                       requires(typename T::key_type const& key)
                        {
                            // Emplacement (key copy, mapped object default constructor)
-                           requires not std::default_initializable<typename C::mapped_type> or
+                           requires not std::default_initializable<typename T::mapped_type> or
                                     requires
                                     {
                                         {
                                         container.emplace_hint(hint, key)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple())
-                                        }  -> std::same_as<typename C::iterator>;
+                                        }  -> std::same_as<typename T::iterator>;
                                     };
 
                            // Emplacement (key copy, mapped object copy constructor)
-                           requires not std::copyable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type const& obj)
+                           requires not std::copyable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type const& obj)
                                     {
                                         {
                                         container.emplace_hint(hint, key, obj)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(obj))
-                                        }  -> std::same_as<typename C::iterator>;
+                                        }  -> std::same_as<typename T::iterator>;
                                     };
 
                            // Emplacement (key copy, mapped object move constructor)
-                           requires not std::movable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type&& obj)
+                           requires not std::movable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type&& obj)
                                     {
                                         {
                                         container.emplace_hint(hint, key, std::move(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(std::move(obj)))
-                                        }  -> std::same_as<typename C::iterator>;
+                                        }  -> std::same_as<typename T::iterator>;
                                     };
                        };
 
-              requires not std::movable<typename C::key_type> or
-                       requires(typename C::key_type&& key)
+              requires not std::movable<typename T::key_type> or
+                       requires(typename T::key_type&& key)
                        {
                            // Emplacement (key move, mapped object default constructor)
-                           requires not std::default_initializable<typename C::mapped_type> or
+                           requires not std::default_initializable<typename T::mapped_type> or
                                     requires
                                     {
                                         {
                                         container.emplace_hint(hint, std::move(key))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple())
-                                        }  -> std::same_as<typename C::iterator>;
+                                        }  -> std::same_as<typename T::iterator>;
                                     };
 
                            // Emplacement (key move, mapped object copy constructor)
-                           requires not std::copyable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type const& obj)
+                           requires not std::copyable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type const& obj)
                                     {
                                         {
                                         container.emplace_hint(hint, std::move(key), obj)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(obj))
-                                        }  -> std::same_as<typename C::iterator>;
+                                        }  -> std::same_as<typename T::iterator>;
                                     };
 
                            // Emplacement (key move, mapped object move constructor)
-                           requires not std::movable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type&& obj)
+                           requires not std::movable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type&& obj)
                                     {
                                         {
                                         container.emplace_hint(hint, std::move(key), std::move(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace_hint(
                                             hint,
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(std::move(obj)))
-                                        }  -> std::same_as<typename C::iterator>;
+                                        }  -> std::same_as<typename T::iterator>;
                                     };
                        };
           };
@@ -895,206 +895,206 @@ namespace synodic
     /// .insert_or_assign(const_iterator, key_type const&, M&&)
     /// .insert_or_assign(const_iterator, key_type&&, M&&)
     /// for every type M where std::is_assignable_v<mapped_type&, M&&> is true.
-    template <typename C>
+    template <typename T>
     concept unique_map_container
-    = map_container<C> and
-      requires(C& container, C const& const_cont)
+    = map_container<T> and
+      requires(T& container, T const& const_cont)
       {
           // Element access
           requires
-          requires(typename C::key_type const& key, typename C::key_type const& tmp_key)
+          requires(typename T::key_type const& key, typename T::key_type const& tmp_key)
           {
               // operator[] access
-              requires not std::default_initializable<typename C::mapped_type> or
+              requires not std::default_initializable<typename T::mapped_type> or
                        requires
                        {
                            // Key copy
-                           requires not std::copyable<typename C::key_type> or
-                                    requires {{ container[key] } -> std::same_as<typename C::mapped_type&>; };
+                           requires not std::copyable<typename T::key_type> or
+                                    requires {{ container[key] } -> std::same_as<typename T::mapped_type&>; };
 
                            // Key move
-                           requires not std::movable<typename C::key_type> or
+                           requires not std::movable<typename T::key_type> or
                                     requires
-                                    {{ container[std::move(tmp_key)] } -> std::same_as<typename C::mapped_type&>; };
+                                    {{ container[std::move(tmp_key)] } -> std::same_as<typename T::mapped_type&>; };
                        };
 
               // Checked access
-              { container.at(key) } -> std::same_as<typename C::mapped_type&>;
-              { const_cont.at(key) } -> std::same_as<typename C::mapped_type const&>;
+              { container.at(key) } -> std::same_as<typename T::mapped_type&>;
+              { const_cont.at(key) } -> std::same_as<typename T::mapped_type const&>;
           };
 
           requires
-          requires(typename C::const_iterator const& hint)
+          requires(typename T::const_iterator const& hint)
           {
               // Key copy
-              requires not std::copyable<typename C::key_type> or
-                       requires(typename C::key_type const& key)
+              requires not std::copyable<typename T::key_type> or
+                       requires(typename T::key_type const& key)
                        {
                            // Emplacement (key copy, mapped object default constructor)
-                           requires not std::default_initializable<typename C::mapped_type> or
+                           requires not std::default_initializable<typename T::mapped_type> or
                                     requires
                                     {
                                         {
                                         container.emplace(key)
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple())
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(key)
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(hint, key)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
 
                            // Mapped object copy
-                           requires not std::copyable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type const& obj)
+                           requires not std::copyable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type const& obj)
                                     {
                                         // Insertion
                                         {
                                         container.insert_or_assign(key, obj)
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.insert_or_assign(hint, key, obj)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
 
                                         // Emplacement (key copy, mapped object copy constructor)
                                         {
                                         container.emplace(key, obj)
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(obj))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(key, obj)
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(hint, key, obj)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
 
                            // Mapped object move
-                           requires not std::movable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type&& obj)
+                           requires not std::movable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type&& obj)
                                     {
                                         // Insertion
                                         {
                                         container.insert_or_assign(key, std::move(obj))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.insert_or_assign(hint, key, std::move(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
 
                                         // Emplacement (key copy, mapped object move constructor)
                                         {
                                         container.emplace(key, std::move(obj))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(std::move(obj)))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(key, std::move(obj))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(hint, key, std::move(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
                        };
 
               // Key move
-              requires not std::movable<typename C::key_type> or
-                       requires(typename C::key_type&& key)
+              requires not std::movable<typename T::key_type> or
+                       requires(typename T::key_type&& key)
                        {
                            // Emplacement (key move, mapped object default constructor)
-                           requires not std::default_initializable<typename C::mapped_type> or
+                           requires not std::default_initializable<typename T::mapped_type> or
                                     requires
                                     {
                                         {
                                         container.emplace(std::move(key))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple())
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(std::move(key))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(hint, std::move(key))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
 
                            // Mapped object copy
-                           requires not std::copyable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type const& obj)
+                           requires not std::copyable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type const& obj)
                                     {
                                         // Insertion
                                         {
                                         container.insert_or_assign(std::move(key), obj)
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.insert_or_assign(hint, std::move(key), obj)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
 
                                         // Emplacement (key move, mapped object copy constructor)
                                         {
                                         container.emplace(std::move(key), obj)
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(obj))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(std::move(key), obj)
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(hint, std::move(key), obj)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
 
                            // Mapped object move
-                           requires not std::movable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type&& obj)
+                           requires not std::movable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type&& obj)
                                     {
                                         // Insertion
                                         {
                                         container.insert_or_assign(std::move(key), std::move(obj))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.insert_or_assign(hint, std::move(key), std::move(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
 
                                         // Emplacement (key move, mapped object move constructor)
                                         {
                                         container.emplace(std::move(key), std::move(obj))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(std::move(obj)))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(std::move(key), std::move(obj))
-                                        } -> std::same_as<std::pair<typename C::iterator, bool>>;
+                                        } -> std::same_as<std::pair<typename T::iterator, bool>>;
                                         {
                                         container.try_emplace(hint, std::move(key), std::move(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
                        };
           };
@@ -1102,109 +1102,109 @@ namespace synodic
 
     /// A map container with multiple key occurrence.
     /// Satisfied by multimap and unordered_multimap.
-    template <typename C>
+    template <typename T>
     concept multiple_map_container
-    = map_container<C> and
-      requires(C& container, C const& const_cont)
+    = map_container<T> and
+      requires(T& container, T const& const_cont)
       {
           requires
-          requires(typename C::const_iterator const& hint)
+          requires(typename T::const_iterator const& hint)
           {
-              requires not std::copyable<typename C::key_type> or
-                       requires(typename C::key_type const& key)
+              requires not std::copyable<typename T::key_type> or
+                       requires(typename T::key_type const& key)
                        {
                            // Emplacement (key copy, mapped object default constructor)
-                           requires not std::default_initializable<typename C::mapped_type> or
+                           requires not std::default_initializable<typename T::mapped_type> or
                                     requires
                                     {
                                         {
                                         container.emplace(key)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple())
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
 
                            // Emplacement (key copy, mapped object copy constructor)
-                           requires not std::copyable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type const& obj)
+                           requires not std::copyable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type const& obj)
                                     {
                                         {
                                         container.emplace(key, obj)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
 
                            // Emplacement (key copy, mapped object move constructor)
-                           requires not std::movable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type&& obj)
+                           requires not std::movable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type&& obj)
                                     {
                                         {
                                         container.emplace(key, std::move(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(key),
                                             std::forward_as_tuple(std::move(obj)))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
                        };
 
-              requires not std::movable<typename C::key_type> or
-                       requires(typename C::key_type&& key)
+              requires not std::movable<typename T::key_type> or
+                       requires(typename T::key_type&& key)
                        {
                            // Emplacement (key move, mapped object default constructor)
-                           requires not std::default_initializable<typename C::mapped_type> or
+                           requires not std::default_initializable<typename T::mapped_type> or
                                     requires
                                     {
                                         {
                                         container.emplace(std::move(key))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple())
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
 
                            // Emplacement (key copy, mapped object copy constructor)
-                           requires not std::copyable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type const& obj)
+                           requires not std::copyable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type const& obj)
                                     {
                                         {
                                         container.emplace(std::move(key), obj)
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
 
                            // Emplacement (key copy, mapped object move constructor)
-                           requires not std::movable<typename C::mapped_type> or
-                                    requires(typename C::mapped_type&& obj)
+                           requires not std::movable<typename T::mapped_type> or
+                                    requires(typename T::mapped_type&& obj)
                                     {
                                         {
                                         container.emplace(std::move(key), std::move(obj))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                         {
                                         container.emplace(
                                             std::piecewise_construct,
                                             std::forward_as_tuple(std::move(key)),
                                             std::forward_as_tuple(std::move(obj)))
-                                        } -> std::same_as<typename C::iterator>;
+                                        } -> std::same_as<typename T::iterator>;
                                     };
                        };
           };
@@ -1212,114 +1212,114 @@ namespace synodic
 
     /// An ordered map container.
     /// Satisfied by map and multimap.
-    template <typename C>
-    concept ordered_map_container = map_container<C> and ordered_associative_container<C>;
+    template <typename T>
+    concept ordered_map_container = map_container<T> and ordered_associative_container<T>;
 
     /// An ordered map container without multiple key occurrence.
     /// Satisfied by map.
-    template <typename C>
+    template <typename T>
     concept ordered_unique_map_container
-    = unique_map_container<C> and ordered_map_container<C>;
+    = unique_map_container<T> and ordered_map_container<T>;
 
     /// An ordered map container with multiple key occurrence.
     /// Satisfied by multimap.
-    template <typename C>
+    template <typename T>
     concept ordered_multiple_map_container
-    = multiple_map_container<C> and ordered_map_container<C>;
+    = multiple_map_container<T> and ordered_map_container<T>;
 
     /// A hash-based map container.
     /// Satisfied by unordered_map and unordered_multimap.
-    template <typename C>
-    concept unordered_map_container = map_container<C> and unordered_associative_container<C>;
+    template <typename T>
+    concept unordered_map_container = map_container<T> and unordered_associative_container<T>;
 
     /// A hash-based map container without multiple key occurrence.
     /// Satisfied by unordered_map.
-    template <typename C>
+    template <typename T>
     concept unordered_unique_map_container
-    = unique_map_container<C> and unordered_map_container<C>;
+    = unique_map_container<T> and unordered_map_container<T>;
 
     /// A hash-based map container with multiple key occurrence.
     /// Satisfied by unordered_multimap.
-    template <typename C>
+    template <typename T>
     concept unordered_multiple_map_container
-    = multiple_map_container<C> and unordered_map_container<C>;
+    = multiple_map_container<T> and unordered_map_container<T>;
 
-    template <typename C, typename ValueType, typename KeyType = ValueType>
+    template <typename T, typename ValueType, typename KeyType = ValueType>
     concept associative_container_of
-    = container_of<C, ValueType> and
-      associative_container<C> and
-      std::same_as<KeyType, typename C::key_type>;
+    = container_of<T, ValueType> and
+      associative_container<T> and
+      std::same_as<KeyType, typename T::key_type>;
 
-    template <typename C, typename ValueType, typename KeyType = ValueType>
+    template <typename T, typename ValueType, typename KeyType = ValueType>
     concept unique_associative_container_of
-    = associative_container_of<C, ValueType, KeyType> and unique_associative_container<C>;
+    = associative_container_of<T, ValueType, KeyType> and unique_associative_container<T>;
 
-    template <typename C, typename ValueType, typename KeyType = ValueType>
+    template <typename T, typename ValueType, typename KeyType = ValueType>
     concept multiple_associative_container_of
-    = associative_container_of<C, ValueType, KeyType> and multiple_associative_container<C>;
+    = associative_container_of<T, ValueType, KeyType> and multiple_associative_container<T>;
 
-    template <typename C, typename ValueType, typename KeyType = ValueType>
+    template <typename T, typename ValueType, typename KeyType = ValueType>
     concept ordered_associative_container_of
-    = associative_container_of<C, ValueType, KeyType> and ordered_associative_container<C>;
+    = associative_container_of<T, ValueType, KeyType> and ordered_associative_container<T>;
 
-    template <typename C, typename ValueType, typename KeyType = ValueType>
+    template <typename T, typename ValueType, typename KeyType = ValueType>
     concept ordered_unique_associative_container_of
-    = unique_associative_container_of<C, ValueType, KeyType> and ordered_unique_associative_container<C>;
+    = unique_associative_container_of<T, ValueType, KeyType> and ordered_unique_associative_container<T>;
 
-    template <typename C, typename ValueType, typename KeyType = ValueType>
+    template <typename T, typename ValueType, typename KeyType = ValueType>
     concept ordered_multiple_associative_container_of
-    = multiple_associative_container_of<C, ValueType, KeyType> and ordered_multiple_associative_container<C>;
+    = multiple_associative_container_of<T, ValueType, KeyType> and ordered_multiple_associative_container<T>;
 
-    template <typename C, typename ValueType, typename KeyType = ValueType>
+    template <typename T, typename ValueType, typename KeyType = ValueType>
     concept unordered_associative_container_of
-    = associative_container_of<C, ValueType, KeyType> and unordered_associative_container<C>;
+    = associative_container_of<T, ValueType, KeyType> and unordered_associative_container<T>;
 
-    template <typename C, typename ValueType, typename KeyType = ValueType>
+    template <typename T, typename ValueType, typename KeyType = ValueType>
     concept unordered_unique_associative_container_of
-    = unique_associative_container_of<C, ValueType, KeyType> and unordered_unique_associative_container<C>;
+    = unique_associative_container_of<T, ValueType, KeyType> and unordered_unique_associative_container<T>;
 
-    template <typename C, typename ValueType, typename KeyType = ValueType>
+    template <typename T, typename ValueType, typename KeyType = ValueType>
     concept unordered_multiple_associative_container_of
-    = multiple_associative_container_of<C, ValueType, KeyType> and unordered_multiple_associative_container<C>;
+    = multiple_associative_container_of<T, ValueType, KeyType> and unordered_multiple_associative_container<T>;
 
-    template <typename C, typename KeyType, typename MappedType>
+    template <typename T, typename KeyType, typename MappedType>
     concept map_container_of
-    = map_container<C> and
-      std::same_as<KeyType, typename C::key_type> and
-      std::same_as<MappedType, typename C::mapped_type>;
+    = map_container<T> and
+      std::same_as<KeyType, typename T::key_type> and
+      std::same_as<MappedType, typename T::mapped_type>;
 
-    template <typename C, typename KeyType, typename MappedType>
+    template <typename T, typename KeyType, typename MappedType>
     concept unique_map_container_of
-    = map_container_of<C, KeyType, MappedType> and unique_map_container<C>;
+    = map_container_of<T, KeyType, MappedType> and unique_map_container<T>;
 
-    template <typename C, typename KeyType, typename MappedType>
+    template <typename T, typename KeyType, typename MappedType>
     concept multiple_map_container_of
-    = map_container_of<C, KeyType, MappedType> and multiple_map_container<C>;
+    = map_container_of<T, KeyType, MappedType> and multiple_map_container<T>;
 
-    template <typename C, typename KeyType, typename MappedType>
+    template <typename T, typename KeyType, typename MappedType>
     concept ordered_map_container_of
-    = map_container_of<C, KeyType, MappedType> and
-      ordered_map_container<C>;
+    = map_container_of<T, KeyType, MappedType> and
+      ordered_map_container<T>;
 
-    template <typename C, typename KeyType, typename MappedType>
+    template <typename T, typename KeyType, typename MappedType>
     concept ordered_unique_map_container_of
-    = unique_map_container_of<C, KeyType, MappedType> and ordered_unique_map_container<C>;
+    = unique_map_container_of<T, KeyType, MappedType> and ordered_unique_map_container<T>;
 
-    template <typename C, typename KeyType, typename MappedType>
+    template <typename T, typename KeyType, typename MappedType>
     concept ordered_multiple_map_container_of
-    = multiple_map_container_of<C, KeyType, MappedType> and ordered_multiple_map_container<C>;
+    = multiple_map_container_of<T, KeyType, MappedType> and ordered_multiple_map_container<T>;
 
-    template <typename C, typename KeyType, typename MappedType>
+    template <typename T, typename KeyType, typename MappedType>
     concept unordered_map_container_of
-    = map_container_of<C, KeyType, MappedType> and
-      unordered_map_container<C>;
+    = map_container_of<T, KeyType, MappedType> and
+      unordered_map_container<T>;
 
-    template <typename C, typename KeyType, typename MappedType>
+    template <typename T, typename KeyType, typename MappedType>
     concept unordered_unique_map_container_of
-    = unique_map_container_of<C, KeyType, MappedType> and unordered_unique_map_container<C>;
+    = unique_map_container_of<T, KeyType, MappedType> and unordered_unique_map_container<T>;
 
-    template <typename C, typename KeyType, typename MappedType>
+    template <typename T, typename KeyType, typename MappedType>
     concept unordered_multiple_map_container_of
-    = multiple_map_container_of<C, KeyType, MappedType> and unordered_multiple_map_container<C>;
+    = multiple_map_container_of<T, KeyType, MappedType> and unordered_multiple_map_container<T>;
 
 }
