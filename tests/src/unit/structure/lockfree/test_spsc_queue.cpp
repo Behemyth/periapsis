@@ -95,10 +95,14 @@ TYPED_TEST(QueueTest, empty)
 {
 	TypeParam container;
 	Queue<TypeParam> queue(std::move(container));
+
+	EXPECT_TRUE(queue.empty());
 }
 
-TYPED_TEST(QueueTest, not_empty)
+TEST(QueueTest, not_empty)
 {
-	TypeParam container;
-	Queue<TypeParam> queue(std::move(container));
+	Vector container(2, 3);
+	const Queue queue(std::move(container));
+
+	EXPECT_FALSE(queue.empty());
 }

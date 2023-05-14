@@ -1,5 +1,6 @@
 target_sources(tests
 PRIVATE
+	test_fixed_vector.cpp
 	test_queue.cpp
 )
 

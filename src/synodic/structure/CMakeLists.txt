@@ -1,6 +1,7 @@
 target_sources(synodic-template-library
 PRIVATE
-	"queue.h"
+	queue.h
+	fixed_vector.h
 )
 
 add_subdirectory(
