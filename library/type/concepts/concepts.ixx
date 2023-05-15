@@ -26,6 +26,8 @@ SOFTWARE.
 
 export module synodic.library.type.concepts;
 
+export import :shared;
+
 import std;
 
 

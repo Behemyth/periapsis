@@ -1,5 +1,5 @@
 # Trait Library
 
-module synodic.library.type.trait
+module synodic.library.type.traits
 
 namespace `synodic`

@@ -1,9 +1,10 @@
 
-export module synodic.library.type.trait;
+export module synodic.library.type.traits;
 
-import std;
+import <concepts>;
+import <tuple>;
 
-export namespace synodic
+namespace synodic
 {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +82,7 @@ export namespace synodic
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Given a type T, returns a tuple of the parameters for the shortest constructor for that type
-	template<typename T>
+	export template<typename T>
 	using ConstructorParameters =
 		typename TaggedTuple<T, std::make_index_sequence<ConstructorParameterCount<T>(0)>>::Type;
 
