@@ -138,13 +138,13 @@ export namespace synodic::sparse
 		const size_type position,
 		Args&&... args)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<class T, std::uint8_t BlockSize>
 	typename Vector<T, BlockSize>::iterator Vector<T, BlockSize>::Erase(const_iterator pos)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<class T, std::uint8_t BlockSize>

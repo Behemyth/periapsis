@@ -2,7 +2,7 @@ export module Utility;
 
 import std;
 
-export namespace synodic
+namespace synodic
 {
 	// TODO: Don't export with module
 	template<std::size_t Size>
@@ -18,7 +18,7 @@ export namespace synodic
 	{
 	}
 
-	template<auto N>
+	export template<auto N>
 	constexpr auto nth_element(auto... args)
 	{
 		return [&]<std::size_t... Ns>(std::index_sequence<Ns...>)

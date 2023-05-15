@@ -184,7 +184,7 @@ export namespace synodic::sparse
 		}
 
 		// TODO: should never reach here. Error handling? Dummy return?
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<class Key, class Value, class Hash>
@@ -233,7 +233,7 @@ export namespace synodic::sparse
 		}
 
 		// TODO: should never reach here. Error handling? Dummy return?
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<class Key, class Value, class Hash>
@@ -287,7 +287,7 @@ export namespace synodic::sparse
 
 		//}
 
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	// TODO: this should be a part of a hash library.

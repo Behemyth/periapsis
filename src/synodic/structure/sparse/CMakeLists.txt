@@ -1,8 +1,8 @@
 target_sources(synodic-template-library
   PUBLIC
     FILE_SET sparse TYPE CXX_MODULES FILES
-	"bitmap.cppm"
-	"hash_map.cppm"
-	"hash_set.cppm"
-	"vector.cppm"
+	"bitmap.ixx"
+	"hash_map.ixx"
+	"hash_set.ixx"
+	"vector.ixx"
 )

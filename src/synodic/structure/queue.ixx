@@ -44,19 +44,19 @@ export namespace synodic
 	template<typename T, sequence_container_of<T> Container>
 	Queue<T, Container>::Queue(const Container& container)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<typename T, sequence_container_of<T> Container>
 	Queue<T, Container>::Queue(Container&& container)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<typename T, sequence_container_of<T> Container>
 	bool Queue<T, Container>::empty() const
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

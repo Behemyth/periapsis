@@ -1,6 +1,6 @@
 target_sources(synodic-template-library
   PUBLIC
     FILE_SET types TYPE CXX_MODULES FILES
-    "concepts.cppm"
-	"traits.cppm"
+    "concepts.ixx"
+	"traits.ixx"
 )

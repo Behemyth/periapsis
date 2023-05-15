@@ -189,25 +189,25 @@ export namespace synodic::lockfree
 	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr void SPSCQueue<T, Container>::push(const T& value)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr void SPSCQueue<T, Container>::push(T&& value)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr bool SPSCQueue<T, Container>::try_push(const T& value)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	constexpr bool SPSCQueue<T, Container>::try_push(T&& value)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
@@ -237,14 +237,14 @@ export namespace synodic::lockfree
 	template<typename... Args>
 	constexpr void SPSCQueue<T, Container>::emplace(Args&&... args)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	template<typename... Args>
 	constexpr bool SPSCQueue<T, Container>::try_emplace(Args&&... args)
 	{
-		throw NotImplemented();
+		throw NotImplementedException ();
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-// Container concepts inspired by https://github.com/MiSo1289/more_concepts
+// LEGAL: Container concepts inspired by https://github.com/MiSo1289/more_concepts which has the following license:
 
 /* MIT License
 
@@ -24,7 +24,7 @@ SOFTWARE.
 */
 
 
-export module Concepts;
+export module synodic.library.types:concepts;
 
 import std;
 

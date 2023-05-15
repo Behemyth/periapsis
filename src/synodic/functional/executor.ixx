@@ -1,4 +1,4 @@
-export module Executor;
+export module synodic.library.functional:executor;
 
 export namespace synodic::executor
 {

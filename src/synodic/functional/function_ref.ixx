@@ -1,15 +1,15 @@
-export module Function;
+export module synodic.library.functional:function_ref;
 
 import Concepts;
 
 // Temporary implementation while the basis is considered for standardization.
 //	As a result, this implementation follows stl naming conventions
-export namespace synodic
+namespace synodic
 {
-	template<class F>
+	export template<class F>
 	class FunctionRef;
 
-	template<class R, class... Args>
+	export template<class R, class... Args>
 	class FunctionRef<R(Args...)>
 	{
 	public:
@@ -37,6 +37,8 @@ export namespace synodic
 		void* object_				   = nullptr;
 		R (*callback_)(void*, Args...) = nullptr;
 	};
+
+}
 
 	template<class R, class... Args>
 	template<callable<R, Args...> Fn>
@@ -135,7 +137,7 @@ export namespace synodic
 		using type = R(Args...);
 	};
 
-	template<class Fn, class Stripped = typename SignatureStripper<decltype(&Fn::operator())>::type>
+	export template<class Fn, class Stripped = typename SignatureStripper<decltype(&Fn::operator())>::type>
 	FunctionRef(Fn) -> FunctionRef<Stripped>;
 
 }
