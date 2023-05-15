@@ -2,9 +2,13 @@
 
 export module Vector;
 
-import std;
 import BitMap;
-import Exception;
+import synodic.library.exception;
+
+import <cstdint>;
+import <vector>;
+import <iterator>;
+import <utility>;
 
 export namespace synodic::sparse
 {

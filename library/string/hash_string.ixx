@@ -1,7 +1,8 @@
 
 export module String;
 
-import std;
+import <cstdint>;
+import <string_view>;
 
 export namespace synodic
 {

@@ -1,6 +1,9 @@
 export module BitMap;
 
-import std;
+import <cstdint>;
+import <utility>;
+import <bitset>;
+import <vector>;
 
 export namespace synodic::sparse
 {

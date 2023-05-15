@@ -2,9 +2,12 @@
 
 export module HashMap;
 
-import std;
-import Exception;
+import synodic.library.exception;
 import Vector;
+
+import <functional>;
+import <vector>;
+import <utility>;
 
 export namespace synodic::sparse
 {

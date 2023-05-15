@@ -4,7 +4,7 @@ import :shared;
 
 import <iterator>;
 
-namespace synodic
+export namespace synodic
 {
 	// A concept implementation of the named requirement 'Container' with Standard naming styles
 	//		This definition is devoid of backwards compatibility requirements

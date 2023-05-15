@@ -4,7 +4,8 @@
 
 export module Graph;
 
-import std;
+import <concepts>;
+import <span>;
 
 export namespace synodic::graph
 {

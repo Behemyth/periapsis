@@ -1,7 +1,6 @@
 
 export module HashSet;
 
-import std;
 import Vector;
 
 export namespace synodic::sparse

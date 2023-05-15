@@ -4,12 +4,12 @@ import synodic.library.type.concepts;
 
 // Temporary implementation while the basis is considered for standardization.
 //	As a result, this implementation follows stl naming conventions
-namespace synodic
+export namespace synodic
 {
-	export template<class F>
+	template<class F>
 	class FunctionRef;
 
-	export template<class R, class... Args>
+	template<class R, class... Args>
 	class FunctionRef<R(Args...)>
 	{
 	public:
@@ -37,8 +37,10 @@ namespace synodic
 		void* object_				   = nullptr;
 		R (*callback_)(void*, Args...) = nullptr;
 	};
-
 }
+
+namespace synodic
+{
 
 	template<class R, class... Args>
 	template<callable<R, Args...> Fn>
@@ -127,12 +129,12 @@ namespace synodic
 		using type = R(Args...);
 	};
 	template<class R, class T, class... Args>
-	struct SignatureStripper<R (T::*)(Args...)& noexcept>
+	struct SignatureStripper<R (T::*)(Args...) & noexcept>
 	{
 		using type = R(Args...);
 	};
 	template<class R, class T, class... Args>
-	struct SignatureStripper<R (T::*)(Args...) const& noexcept>
+	struct SignatureStripper<R (T::*)(Args...) const & noexcept>
 	{
 		using type = R(Args...);
 	};

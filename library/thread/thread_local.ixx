@@ -1,7 +1,7 @@
 
 export module Thread;
 
-import std;
+import <unordered_map>;
 
 export namespace synodic
 {

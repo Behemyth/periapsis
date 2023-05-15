@@ -1,6 +1,6 @@
-export module Exception;
+export module synodic.library.exception:not_implemented;
 
-import std;
+import <stdexcept>;
 
 export namespace synodic
 {

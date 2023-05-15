@@ -1,9 +1,11 @@
 
 export module LockFree;
 
-import Exception;
-import std;
+import synodic.library.exception;
 import synodic.library.type.concepts;
+
+import <optional>;
+import <atomic>;
 
 export namespace synodic::lockfree
 {

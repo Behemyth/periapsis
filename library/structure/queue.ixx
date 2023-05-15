@@ -1,7 +1,6 @@
 export module Queue;
 
-import std;
-import Exception;
+import synodic.library.exception;
 import synodic.library.type.concepts;
 
 export namespace synodic

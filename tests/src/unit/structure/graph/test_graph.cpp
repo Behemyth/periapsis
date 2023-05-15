@@ -1,7 +1,5 @@
 #include <gtest/gtest.h>
 
-import std;
-
 import MaxFlow;
 import Graph;
 
