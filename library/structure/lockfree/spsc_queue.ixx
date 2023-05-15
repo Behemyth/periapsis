@@ -3,7 +3,7 @@ export module LockFree;
 
 import Exception;
 import std;
-import Concepts;
+import synodic.library.type.concepts;
 
 export namespace synodic::lockfree
 {

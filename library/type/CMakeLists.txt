@@ -5,7 +5,7 @@ target_sources(synodic-template-library
 )
 
 add_subdirectory(
-	"concept"
+	"concepts"
 )
 
 add_subdirectory(
