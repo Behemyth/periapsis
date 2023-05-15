@@ -1,5 +1,3 @@
-#pragma once
-
 export module Exception;
 
 import std;

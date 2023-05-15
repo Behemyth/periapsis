@@ -1,10 +1,9 @@
 #include <gtest/gtest.h>
 
-#include <array>
-#include <ranges>
+import std;
 
-#include "synodic/algorithm/max_flow.h"
-#include "synodic/structure/graph.h"
+import MaxFlow;
+import Graph;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types

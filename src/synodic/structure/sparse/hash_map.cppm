@@ -57,7 +57,7 @@ export namespace synodic::sparse
 
 	private:
 		static constexpr Hash hasher_		= {};
-		static constexpr uint8_t blockSize_ = 8;
+		static constexpr std::uint8_t blockSize_ = 8;
 
 		std::pair<size_t&, bool> Insert(const Key& key, size_t indirection);
 

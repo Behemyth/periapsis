@@ -1,17 +1,8 @@
 #include <gtest/gtest.h>
 
-#include <array>
-#include <deque>
-#include <forward_list>
-#include <list>
-#include <map>
-#include <set>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
+import std;
 
-#include "synodic/structure/lockfree/spsc_queue.h"
+import LockFree;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types
