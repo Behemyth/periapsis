@@ -1,7 +1,8 @@
 target_sources(synodic-template-library
-PRIVATE
-	queue.h
-	fixed_vector.h
+  PUBLIC
+    FILE_SET structures TYPE CXX_MODULES FILES
+	"fixed_vector.cppm"
+    "queue.cppm"
 )
 
 add_subdirectory(
@@ -11,3 +12,4 @@ add_subdirectory(
 add_subdirectory(
 	lockfree
 )
+

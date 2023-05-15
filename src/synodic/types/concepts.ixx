@@ -24,14 +24,12 @@ SOFTWARE.
 */
 
 
-#pragma once
+export module Concepts;
 
-#include <concepts>
-#include <type_traits>
-#include <numeric>
-#include <iterator>
+import std;
 
-namespace synodic
+
+export namespace synodic
 {
 	// Implements the missing concept for 'is_invocable_r'
 	template<typename Fn, typename R, typename... Args>

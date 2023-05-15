@@ -1,8 +1,10 @@
 #pragma once
 
-#include <stdexcept>
+export module Exception;
 
-namespace synodic
+import std;
+
+export namespace synodic
 {
 	class NotImplemented final : public std::logic_error
 	{

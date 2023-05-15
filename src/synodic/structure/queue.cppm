@@ -1,9 +1,10 @@
-#pragma once
+export module Queue;
 
-#include "synodic/exception/not_implemented.h"
-#include "synodic/types/concepts.h"
+import std;
+import Exception;
+import Concepts;
 
-namespace synodic
+export namespace synodic
 {
 	/**
 	 * \brief A container adapter that closely follows the interface of std::queue with a ring buffer backend. Queue fulfills the

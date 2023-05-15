@@ -2,9 +2,9 @@
 
 #include <vector>
 
-#include "synodic/exception/not_implemented.h"
-
 #include "synodic/structure/sparse/bitmap.h"
+
+import Exception;
 
 namespace synodic::sparse
 {

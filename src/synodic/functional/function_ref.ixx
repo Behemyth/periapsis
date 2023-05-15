@@ -1,12 +1,12 @@
 #pragma once
 
-#include <utility>
+export module Function;
 
-#include "synodic/types/concepts.h"
+import Concepts;
 
 // Temporary implementation while the basis is considered for standardization.
 //	As a result, this implementation follows stl naming conventions
-namespace synodic
+export namespace synodic
 {
 	template<class F>
 	class FunctionRef;

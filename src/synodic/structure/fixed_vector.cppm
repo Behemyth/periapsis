@@ -1,5 +1,3 @@
-#pragma once
-
 namespace synodic
 {
 	template<typename T, size_t N, bool EnableOverflow, typename Alloc>

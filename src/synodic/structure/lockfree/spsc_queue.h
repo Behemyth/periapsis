@@ -5,7 +5,8 @@
 #include <optional>
 
 #include "synodic/exception/not_implemented.h"
-#include "synodic/types/concepts.h"
+
+import Concepts;
 
 namespace synodic::lockfree
 {

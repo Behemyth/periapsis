@@ -1,4 +1,5 @@
 target_sources(synodic-template-library
-PRIVATE
-	not_implemented.h
+  PUBLIC
+    FILE_SET exception TYPE CXX_MODULES FILES
+    "not_implemented.cppm"
 )
