@@ -1,4 +1,4 @@
-export module synodic.library.functional:function_ref;
+export module synodic.library.function:function_ref;
 
 import synodic.library.type.concepts;
 
