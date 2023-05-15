@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.26 FATAL_ERROR)
 set(CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API "2182bf5c-ef0d-489a-91da-49dbc3090d2a")
 set(CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP 1)
 
-project(synodic-template-library 
+project(synodic-template-library
 	VERSION 0.1.0
 	DESCRIPTION "Synodic Template Library"
 	LANGUAGES CXX
@@ -19,7 +19,7 @@ add_library(synodic-template-library STATIC)
 add_library(synodic::synodic-template-library ALIAS synodic-template-library)
 
 set_target_properties(synodic-template-library
-	PROPERTIES 
+	PROPERTIES
 		LINKER_LANGUAGE CXX
 		CXX_STANDARD 23
 		CXX_STANDARD_REQUIRED ON
@@ -27,7 +27,7 @@ set_target_properties(synodic-template-library
 )
 
 add_subdirectory(
-	src/synodic
+	library
 )
 
 #Provides Visual Studio filter support
