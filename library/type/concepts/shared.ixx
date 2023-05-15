@@ -1,4 +1,4 @@
-// Concepts used by other modules and exported
+// Shared concepts used by other partitions
 
 export module synodic.library.type.concepts:shared;
 
