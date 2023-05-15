@@ -35,8 +35,10 @@ struct TestStruct
 
 TEST(function_ref, Construction)
 {
-	synodic::FunctionRef function1 = [](){};
-	synodic::FunctionRef function2					  = FreeFunction;
+	synodic::FunctionRef function1 = []()
+	{
+	};
+	synodic::FunctionRef function2					 = FreeFunction;
 	synodic::FunctionRef<void(TestStruct)> function3 = &TestStruct::MemberFunctionOne;
 }
 
@@ -50,7 +52,7 @@ TEST(function_ref, Call)
 
 	{
 		TestStruct testStruct;
-		auto testFunction								  = &TestStruct::MemberFunctionOne;
+		auto testFunction								 = &TestStruct::MemberFunctionOne;
 		synodic::FunctionRef<void(TestStruct&)> function = testFunction;
 		function(testStruct);
 		EXPECT_TRUE(testStruct.oneTest);
@@ -86,21 +88,21 @@ TEST(function_ref, Assignment)
 {
 	{
 		synodic::FunctionRef function = FreeFunction;
-		function					   = []
+		function					  = []
 		{
 		};
 	}
 
 	{
 		synodic::FunctionRef<void(TestStruct)> function = &TestStruct::MemberFunctionOne;
-		function										 = &TestStruct::MemberFunctionTwo;
+		function										= &TestStruct::MemberFunctionTwo;
 	}
 }
 
 TEST(function_ref, Deduction)
 {
 	{
-		const int i				= 5;
+		const int i			   = 5;
 		synodic::FunctionRef g = [&](double)
 		{
 			return i;
