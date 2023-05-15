@@ -1,5 +1,3 @@
-#pragma once
-
 export module Function;
 
 import Concepts;

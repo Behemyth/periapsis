@@ -26,11 +26,6 @@ set_target_properties(synodic-template-library
 		CXX_EXTENSIONS NO
 )
 
-target_include_directories(synodic-template-library
-INTERFACE
-	${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
 add_subdirectory(
 	src/synodic
 )

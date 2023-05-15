@@ -27,10 +27,6 @@ export namespace synodic
 		explicit Queue(Container&& container);
 
 		~Queue() = default;
-
-		template<class Self>
-		auto&& front(this Self&& self);
-
 		[[nodiscard]] bool empty() const;
 
 	private:
@@ -55,13 +51,6 @@ export namespace synodic
 	Queue<T, Container>::Queue(Container&& container)
 	{
 		throw NotImplemented();
-	}
-
-	template<typename T, sequence_container_of<T> Container>
-	template<class Self>
-	auto&& Queue<T, Container>::front(this Self&& self)
-	{
-		return self.data_.front();
 	}
 
 	template<typename T, sequence_container_of<T> Container>
