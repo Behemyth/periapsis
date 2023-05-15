@@ -1,10 +1,10 @@
-#pragma once
 
-#include <vector>
+export module HashSet;
 
-#include "synodic/structure/sparse/vector.h"
+import std
+import Vector;
 
-namespace synodic::sparse
+export namespace synodic::sparse
 {
 	template<class Key, class Hash = std::hash<Key>>
 	class HashSet final

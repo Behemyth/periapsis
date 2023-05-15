@@ -1,15 +1,15 @@
-#pragma once
 
-#include <vector>
 
-#include "synodic/structure/sparse/bitmap.h"
+export module Vector;
 
+import std;
+import BitMap;
 import Exception;
 
-namespace synodic::sparse
+export namespace synodic::sparse
 {
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	class Vector 
 	{
 		using BlockType = BitMap<size_t, BlockSize>;
@@ -68,7 +68,7 @@ namespace synodic::sparse
 		size_type size_;
 	};
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	template<bool Const>
 	Vector<T, BlockSize>::SparseVectorIterator<Const>::SparseVectorIterator(
 		OuterIteratorType outerIterator,
@@ -77,14 +77,14 @@ namespace synodic::sparse
 	{
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	template<bool Const>
 	T& Vector<T, BlockSize>::SparseVectorIterator<Const>::operator*()
 	{
 		return *innerIterator_;
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	Vector<T, BlockSize>::Vector() : blocks_(4), size_(0)
 	{
 	}
@@ -95,26 +95,26 @@ namespace synodic::sparse
 	 * @returns	The number of elements stored in the table.
 	 */
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	typename Vector<T, BlockSize>::size_type Vector<T, BlockSize>::Size() const noexcept
 	{
 		return size_;
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	void Vector<T, BlockSize>::Reserve(size_type count)
 	{
 		blocks_.reserve((count - 1) / BlockSize + 1);
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	void Vector<T, BlockSize>::Clear() noexcept
 	{
 		blocks_.clear();
 		size_ = 0;
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	std::pair<typename Vector<T, BlockSize>::iterator, bool> Vector<T, BlockSize>::Insert(
 		const size_type position,
 		const T& value)
@@ -132,7 +132,7 @@ namespace synodic::sparse
 		return {{blocks_.begin() + index, foundValue}, inserted};
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	template<typename... Args>
 	std::pair<typename Vector<T, BlockSize>::iterator, bool> Vector<T, BlockSize>::Emplace(
 		const size_type position,
@@ -141,13 +141,13 @@ namespace synodic::sparse
 		throw NotImplemented();
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	typename Vector<T, BlockSize>::iterator Vector<T, BlockSize>::Erase(const_iterator pos)
 	{
 		throw NotImplemented();
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	typename Vector<T, BlockSize>::iterator Vector<T, BlockSize>::Find(const size_type position)
 	{
 		auto index	 = position / BlockSize;
@@ -161,19 +161,19 @@ namespace synodic::sparse
 		return {blocks_.end(), bitMap.end()};
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	typename Vector<T, BlockSize>::size_type Vector<T, BlockSize>::BucketCount() const noexcept
 	{
 		return blocks_.size();
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	typename Vector<T, BlockSize>::iterator Vector<T, BlockSize>::begin() noexcept
 	{
 		return {blocks_.begin(), blocks_.front().begin()};
 	}
 
-	template<class T, uint8_t BlockSize>
+	template<class T, std::uint8_t BlockSize>
 	typename Vector<T, BlockSize>::iterator Vector<T, BlockSize>::end() noexcept
 	{
 		return {blocks_.end(), blocks_.back().end()};

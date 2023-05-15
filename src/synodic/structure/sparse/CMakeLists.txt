@@ -1,7 +1,8 @@
 target_sources(synodic-template-library
-PRIVATE
-	bitmap.h
-	hash_map.h
-	hash_set.h
-	vector.h
+  PUBLIC
+    FILE_SET sparse TYPE CXX_MODULES FILES
+	"bitmap.cppm"
+	"hash_map.cppm"
+	"hash_set.cppm"
+	"vector.cppm"
 )

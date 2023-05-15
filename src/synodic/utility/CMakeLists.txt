@@ -1,4 +1,5 @@
 target_sources(synodic-template-library
-PRIVATE
-	utility.h
+  PUBLIC
+    FILE_SET utility TYPE CXX_MODULES FILES
+	"utility.cppm"
 )

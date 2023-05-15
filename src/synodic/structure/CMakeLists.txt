@@ -3,6 +3,7 @@ target_sources(synodic-template-library
     FILE_SET structures TYPE CXX_MODULES FILES
 	"fixed_vector.cppm"
     "queue.cppm"
+	"graph.cppm"
 )
 
 add_subdirectory(

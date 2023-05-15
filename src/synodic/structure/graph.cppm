@@ -2,12 +2,11 @@
  * \brief Graph structures are independent of any data and therefor rely on indices for independent computation.
  */
 
-#pragma once
+export module Graph;
 
-#include <concepts>
-#include <span>
+import std;
 
-namespace synodic::graph
+export namespace synodic::graph
 {
 	/**
 	 * \brief Users that want to accept multiple kinds of graphs can expect that the Graph concept is the shared scheme
@@ -57,15 +56,15 @@ namespace synodic::graph
 	{
 	}
 
-	using Node8	 = Node<int8_t>;
-	using Node16 = Node<int16_t>;
-	using Node32 = Node<int32_t>;
-	using Node64 = Node<int64_t>;
+	using Node8	 = Node<std::int8_t>;
+	using Node16 = Node<std::int16_t>;
+	using Node32 = Node<std::int32_t>;
+	using Node64 = Node<std::int64_t>;
 
-	using Edge8	 = Edge<uint8_t>;
-	using Edge16 = Edge<uint16_t>;
-	using Edge32 = Edge<uint32_t>;
-	using Edge64 = Edge<uint64_t>;
+	using Edge8	 = Edge<std::uint8_t>;
+	using Edge16 = Edge<std::uint16_t>;
+	using Edge32 = Edge<std::uint32_t>;
+	using Edge64 = Edge<std::uint64_t>;
 
 	/**
 	 * \brief The base implementation details for all graphs

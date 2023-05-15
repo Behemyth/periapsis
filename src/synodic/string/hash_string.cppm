@@ -1,12 +1,14 @@
-#pragma once
 
-#include <string>
-namespace synodic
+export module String;
+
+import std;
+
+export namespace synodic
 {
 	class HashString final
 	{
 	public:
-		using HashType = uint64_t;
+		using HashType = std::uint64_t;
 
 		explicit constexpr HashString(std::string_view);
 

@@ -1,8 +1,9 @@
-#pragma once
 
-#include <unordered_map>
+export module Thread;
 
-namespace synodic
+import std;
+
+export namespace synodic
 {
 	// A managed object that exists statically for each thread
 	template<typename T>

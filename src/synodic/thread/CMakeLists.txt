@@ -1,4 +1,5 @@
 target_sources(synodic-template-library
-PRIVATE
-	thread_local.h
+  PUBLIC
+    FILE_SET thread TYPE CXX_MODULES FILES
+	"thread_local.cppm"
 )

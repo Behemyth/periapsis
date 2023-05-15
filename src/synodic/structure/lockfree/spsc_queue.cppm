@@ -1,14 +1,11 @@
-#pragma once
 
-#include <algorithm>
-#include <array>
-#include <optional>
+export module LockFree;
 
-#include "synodic/exception/not_implemented.h"
-
+import Exception;
+import std;
 import Concepts;
 
-namespace synodic::lockfree
+export namespace synodic::lockfree
 {
 	// Defines the set of types that SPSCQueue supports
 	template<typename T>
@@ -153,7 +150,7 @@ namespace synodic::lockfree
 	{
 		std::rotate(container_.begin(), container_.begin(), container_.begin());
 
-		//container_
+		// container_
 
 		// TODO: Mark as full, as if in a constructed state
 		capacity_		  = 0;

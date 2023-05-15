@@ -1,8 +1,8 @@
-#pragma once
+export module Utility;
 
-#include <type_traits>
+import std;
 
-namespace synodic
+export namespace synodic
 {
 	// TODO: Don't export with module
 	template<std::size_t Size>

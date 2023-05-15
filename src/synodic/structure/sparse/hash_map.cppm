@@ -1,11 +1,12 @@
-#pragma once
 
-#include <vector>
 
-#include "synodic/exception/not_implemented.h"
-#include "synodic/structure/sparse/vector.h"
+export module HashMap;
 
-namespace synodic::sparse
+import std;
+import Exception;
+import Vector;
+
+export namespace synodic::sparse
 {
 	template<class Key, class Value, class Hash = std::hash<Key>>
 	class HashMap final

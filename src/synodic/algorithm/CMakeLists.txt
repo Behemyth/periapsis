@@ -1,4 +1,5 @@
 target_sources(synodic-template-library
-PRIVATE
-	max_flow.h
+  PUBLIC
+    FILE_SET algorithms TYPE CXX_MODULES FILES
+    "max_flow.cppm"
 )
