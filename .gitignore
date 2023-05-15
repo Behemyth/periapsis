@@ -10,3 +10,4 @@ dist/
 #PDM
 .pdm-python
 __pypackages__/
+*.pdb
