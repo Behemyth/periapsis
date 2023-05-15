@@ -7,8 +7,8 @@ import Concepts;
 export namespace synodic
 {
 	/**
-	 * \brief A container adapter that closely follows the interface of std::queue with a ring buffer backend. Queue fulfills the
-	 *	sequence_container constraint
+	 * \brief A container adapter that closely follows the interface of std::queue with a ring buffer backend.
+	 *		Queue fulfills thes equence_container constraint
 	 * \tparam T The type to store
 	 * \tparam Container A container fulfilling the sequence_container named requirement
 	 */
@@ -28,7 +28,7 @@ export namespace synodic
 
 		~Queue() = default;
 
-		template <class Self>
+		template<class Self>
 		auto&& front(this Self&& self);
 
 		[[nodiscard]] bool empty() const;
@@ -57,8 +57,8 @@ export namespace synodic
 		throw NotImplemented();
 	}
 
-	template <typename T, sequence_container_of<T> Container>
-	template <class Self>
+	template<typename T, sequence_container_of<T> Container>
+	template<class Self>
 	auto&& Queue<T, Container>::front(this Self&& self)
 	{
 		return self.data_.front();
