@@ -1,6 +1,6 @@
 export module synodic.library.functional:function_ref;
 
-import Concepts;
+import synodic.library.type.concept;
 
 // Temporary implementation while the basis is considered for standardization.
 //	As a result, this implementation follows stl naming conventions

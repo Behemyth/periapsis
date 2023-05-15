@@ -1,33 +1,39 @@
 
-add_subdirectory(
-	algorithm
+target_sources(synodic-template-library
+  PUBLIC
+    FILE_SET library TYPE CXX_MODULES FILES
+	"library.ixx"
 )
 
 add_subdirectory(
-	exception
+	"algorithm"
 )
 
 add_subdirectory(
-	functional
+	"exception"
 )
 
 add_subdirectory(
-	structure
+	"function"
 )
 
 add_subdirectory(
-	string
+	"structure"
 )
 
 add_subdirectory(
-	thread
+	"string"
+)
+
+add_subdirectory(
+	"thread"
 )
 
 
 add_subdirectory(
-	types
+	"type"
 )
 
 add_subdirectory(
-	utility
+	"utility"
 )

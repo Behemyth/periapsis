@@ -24,7 +24,7 @@ SOFTWARE.
 */
 
 
-export module synodic.library.types:concepts;
+export module synodic.library.type.concept;
 
 import std;
 
