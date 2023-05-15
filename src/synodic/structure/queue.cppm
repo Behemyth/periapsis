@@ -8,7 +8,7 @@ export namespace synodic
 {
 	/**
 	 * \brief A container adapter that closely follows the interface of std::queue with a ring buffer backend.
-	 *		Queue fulfills thes equence_container constraint
+	 *		Queue fulfills the sequence_container constraint
 	 * \tparam T The type to store
 	 * \tparam Container A container fulfilling the sequence_container named requirement
 	 */
