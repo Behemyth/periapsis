@@ -13,7 +13,6 @@ project(synodic-template-library
 # Enable CTest for the project
 include(CTest)
 
-
 # Provide a namespaced alias
 add_library(synodic-template-library STATIC)
 add_library(synodic::synodic-template-library ALIAS synodic-template-library)
