@@ -14,7 +14,7 @@ find_package(GTest REQUIRED)
 add_executable(tests)
 
 set_target_properties(tests
-	PROPERTIES 
+	PROPERTIES
 		LINKER_LANGUAGE CXX
 		CXX_STANDARD 23
 		CXX_STANDARD_REQUIRED ON
@@ -27,7 +27,9 @@ PRIVATE
     GTest::gtest_main
 )
 
-add_subdirectory(src)
+add_subdirectory(
+	"unit"
+)
 
 include(GoogleTest)
 gtest_discover_tests(tests)

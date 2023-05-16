@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-import LockFree;
+import synodic.library.container.lockfree;
 
 import <array>;
 import <deque>;

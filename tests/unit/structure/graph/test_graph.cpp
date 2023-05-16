@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 
-import MaxFlow;
-import Graph;
+import synodic.library.algorithm.graph;
+import synodic.library.structure;
+
 
 import <array>;
 
