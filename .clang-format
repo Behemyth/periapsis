@@ -1,5 +1,5 @@
 AccessModifierOffset: -4 
-AlignAfterOpenBracket: BlockIndent 
+AlignAfterOpenBracket: AlwaysBreak 
 AlignArrayOfStructures: Left 
 AlignConsecutiveAssignments:
   Enabled: true
@@ -130,7 +130,7 @@ RemoveBracesLLVM: false
 RemoveSemicolon: true
 RequiresClausePosition: OwnLine
 RequiresExpressionIndentation: OuterScope
-SeparateDefinitionBlocks: Never
+SeparateDefinitionBlocks: Always
 ShortNamespaceLines: 0
 SortIncludes: CaseSensitive
 # SortJavaStaticImport - Unused
