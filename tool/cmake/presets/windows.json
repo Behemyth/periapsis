@@ -58,23 +58,18 @@
 	],
 	"buildPresets": [
 		{
-			"name": "windows-ninja-msvc-release",
-			"displayName": "Ninja - MSVC: Release",
-			"configurePreset": "windows-ninja-msvc"
-		},
-		{
-			"name": "windows-ninja-msvc-debug",
-			"displayName": "Ninja - MSVC: Debug",
-			"configurePreset": "windows-ninja-msvc"
-		},
-		{
 			"name": "windows-msbuild-msvc-release",
-			"displayName": "MSBuild - MSVC: Release",
+			"displayName": "Release",
+			"configurePreset": "windows-msbuild-msvc"
+		},
+		{
+			"name": "windows-msbuild-msvc-development",
+			"displayName": "Development",
 			"configurePreset": "windows-msbuild-msvc"
 		},
 		{
 			"name": "windows-msbuild-msvc-debug",
-			"displayName": "MSBuild - MSVC: Debug",
+			"displayName": "Debug",
 			"configurePreset": "windows-msbuild-msvc"
 		}
 	],
