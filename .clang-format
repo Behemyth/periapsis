@@ -2,29 +2,29 @@ AccessModifierOffset: -4
 AlignAfterOpenBracket: BlockIndent 
 AlignArrayOfStructures: Left 
 AlignConsecutiveAssignments:
-	Enabled: true
-	AcrossEmptyLines: false
-	AcrossComments: false
-	AlignCompound: true
-	PadOperators: true
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false
+  AlignCompound: true
+  PadOperators: true
 AlignConsecutiveBitFields:
-	Enabled: true
-	AcrossEmptyLines: false
-	AcrossComments: false
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false
 AlignConsecutiveDeclarations:
-	Enabled: false
-	AcrossEmptyLines: false
-	AcrossComments: false 
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false 
 AlignConsecutiveMacros:
-	Enabled: true
-	AcrossEmptyLines: false
-	AcrossComments: false 
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false 
 AlignEscapedNewlines: Left 
 AlignOperands: Align 
 AlignTrailingComments:
-	Kind: Never
-#	OverEmptyLines - Unused
-#	MaxEmptyLinesToKeep - Unused
+  Kind: Never
+#  OverEmptyLines - Unused
+#  MaxEmptyLinesToKeep - Unused
 AllowAllArgumentsOnNextLine: false 
 AllowAllParametersOfDeclarationOnNextLine: false 
 AllowShortBlocksOnASingleLine: Never 
@@ -84,12 +84,12 @@ InsertBraces: true
 InsertNewlineAtEOF: true
 InsertTrailingCommas: None
 IntegerLiteralSeparator:
-	Binary: -1
-#	BinaryMinDigits - Unused
-	Decimal: 3
-	DecimalMinDigits: 5
-	Hex: 2
-	HexMinDigits: 4
+  Binary: -1
+#  BinaryMinDigits - Unused
+  Decimal: 3
+  DecimalMinDigits: 5
+  Hex: 2
+  HexMinDigits: 4
 # JavaImportGroups - Unused
 # JavaScriptQuotes - Unused
 # JavaScriptWrapImports - Unused
@@ -122,7 +122,7 @@ PackConstructorInitializers: Never
 # PenaltyReturnTypeOnItsOwnLine  - Unused
 PointerAlignment: Left 
 QualifierAlignment: Left
-QualifierOrder: ['inline', 'friend', 'static', 'constexpr', 'restrict', 'type', 'const', 'volatile' ]
+# QualifierOrder: ['inline', 'friend', 'static', 'constexpr', 'restrict', 'type', 'const', 'volatile' ] - Not supported
 # RawStringFormats - Unused
 ReferenceAlignment: Left 
 ReflowComments: true 
@@ -147,15 +147,15 @@ SpaceBeforeInheritanceColon: true
 # SpaceBeforeJsonColon: false - Requires clang-format 17
 SpaceBeforeParens: Custom
 SpaceBeforeParensOptions:
-	AfterControlStatements: true
-	AfterForeachMacros: true
-	AfterFunctionDeclarationName: false
-	AfterFunctionDefinitionName: false
-	AfterIfMacros: true
-	AfterOverloadedOperator: false
-	AfterRequiresInClause: false
-	AfterRequiresInExpression: false
-	BeforeNonEmptyParentheses: false
+  AfterControlStatements: true
+  AfterForeachMacros: true
+  AfterFunctionDeclarationName: false
+  AfterFunctionDefinitionName: false
+  AfterIfMacros: true
+  AfterOverloadedOperator: false
+  AfterRequiresInClause: false
+  AfterRequiresInExpression: false
+  BeforeNonEmptyParentheses: false
 SpaceBeforeRangeBasedForLoopColon: false 
 SpaceBeforeSquareBrackets: false 
 SpaceInEmptyBlock: false 
@@ -166,8 +166,8 @@ SpacesInCStyleCastParentheses: false
 SpacesInConditionalStatement: false 
 SpacesInContainerLiterals: false 
 SpacesInLineCommentPrefix:
-	Minimum: 1
-	Maximum: -1
+  Minimum: 1
+  Maximum: -1
 SpacesInParentheses: false 
 SpacesInSquareBrackets: false 
 Standard: Latest 
