@@ -1,9 +1,9 @@
 
 
-export module HashMap;
+export module synodic.library.container.sparse:hash_map;
 
 import synodic.library.exception;
-import Vector;
+import :vector;
 
 import <functional>;
 import <vector>;

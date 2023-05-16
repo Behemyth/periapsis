@@ -3,11 +3,16 @@ target_sources(synodic-template-library
   PUBLIC
     FILE_SET library TYPE CXX_MODULES FILES
 	"library.ixx"
-)
+ "container/container.ixx")
 
 add_subdirectory(
 	"algorithm"
 )
+
+add_subdirectory(
+	"container"
+)
+
 
 add_subdirectory(
 	"exception"

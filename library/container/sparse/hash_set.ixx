@@ -1,7 +1,7 @@
 
-export module HashSet;
+export module synodic.library.container.sparse:hash_set;
 
-import Vector;
+import :vector;
 
 export namespace synodic::sparse
 {

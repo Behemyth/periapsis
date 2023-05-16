@@ -1,16 +1,6 @@
 target_sources(synodic-template-library
   PUBLIC
-    FILE_SET structures TYPE CXX_MODULES FILES
-	"fixed_vector.ixx"
-    "queue.ixx"
+    FILE_SET structure TYPE CXX_MODULES FILES
 	"graph.ixx"
+	"structure.ixx"
 )
-
-add_subdirectory(
-	sparse
-)
-
-add_subdirectory(
-	lockfree
-)
-

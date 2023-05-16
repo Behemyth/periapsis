@@ -2,7 +2,7 @@
  * \brief Graph structures are independent of any data and therefor rely on indices for independent computation.
  */
 
-export module Graph;
+export module synodic.library.structure:graph;
 
 import <concepts>;
 import <span>;

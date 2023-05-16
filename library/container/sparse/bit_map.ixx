@@ -1,4 +1,4 @@
-export module BitMap;
+export module synodic.library.container.sparse:bit_map;
 
 import <cstdint>;
 import <utility>;

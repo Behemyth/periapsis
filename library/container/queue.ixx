@@ -1,4 +1,4 @@
-export module Queue;
+export module synodic.library.container:queue;
 
 import synodic.library.exception;
 import synodic.library.type.concepts;

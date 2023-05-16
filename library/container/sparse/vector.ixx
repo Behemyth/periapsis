@@ -1,8 +1,8 @@
 
 
-export module Vector;
+export module synodic.library.container.sparse:vector;
 
-import BitMap;
+import :bit_map;
 import synodic.library.exception;
 
 import <cstdint>;
