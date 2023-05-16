@@ -26,7 +26,7 @@ set_target_properties(synodic-template-library
 )
 
 add_subdirectory(
-	library
+	"library"
 )
 
 #Provides Visual Studio filter support
@@ -35,6 +35,8 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES SOURCES)
 
 if(BUILD_TESTING)
 
-    add_subdirectory(tests)
+    add_subdirectory(
+		"tests"
+	)
 
 endif()

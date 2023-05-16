@@ -1,9 +1,9 @@
 add_subdirectory(
-	functional
+	container
 )
 
 add_subdirectory(
-	container
+	functional
 )
 
 add_subdirectory(
