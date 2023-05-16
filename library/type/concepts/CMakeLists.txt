@@ -1,9 +1,12 @@
 target_sources(synodic-template-library
-  PUBLIC
-    FILE_SET CXX_MODULES FILES
-	"concepts.ixx"
-	"shared.ixx"
-	"container.ixx"
-	"sequence_container.ixx"
-	"associative_container.ixx"
+	PUBLIC
+		FILE_SET CXX_MODULES
+		BASE_DIRS
+			"${PROJECT_SOURCE_DIR}/library"
+		FILES
+			"concepts.ixx"
+			"shared.ixx"
+			"container.ixx"
+			"sequence_container.ixx"
+			"associative_container.ixx"
 )

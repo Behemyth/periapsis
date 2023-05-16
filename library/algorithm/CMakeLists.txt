@@ -1,7 +1,10 @@
 target_sources(synodic-template-library
-  PUBLIC
-    FILE_SET CXX_MODULES FILES
-	"algorithm.ixx"
+	PUBLIC
+		FILE_SET CXX_MODULES
+		BASE_DIRS
+			"${PROJECT_SOURCE_DIR}/library"
+		FILES
+			"algorithm.ixx"
 )
 
 add_subdirectory(
