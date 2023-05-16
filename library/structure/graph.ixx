@@ -129,7 +129,6 @@ export namespace synodic::graph
 
 	namespace directed
 	{
-
 		/**
 		 * \brief A directed graph
 		 * \tparam NodeIndexType The vertex index type

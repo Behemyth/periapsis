@@ -5,4 +5,3 @@ export import synodic.library.container.lockfree;
 
 export import :fixed_vector;
 export import :queue;
-
