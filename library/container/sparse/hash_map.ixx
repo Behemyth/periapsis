@@ -1,5 +1,3 @@
-
-
 export module synodic.library.container.sparse:hash_map;
 
 import synodic.library.exception;
