@@ -1,4 +1,4 @@
-export module synodic.library.fixed_vector;
+export module synodic.library.container:fixed_vector;
 
 export namespace synodic
 {

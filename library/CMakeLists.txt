@@ -13,7 +13,6 @@ add_subdirectory(
 	"container"
 )
 
-
 add_subdirectory(
 	"exception"
 )
@@ -23,17 +22,16 @@ add_subdirectory(
 )
 
 add_subdirectory(
-	"structure"
+	"string"
 )
 
 add_subdirectory(
-	"string"
+	"structure"
 )
 
 add_subdirectory(
 	"thread"
 )
-
 
 add_subdirectory(
 	"type"
