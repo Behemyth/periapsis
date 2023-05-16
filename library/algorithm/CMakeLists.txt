@@ -3,3 +3,7 @@ target_sources(synodic-template-library
     FILE_SET algorithm TYPE CXX_MODULES FILES
 	"algorithm.ixx"
 )
+
+add_subdirectory(
+	"graph"
+)
