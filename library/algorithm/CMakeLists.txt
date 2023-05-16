@@ -1,5 +1,5 @@
 target_sources(synodic-template-library
   PUBLIC
-    FILE_SET algorithms TYPE CXX_MODULES FILES
-    "max_flow.ixx"
+    FILE_SET algorithm TYPE CXX_MODULES FILES
+	"algorithm.ixx"
 )

@@ -1,5 +1,5 @@
 
-export module Thread;
+export module synodic.library.thread:local;
 
 import <unordered_map>;
 

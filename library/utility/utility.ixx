@@ -1,4 +1,4 @@
-export module Utility;
+export module synodic.library.utility;
 
 import <utility>;
 
