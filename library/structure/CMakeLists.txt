@@ -4,6 +4,9 @@ target_sources(synodic-template-library
 		BASE_DIRS
 			"${PROJECT_SOURCE_DIR}/library"
 		FILES
-			"graph.ixx"
 			"structure.ixx"
+)
+
+add_subdirectory(
+	"graph"
 )

@@ -1,3 +1,3 @@
 export module synodic.library.structure;
 
-export import :graph;
+export import synodic.library.structure.graph;
