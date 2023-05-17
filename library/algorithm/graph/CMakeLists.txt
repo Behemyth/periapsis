@@ -4,6 +4,6 @@ target_sources(synodic-template-library
 		BASE_DIRS
 			"${PROJECT_SOURCE_DIR}/library"
 		FILES
-			"graph.ixx"
+			"graph_a.ixx"
 			"max_flow.ixx"
 )

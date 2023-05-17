@@ -6,7 +6,7 @@ target_sources(synodic-template-library
 		FILES
 			"concepts.ixx"
 			"shared.ixx"
-			"container.ixx"
+			"container_c.ixx"
 			"sequence_container.ixx"
 			"associative_container.ixx"
 )

@@ -2,15 +2,7 @@
 
 import synodic.library.container.lockfree;
 
-import <array>;
-import <deque>;
-import <forward_list>;
-import <list>;
-import <map>;
-import <set>;
-import <unordered_map>;
-import <unordered_set>;
-import <vector>;
+import std;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types
