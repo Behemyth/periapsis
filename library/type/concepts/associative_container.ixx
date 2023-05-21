@@ -2,7 +2,7 @@ export module synodic.library.type.concepts:associative_container;
 
 import :container;
 
-import <tuple>;
+import std;
 
 export namespace synodic
 {

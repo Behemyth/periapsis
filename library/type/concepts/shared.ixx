@@ -2,7 +2,7 @@
 
 export module synodic.library.type.concepts:shared;
 
-import <concepts>;
+import std;
 
 export namespace synodic
 {

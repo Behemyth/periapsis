@@ -1,9 +1,6 @@
 export module synodic.library.container.sparse:bit_map;
 
-import <cstdint>;
-import <utility>;
-import <bitset>;
-import <vector>;
+import std;
 
 export namespace synodic::sparse
 {

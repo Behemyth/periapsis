@@ -3,9 +3,7 @@ export module synodic.library.container.sparse:hash_map;
 import synodic.library.exception;
 import :vector;
 
-import <functional>;
-import <vector>;
-import <utility>;
+import std;
 
 export namespace synodic::sparse
 {

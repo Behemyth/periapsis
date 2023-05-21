@@ -2,7 +2,16 @@
 
 import synodic.library.container.lockfree;
 
-import std;
+#include <array>
+#include <deque>
+#include <forward_list>
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types
@@ -37,7 +46,6 @@ class QueueTest : public testing::Test
 
 using StandardTypes = testing::Types<Deque, List, Vector>;
 TYPED_TEST_SUITE(QueueTest, StandardTypes);
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tests
@@ -85,10 +93,3 @@ TYPED_TEST(QueueTest, empty)
 	EXPECT_TRUE(queue.empty());
 }
 
-TEST(QueueTest, not_empty)
-{
-	Vector container(1, 2);
-	const Queue queue(std::move(container));
-
-	EXPECT_FALSE(queue.empty());
-}

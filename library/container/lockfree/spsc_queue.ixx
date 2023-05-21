@@ -3,8 +3,7 @@ export module synodic.library.container.lockfree:spsc_queue;
 import synodic.library.exception;
 import synodic.library.type.concepts;
 
-import <optional>;
-import <atomic>;
+import std;
 
 export namespace synodic::lockfree
 {

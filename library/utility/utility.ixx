@@ -1,6 +1,6 @@
 export module synodic.library.utility;
 
-import <utility>;
+import std;
 
 namespace synodic
 {

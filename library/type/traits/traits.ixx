@@ -1,8 +1,7 @@
 
 export module synodic.library.type.traits;
 
-import <concepts>;
-import <tuple>;
+import std;
 
 namespace synodic
 {

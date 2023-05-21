@@ -1,8 +1,7 @@
 
 export module synodic.library.string:hash_string;
 
-import <cstdint>;
-import <string_view>;
+import std;
 
 export namespace synodic
 {

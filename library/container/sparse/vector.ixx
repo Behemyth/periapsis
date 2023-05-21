@@ -5,10 +5,7 @@ export module synodic.library.container.sparse:vector;
 import :bit_map;
 import synodic.library.exception;
 
-import <cstdint>;
-import <vector>;
-import <iterator>;
-import <utility>;
+import std;
 
 export namespace synodic::sparse
 {

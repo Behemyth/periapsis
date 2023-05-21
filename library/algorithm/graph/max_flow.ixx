@@ -2,7 +2,7 @@ export module synodic.library.algorithm.graph:max_flow;
 
 import synodic.library.structure.graph;
 
-import <iterator>;
+import std;
 
 export namespace synodic::algorithm::graph
 {
