@@ -1,17 +1,7 @@
 #include <gtest/gtest.h>
 
 import synodic.library.container.lockfree;
-
-#include <array>
-#include <deque>
-#include <forward_list>
-#include <list>
-#include <map>
-#include <set>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
+import std;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types
