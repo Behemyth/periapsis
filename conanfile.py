@@ -32,7 +32,7 @@ class SynodicTemplateLibraryRecipe(ConanFile):
             del self.options.fPIC
 
     def requirements(self):
-        self.requires("gtest/1.13.0")
+        self.requires("gtest/1.14.0")
 
     def layout(self):
         cmake_layout(self)
