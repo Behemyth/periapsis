@@ -2,8 +2,8 @@
     "version": 6,
     "cmakeMinimumRequired": {
         "major": 3,
-        "minor": 27,
-        "patch": 2
+        "minor": 26,
+        "patch": 0
     },
 	"include": [
 		"tool/cmake/presets/linux.json",
