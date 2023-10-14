@@ -20,7 +20,7 @@ add_library(synodic::synodic-template-library ALIAS synodic-template-library)
 set_target_properties(synodic-template-library
 	PROPERTIES
 		LINKER_LANGUAGE CXX
-		CXX_STANDARD 23
+		CXX_STANDARD 26
 		CXX_STANDARD_REQUIRED ON
 		CXX_EXTENSIONS NO
 )

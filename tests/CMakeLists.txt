@@ -16,7 +16,7 @@ add_executable(tests)
 set_target_properties(tests
 	PROPERTIES
 		LINKER_LANGUAGE CXX
-		CXX_STANDARD 23
+		CXX_STANDARD 26
 		CXX_STANDARD_REQUIRED ON
 		CXX_EXTENSIONS NO
 )
