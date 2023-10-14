@@ -1,8 +1,4 @@
-cmake_minimum_required(VERSION 3.27 FATAL_ERROR)
-
-# TODO: Remove with IDE/CMake support
-set(CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API "aa1f7df0-828a-4fcd-9afc-2dc80491aca7")
-set(CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP 1)
+cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 
 project(synodic-template-library
 	VERSION 0.1.0

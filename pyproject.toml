@@ -2,7 +2,7 @@
 description = "Utility library."
 name = "synodic-template-library"
 
-license = "MIT"
+license = {text = "MIT"}
 
 authors = [
   {name = "Synodic Software", email = "contact@synodic.software"},
@@ -13,7 +13,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = []
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 
 [project.license-files]
 paths = ["LICENSE.md"]
@@ -31,7 +31,7 @@ dependencies = [
 
 [tool.pdm.dev-dependencies]
 dev = [
-  "cmake>=3.26.1",
+  "cmake>=3.27.2",
   "cppython-conan>=0.0.0.dev1",
   "cppython-pdm>=0.2.8.dev2",
 ]
@@ -39,7 +39,7 @@ lint = [
   "black>=22.6.0",
   "pylint>=2.14.5",
   "isort>=5.10.1",
-  "mypy>=0.982",
+  "mypy>=1.6.0",
 ]
 test = [
   "pytest>=7.1.2",
@@ -49,10 +49,13 @@ test = [
   "pytest-cppython>=0.2.0.dev0",
 ]
 
+[tool.pdm.options]
+update = ["--update-all"]
+
 [tool.pdm.scripts]
 build = {shell = "cppython build"}
 test = {shell = "cppython test"}
 
 [build-system]
-build-backend = "pdm.pep517.api"
-requires = ["pdm-pep517"]
+build-backend = "pdm.backend"
+requires = ["pdm.backend"]
