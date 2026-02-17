@@ -1,0 +1,86 @@
+[project]
+description = "Generic utilities and templates library."
+name = "periapsis"
+
+license = { text = "MIT" }
+
+authors = [{ name = "Synodic Software", email = "contact@synodic.software" }]
+
+readme = "README.md"
+
+dynamic = ["version"]
+
+dependencies = []
+requires-python = ">=3.14"
+
+[project.urls]
+homepage = "https://github.com/synodic/periapsis"
+repository = "https://github.com/synodic/periapsis"
+
+[dependency-groups]
+build = ["cppython[cmake,conan,git]>=0.9.15.dev3"]
+lint = ["ruff>=0.14.13", "pyrefly>=0.48.1", "isort>=7.0.0"]
+test = ["pytest>=9.0.2", "pytest-cov>=7.0.0", "pytest-mock>=3.15.1"]
+docs = ["zensical>=0.0.16"]
+config = ["copier>=9.11.1"]
+
+[tool.cppython]
+dependencies = ['gtest==1.17.0']
+
+[tool.cppython.generators.cmake]
+preset_file = "tool/cmake/platform/common/CMakePresets.json"
+configuration_name = "default"
+
+[tool.cppython.providers.conan]
+remotes = []
+skip_upload = true
+
+[tool.pytest.ini_options]
+log_cli = true
+testpaths = ["tests"]
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+line-length = 120
+preview = true
+
+[tool.ruff.lint]
+ignore = ["D206", "D300", "D415", "E111", "E114", "E117"]
+select = [
+	"D",   # pydocstyle
+	"F",   # Pyflakes
+	"I",   # isort
+	"PL",  # pylint
+	"UP",  # pyupgrade
+	"E",   # pycodestyle
+	"B",   # flake8-bugbear
+	"SIM", # flake8-simplify
+	"PT",  # flake8-pytest-style
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+docstring-code-format = true
+indent-style = "space"
+quote-style = "single"
+
+[tool.coverage.report]
+skip_empty = true
+
+[tool.pdm.scripts]
+build = "cppython build"
+test = "cppython test"
+serve = "zensical serve"
+post_install = "copier recopy --force --skip-answered"
+post_update = "copier recopy --force --skip-answered"
+
+[tool.porringer]
+manifest = "tool/porringer/porringer.json"
+
+[build-system]
+build-backend = "pdm.backend"
+requires = ["pdm.backend"]

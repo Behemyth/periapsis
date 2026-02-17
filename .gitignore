@@ -1,0 +1,13 @@
+build/
+.vs/
+
+#Python
+*.egg-info
+*.pyc
+dist/
+.vs/
+
+#PDM
+.pdm-python
+__pypackages__/
+*.pdb

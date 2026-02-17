@@ -1,0 +1,108 @@
+{
+	"version": 9,
+	"include": [
+		"../common/CMakePresets.json"
+	],
+	"configurePresets": [
+		{
+			"name": "macos-default",
+			"inherits": [
+				"default"
+			],
+			"hidden": true,
+			"description": "Base preset for macOS configurations",
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Darwin"
+			}
+		},
+		{
+			"name": "macos-ninja-clang",
+			"displayName": "Ninja Clang",
+			"description": "Ninja Multi-Config generator with Apple Clang",
+			"generator": "Ninja Multi-Config",
+			"inherits": [
+				"macos-default"
+			]
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "macos-default",
+			"hidden": true,
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Darwin"
+			}
+		},
+		{
+			"name": "macos-ninja-clang-release",
+			"displayName": "Ninja Clang Release",
+			"configurePreset": "macos-ninja-clang",
+			"configuration": "Release",
+			"inherits": [
+				"macos-default"
+			]
+		},
+		{
+			"name": "macos-ninja-clang-development",
+			"displayName": "Ninja Clang Development",
+			"configurePreset": "macos-ninja-clang",
+			"configuration": "Development",
+			"inherits": [
+				"macos-default"
+			]
+		},
+		{
+			"name": "macos-ninja-clang-debug",
+			"displayName": "Ninja Clang Debug",
+			"configurePreset": "macos-ninja-clang",
+			"configuration": "Debug",
+			"inherits": [
+				"macos-default"
+			]
+		}
+	],
+	"testPresets": [
+		{
+			"name": "macos-default",
+			"hidden": true,
+			"output": {
+				"outputOnFailure": true,
+				"shortProgress": true
+			},
+			"inherits": [
+				"default"
+			]
+		},
+		{
+			"name": "macos-ninja-clang-debug",
+			"displayName": "Ninja Clang Debug",
+			"configurePreset": "macos-ninja-clang",
+			"inherits": [
+				"macos-default"
+			],
+			"configuration": "Debug"
+		},
+		{
+			"name": "macos-ninja-clang-development",
+			"displayName": "Ninja Clang Development",
+			"configurePreset": "macos-ninja-clang",
+			"inherits": [
+				"macos-default"
+			],
+			"configuration": "Development"
+		},
+		{
+			"name": "macos-ninja-clang-release",
+			"displayName": "Ninja Clang Release",
+			"configurePreset": "macos-ninja-clang",
+			"inherits": [
+				"macos-default"
+			],
+			"configuration": "Release"
+		}
+	]
+}
