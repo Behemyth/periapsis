@@ -21,11 +21,10 @@
 		"python": [
 			{
 				"name": "pdm",
-				"description": "Python package and dependency manager"
-			},
-			{
-				"name": "cppython",
-				"description": "C++ package management for Python"
+				"description": "Python package and dependency manager",
+				"plugins": [
+					"cppython"
+				]
 			}
 		]
 	},
