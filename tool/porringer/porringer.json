@@ -23,14 +23,17 @@
 				"name": "pdm",
 				"description": "Python package and dependency manager",
 				"plugins": [
-					"cppython"
+					{
+						"name": "cppython",
+						"include_prereleases": true
+					}
 				]
 			}
 		]
 	},
 	"scm": {
 		"git": [
-			"https://github.com/synodic/porringer"
+			"https://github.com/synodic/periapsis"
 		]
 	},
 	"post_sync": [
