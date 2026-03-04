@@ -136,12 +136,12 @@ export namespace peri
 			Storage().insert_or_assign(this, std::move(value));
 		}
 
-		[[nodiscard]] auto operator->(this auto&& self) noexcept -> decltype(auto)
+		[[nodiscard]] auto operator->(this auto&& self) -> decltype(auto)
 		{
 			return std::addressof(self.Get());
 		}
 
-		[[nodiscard]] auto operator*(this auto&& self) noexcept -> decltype(auto)
+		[[nodiscard]] auto operator*(this auto&& self) -> decltype(auto)
 		{
 			return self.Get();
 		}
