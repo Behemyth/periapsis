@@ -29,7 +29,7 @@ See [Setup](https://synodic.github.io/periapsis/setup) for setup instructions.
 
 ## Development
 
-Python is required for development.
+Python is required for development. CMake and other tools are bundled with the python project. All tool management is available via `pdm` and `cppython`.
 
 See [Development](https://synodic.github.io/periapsis/development) for build, test, and installation instructions.
 
