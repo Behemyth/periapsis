@@ -1,4 +1,4 @@
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain
+from conan.tools.cmake import CMake, CMakeConfigDeps, CMakeToolchain
 from conan.tools.files import copy
 
 from conanfile_base import CPPythonBase
@@ -14,7 +14,7 @@ class MyProject(CPPythonBase):
         super().layout()
 
     def generate(self):
-        deps = CMakeDeps(self)
+        deps = CMakeConfigDeps(self)
         deps.generate()
         tc = CMakeToolchain(self)
         tc.user_presets_path = False
