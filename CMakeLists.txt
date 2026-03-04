@@ -13,9 +13,6 @@ project(periapsis
 
 option(BUILD_TESTING "Build the tests verifying GTest functionality" ON)
 
-# Find Conan dependencies
-find_package(GTest REQUIRED)
-
 # Provide a namespaced alias
 add_library(periapsis STATIC)
 add_library(synodic::periapsis ALIAS periapsis)
@@ -49,8 +46,8 @@ if(BUILD_TESTING AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 	# Do not include CTest because it adds targets and integrations we do not want to support
 	enable_testing()
 
+	find_package(GTest REQUIRED)
 	include(GoogleTest)
-	gtest_discover_tests(my_test_executable)
 
 	add_subdirectory(
 		tests

@@ -25,3 +25,5 @@ target_link_libraries(tests
 add_subdirectory(
 	unit
 )
+
+gtest_discover_tests(tests)
