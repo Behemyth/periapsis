@@ -1,9 +1,9 @@
 {
 	"version": "1",
-	"name": "Python Bootstrap",
-	"description": "Bootstrap a complete Python development environment from scratch",
+	"name": "Periapsis",
+	"description": "A companion to the C++ standard library",
 	"author": "Synodic Software",
-	"url": "https://github.com/synodic/porringer",
+	"url": "https://github.com/synodic/periapsis",
 	"runtimes": {
 		"python": [
 			"3.14"
@@ -24,7 +24,7 @@
 				"description": "Python package and dependency manager",
 				"plugins": [
 					{
-						"name": "cppython",
+						"name": "cppython[cmake,conan,git]",
 						"include_prereleases": true
 					}
 				]
