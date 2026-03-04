@@ -25,7 +25,7 @@ export namespace peri
 			factory_(
 				[]
 				{
-					return T{};
+					return T {};
 				})
 		{
 		}
@@ -59,7 +59,7 @@ export namespace peri
 			Storage().erase(this);
 		}
 
-		ThreadLocal(const ThreadLocal&)            = delete;
+		ThreadLocal(const ThreadLocal&)			   = delete;
 		ThreadLocal& operator=(const ThreadLocal&) = delete;
 
 		ThreadLocal(ThreadLocal&& other) noexcept :
@@ -82,7 +82,7 @@ export namespace peri
 
 				// Transfer any existing value from other to this
 				auto& map = Storage();
-				map.erase(this); // Remove our current value if any
+				map.erase(this);  // Remove our current value if any
 				if (auto it = map.find(&other); it != map.end())
 				{
 					map.emplace(this, std::move(it->second));
@@ -98,9 +98,9 @@ export namespace peri
 		 */
 		[[nodiscard]] auto Get(this auto&& self) -> decltype(auto)
 		{
-			auto& map       = Storage();
+			auto& map		= Storage();
 			const void* key = std::addressof(self);
-			auto it         = map.find(key);
+			auto it			= map.find(key);
 
 			if (it == map.end()) [[unlikely]]
 			{

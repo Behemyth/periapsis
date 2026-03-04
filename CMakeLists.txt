@@ -47,6 +47,7 @@ if(BUILD_TESTING AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 	enable_testing()
 
 	find_package(GTest REQUIRED)
+	find_package(benchmark REQUIRED)
 	include(GoogleTest)
 
 	add_subdirectory(

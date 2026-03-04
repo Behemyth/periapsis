@@ -23,6 +23,7 @@ class CPPythonBase(ConanFile):
     def requirements(self):
         """CPPython managed requirements."""
         self.requires("gtest/1.17.0")
+        self.requires("benchmark/1.9.1")
 
     def build_requirements(self):
         """CPPython managed build and test requirements."""

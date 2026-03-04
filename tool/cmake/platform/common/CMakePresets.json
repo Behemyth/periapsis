@@ -77,6 +77,19 @@
                 "noTestsAction": "error",
                 "stopOnFailure": true
             }
+        },
+        {
+            "name": "default-bench",
+            "description": "Base preset for benchmark tests",
+            "hidden": true,
+            "inherits": [
+                "default"
+            ],
+            "filter": {
+                "include": {
+                    "label": "benchmark"
+                }
+            }
         }
     ]
 }

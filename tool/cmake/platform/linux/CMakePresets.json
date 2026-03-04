@@ -107,6 +107,36 @@
 				"linux-default"
 			],
 			"configuration": "Release"
+		},
+		{
+			"name": "linux-ninja-gcc-bench-debug",
+			"displayName": "Ninja GCC Bench Debug",
+			"configurePreset": "linux-ninja-gcc",
+			"inherits": [
+				"default-bench",
+				"linux-default"
+			],
+			"configuration": "Debug"
+		},
+		{
+			"name": "linux-ninja-gcc-bench-development",
+			"displayName": "Ninja GCC Bench Development",
+			"configurePreset": "linux-ninja-gcc",
+			"inherits": [
+				"default-bench",
+				"linux-default"
+			],
+			"configuration": "Development"
+		},
+		{
+			"name": "linux-ninja-gcc-bench-release",
+			"displayName": "Ninja GCC Bench Release",
+			"configurePreset": "linux-ninja-gcc",
+			"inherits": [
+				"default-bench",
+				"linux-default"
+			],
+			"configuration": "Release"
 		}
 	]
 }

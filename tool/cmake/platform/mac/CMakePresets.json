@@ -103,6 +103,36 @@
 				"macos-default"
 			],
 			"configuration": "Release"
+		},
+		{
+			"name": "macos-ninja-clang-bench-debug",
+			"displayName": "Ninja Clang Bench Debug",
+			"configurePreset": "macos-ninja-clang",
+			"inherits": [
+				"default-bench",
+				"macos-default"
+			],
+			"configuration": "Debug"
+		},
+		{
+			"name": "macos-ninja-clang-bench-development",
+			"displayName": "Ninja Clang Bench Development",
+			"configurePreset": "macos-ninja-clang",
+			"inherits": [
+				"default-bench",
+				"macos-default"
+			],
+			"configuration": "Development"
+		},
+		{
+			"name": "macos-ninja-clang-bench-release",
+			"displayName": "Ninja Clang Bench Release",
+			"configurePreset": "macos-ninja-clang",
+			"inherits": [
+				"default-bench",
+				"macos-default"
+			],
+			"configuration": "Release"
 		}
 	]
 }

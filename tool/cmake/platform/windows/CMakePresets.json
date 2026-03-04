@@ -324,6 +324,126 @@
 				"windows-default"
 			],
 			"configuration": "Release"
+		},
+		{
+			"name": "windows-ninja-msvc-bench-debug",
+			"displayName": "Ninja MSVC Bench Debug",
+			"configurePreset": "windows-ninja-msvc",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-ninja-msvc-bench-development",
+			"displayName": "Ninja MSVC Bench Development",
+			"configurePreset": "windows-ninja-msvc",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Development"
+		},
+		{
+			"name": "windows-ninja-msvc-bench-release",
+			"displayName": "Ninja MSVC Bench Release",
+			"configurePreset": "windows-ninja-msvc",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-ninja-clang-bench-debug",
+			"displayName": "Ninja Clang Bench Debug",
+			"configurePreset": "windows-ninja-clang",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-ninja-clang-bench-development",
+			"displayName": "Ninja Clang Bench Development",
+			"configurePreset": "windows-ninja-clang",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Development"
+		},
+		{
+			"name": "windows-ninja-clang-bench-release",
+			"displayName": "Ninja Clang Bench Release",
+			"configurePreset": "windows-ninja-clang",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-msbuild-msvc-bench-debug",
+			"displayName": "MSBuild MSVC Bench Debug",
+			"configurePreset": "windows-msbuild-msvc",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-msbuild-msvc-bench-development",
+			"displayName": "MSBuild MSVC Bench Development",
+			"configurePreset": "windows-msbuild-msvc",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Development"
+		},
+		{
+			"name": "windows-msbuild-msvc-bench-release",
+			"displayName": "MSBuild MSVC Bench Release",
+			"configurePreset": "windows-msbuild-msvc",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Release"
+		},
+		{
+			"name": "windows-msbuild-clang-bench-debug",
+			"displayName": "MSBuild Clang Bench Debug",
+			"configurePreset": "windows-msbuild-clang",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Debug"
+		},
+		{
+			"name": "windows-msbuild-clang-bench-development",
+			"displayName": "MSBuild Clang Bench Development",
+			"configurePreset": "windows-msbuild-clang",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Development"
+		},
+		{
+			"name": "windows-msbuild-clang-bench-release",
+			"displayName": "MSBuild Clang Bench Release",
+			"configurePreset": "windows-msbuild-clang",
+			"inherits": [
+				"default-bench",
+				"windows-default"
+			],
+			"configuration": "Release"
 		}
 	]
 }

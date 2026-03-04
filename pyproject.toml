@@ -24,7 +24,7 @@ docs = ["zensical>=0.0.24"]
 config = ["copier>=9.12.0"]
 
 [tool.cppython]
-dependencies = ['gtest==1.17.0']
+dependencies = ['gtest==1.17.0', 'benchmark==1.9.1']
 
 [tool.cppython.generators.cmake]
 preset_file = "tool/cmake/platform/common/CMakePresets.json"
@@ -74,8 +74,8 @@ skip_empty = true
 build = "cppython build"
 test = "cppython test"
 serve = "zensical serve"
-post_install = "copier recopy --force --skip-answered"
-post_update = "copier recopy --force --skip-answered"
+post_install = "copier recopy --defaults --skip-answered"
+post_update = "copier recopy --defaults --skip-answered"
 
 [tool.porringer]
 manifest = "tool/porringer/porringer.json"
