@@ -31,6 +31,9 @@
 		{
 			"name": "macos-default",
 			"hidden": true,
+			"inherits": [
+				"default"
+			],
 			"condition": {
 				"type": "equals",
 				"lhs": "${hostSystemName}",
@@ -69,10 +72,6 @@
 		{
 			"name": "macos-default",
 			"hidden": true,
-			"output": {
-				"outputOnFailure": true,
-				"shortProgress": true
-			},
 			"inherits": [
 				"default"
 			]

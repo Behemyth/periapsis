@@ -23,10 +23,9 @@
             "description": "All single-configuration generators should inherit from this preset",
             "hidden": true,
             "inherits": [
-                "cppython",
                 "default"
             ],
-            "binaryDir": "${sourceDir}/../../../../build",
+            "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
@@ -36,10 +35,9 @@
             "description": "All single-configuration generators should inherit from this preset",
             "hidden": true,
             "inherits": [
-                "cppython",
                 "default"
             ],
-            "binaryDir": "${sourceDir}/../../../../build",
+            "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }

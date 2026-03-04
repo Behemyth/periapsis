@@ -89,6 +89,9 @@
 		{
 			"name": "windows-default",
 			"hidden": true,
+			"inherits": [
+				"default"
+			],
 			"condition": {
 				"type": "equals",
 				"lhs": "${hostSystemName}",
