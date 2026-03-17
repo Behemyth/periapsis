@@ -1,4 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: ba4a211
+_commit: 96838ce
 _src_path: gh:synodic/configuration
+use_benchmarks: true
 use_cmake_presets: true
