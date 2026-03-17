@@ -1,93 +1,123 @@
 {
-    "version": 9,
-    "include": [
-        "../../../cppython/cppython.json"
-    ],
-    "configurePresets": [
-        {
-            "name": "default",
-            "description": "Base preset for configurations",
-            "hidden": true,
-            "inherits": "cppython",
-            "binaryDir": "${sourceDir}/build/${presetName}",
-            "cacheVariables": {
-                "BUILD_TESTING": "ON",
-                "CMAKE_CONFIGURATION_TYPES": {
-                    "type": "STRING",
-                    "value": "Debug;Development;Release"
-                }
-            }
-        },
-        {
-            "name": "default-release",
-            "description": "All single-configuration generators should inherit from this preset",
-            "hidden": true,
-            "inherits": [
-                "default"
-            ],
-            "binaryDir": "${sourceDir}/build/${presetName}",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
-        },
-        {
-            "name": "default-debug",
-            "description": "All single-configuration generators should inherit from this preset",
-            "hidden": true,
-            "inherits": [
-                "default"
-            ],
-            "binaryDir": "${sourceDir}/build/${presetName}",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
-        }
-    ],
-    "buildPresets": [
-        {
-            "name": "default",
-            "hidden": true
-        },
-        {
-            "name": "default-release",
-            "description": "An example build preset for release",
-            "hidden": true,
-            "configurePreset": "default-release"
-        },
-        {
-            "name": "default-debug",
-            "description": "An example build preset for debug",
-            "hidden": true,
-            "configurePreset": "default-debug"
-        }
-    ],
-    "testPresets": [
-        {
-            "name": "default",
-            "hidden": true,
-            "output": {
-                "outputOnFailure": true,
-                "shortProgress": true,
-                "debug": true,
-                "verbosity": "verbose"
-            },
-            "execution": {
-                "noTestsAction": "error",
-                "stopOnFailure": true
-            }
-        },
-        {
-            "name": "default-bench",
-            "description": "Base preset for benchmark tests",
-            "hidden": true,
-            "inherits": [
-                "default"
-            ],
-            "filter": {
-                "include": {
-                    "label": "benchmark"
-                }
-            }
-        }
-    ]
+	"version": 9,
+	"include": [
+		"../../../cppython/cppython.json"
+	],
+	"configurePresets": [
+		{
+			"name": "default",
+			"description": "Base preset for configurations",
+			"hidden": true,
+			"inherits": "cppython",
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"BUILD_TESTING": "ON",
+				"CMAKE_CONFIGURATION_TYPES": {
+					"type": "STRING",
+					"value": "Debug;Development;Release"
+				}
+			}
+		},
+		{
+			"name": "default-release",
+			"description": "All single-configuration generators should inherit from this preset",
+			"hidden": true,
+			"inherits": [
+				"default"
+			],
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Release"
+			}
+		},
+		{
+			"name": "default-debug",
+			"description": "All single-configuration generators should inherit from this preset",
+			"hidden": true,
+			"inherits": [
+				"default"
+			],
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "default",
+			"hidden": true
+		},
+		{
+			"name": "default-release",
+			"description": "An example build preset for release",
+			"hidden": true,
+			"configurePreset": "default-release"
+		},
+		{
+			"name": "default-debug",
+			"description": "An example build preset for debug",
+			"hidden": true,
+			"configurePreset": "default-debug"
+		}
+	],
+	"testPresets": [
+		{
+			"name": "default",
+			"hidden": true,
+			"output": {
+				"outputOnFailure": true,
+				"shortProgress": true,
+				"debug": true,
+				"verbosity": "verbose"
+			},
+			"execution": {
+				"noTestsAction": "error",
+				"stopOnFailure": true
+			}
+		},
+		{
+			"name": "default-bench",
+			"description": "Base preset for benchmark tests",
+			"hidden": true,
+			"inherits": [
+				"default"
+			],
+			"filter": {
+				"include": {
+					"label": "benchmark"
+				}
+			}
+		},
+		{
+			"name": "default-release",
+			"description": "Run tests for release configuration",
+			"configurePreset": "default-release"
+		},
+		{
+			"name": "default-debug",
+			"description": "Run tests for debug configuration",
+			"configurePreset": "default-debug"
+		},
+		{
+			"name": "default-bench-release",
+			"description": "Run benchmark tests for release configuration",
+			"configurePreset": "default-release",
+			"filter": {
+				"include": {
+					"label": "benchmark"
+				}
+			}
+		},
+		{
+			"name": "default-bench-debug",
+			"description": "Run benchmark tests for debug configuration",
+			"configurePreset": "default-debug",
+			"filter": {
+				"include": {
+					"label": "benchmark"
+				}
+			}
+		}
+	]
 }
