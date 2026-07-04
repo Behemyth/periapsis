@@ -35,8 +35,5 @@
 		"git": [
 			"https://github.com/synodic/periapsis"
 		]
-	},
-	"post_sync": [
-		"pdm install"
-	]
+	}
 }
