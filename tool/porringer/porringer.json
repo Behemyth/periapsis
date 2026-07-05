@@ -3,37 +3,5 @@
 	"name": "Periapsis",
 	"description": "A companion to the C++ standard library",
 	"author": "Synodic Software",
-	"url": "https://github.com/synodic/periapsis",
-	"runtimes": {
-		"python": [
-			"3.14"
-		]
-	},
-	"packages": {
-		"python": [
-			{
-				"name": "pipx",
-				"description": "Install and run Python applications in isolated environments"
-			}
-		]
-	},
-	"tools": {
-		"python": [
-			{
-				"name": "pdm",
-				"description": "Python package and dependency manager",
-				"plugins": [
-					{
-						"name": "cppython[cmake,conan,git]",
-						"include_prereleases": true
-					}
-				]
-			}
-		]
-	},
-	"scm": {
-		"git": [
-			"https://github.com/synodic/periapsis"
-		]
-	}
+	"url": "https://github.com/synodic/periapsis"
 }
