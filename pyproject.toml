@@ -80,6 +80,9 @@ post_update = "copier update --conflict inline --skip-answered"
 [tool.porringer]
 manifest = "tool/porringer/porringer.json"
 
+[tool.pdm.resolution]
+allow-prereleases = true
+
 [build-system]
 build-backend = "pdm.backend"
-requires = ["pdm.backend"]
+requires = ["pdm.backend", "cppython[cmake,conan,git]"]
