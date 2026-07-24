@@ -18,10 +18,22 @@ homepage = "https://github.com/synodic/periapsis"
 repository = "https://github.com/synodic/periapsis"
 
 [dependency-groups]
-lint = ["ruff>=0.15.6", "pyrefly>=0.57.0", "isort>=8.0.1"]
-test = ["pytest>=9.0.2", "pytest-cov>=7.0.0", "pytest-mock>=3.15.1"]
-docs = ["zensical>=0.0.27"]
-config = ["copier>=9.14.0"]
+lint = [
+    "ruff>=0.15.22",
+    "pyrefly>=1.2.0.dev2",
+    "isort>=9.0.0b1",
+]
+test = [
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "pytest-mock>=3.15.1",
+]
+docs = [
+    "zensical>=0.0.51",
+]
+config = [
+    "copier>=9.17.0",
+]
 
 [tool.cppython]
 dependencies = ['gtest==1.17.0', 'benchmark==1.9.1']
@@ -74,8 +86,8 @@ skip_empty = true
 build = "cppython build"
 test = "cppython test"
 serve = "zensical serve"
-post_install = "copier update --conflict inline --skip-answered"
-post_update = "copier update --conflict inline --skip-answered"
+config-check = "copier check-update ."
+config-update = "copier update --conflict inline --skip-answered ."
 
 [tool.porringer]
 manifest = "tool/porringer/porringer.json"
