@@ -11,10 +11,15 @@ This guide covers building Periapsis from source and contributing to the project
 
 | Tool | Version | Purpose |
 |------|---------|---------|
+| [Porringer](https://github.com/synodic/porringer) | latest | Installs the rest of the toolchain |
 | Python | 3.14+ | Build tooling via CPPython |
 | CMake | 4.0+ | Build system |
+| Ninja | latest | Build tool |
 
 ## Quick Start
+
+`porr install` installs Python, PDM, CMake, and Ninja, then runs `pdm install`.
+Preview what it will do with `porr preview`.
 
 === "Windows"
 
@@ -23,10 +28,7 @@ This guide covers building Periapsis from source and contributing to the project
     git clone https://github.com/synodic/periapsis.git
     cd periapsis
 
-    # Install Python dependencies
-    pdm install
-
-    # Optional: install the project through Porringer
+    # Install the toolchain and Python dependencies
     porr install
     ```
 
@@ -37,12 +39,11 @@ This guide covers building Periapsis from source and contributing to the project
     git clone https://github.com/synodic/periapsis.git
     cd periapsis
 
-    # Install Python dependencies
-    pdm install
-
-    # Optional: install the project through Porringer
+    # Install the toolchain and Python dependencies
     porr install
     ```
+
+The toolchain is declared in `tool/porringer/porringer.json`.
 
 Installation only synchronizes Python and project tooling. It does not apply
 the shared Copier configuration.

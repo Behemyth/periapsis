@@ -5,7 +5,6 @@ import :type.traits;
 
 export namespace peri
 {
-
 	/**
 	 * @brief A string with an internal buffer. Mimics the api of std::basic_string while supporting modifications.
 	 *	Implements the interface of std::fixed_string (p3094) while allowing for modifications and a smaller storage
@@ -30,7 +29,9 @@ export namespace peri
 
 		constexpr BasicInplaceString() noexcept :
 			data_ {},
-			size_(0) {};
+			size_(0)
+		{
+		}
 
 		template<std::convertible_to<CharT>... Chars>
 			requires(sizeof...(Chars) <= N) && (... && !std::is_pointer_v<Chars>)
@@ -55,7 +56,10 @@ export namespace peri
 			size_(data.size())
 		{
 			std::copy_n(data.data(), size_, data_.begin());
-			std::fill(data_.begin() + size_, data_.end(), CharT(0));	// Will always fill at least the built-in terminator
+			std::fill(
+				data_.begin() + size_,
+				data_.end(),
+				CharT(0));	// Will always fill at least the built-in terminator
 		}
 
 		constexpr BasicInplaceString(const BasicInplaceString&) noexcept			= default;
@@ -204,41 +208,38 @@ export namespace peri
 	using InplaceU32String = BasicInplaceString<char32_t, N>;
 	template<std::size_t N>
 	using InplaceWString = BasicInplaceString<wchar_t, N>;
-
 }
 
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<peri::InplaceString<N>> : std::hash<std::string_view>
 {
 };
 
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<peri::InplaceU8String<N>> : std::hash<std::u8string_view>
 {
 };
 
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<peri::InplaceU16String<N>> : std::hash<std::u16string_view>
 {
 };
 
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<peri::InplaceU32String<N>> : std::hash<std::u32string_view>
 {
 };
 
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<peri::InplaceWString<N>> : std::hash<std::wstring_view>
 {
 };
 
-export template<typename CharT, std::size_t N>
-struct std::formatter<peri::BasicInplaceString<CharT, N>> :
-	std::formatter<std::basic_string_view<CharT>>
+template<typename CharT, std::size_t N>
+struct std::formatter<peri::BasicInplaceString<CharT, N>> : std::formatter<std::basic_string_view<CharT>>
 {
 	template<typename FormatContext>
-	auto format(const peri::BasicInplaceString<CharT, N>& str, FormatContext& ctx) const
-		-> decltype(ctx.out())
+	auto format(const peri::BasicInplaceString<CharT, N>& str, FormatContext& ctx) const -> decltype(ctx.out())
 	{
 		return std::formatter<std::basic_string_view<CharT>>::format(std::basic_string_view<CharT>(str), ctx);
 	}

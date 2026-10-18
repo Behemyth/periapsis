@@ -7,7 +7,6 @@ concept one_of = (false || ... || std::same_as<T, Ts>);
 
 namespace std
 {
-
 	/**
 	 * @brief A compile-time fixed string
 	 *
@@ -315,37 +314,36 @@ namespace std
 	using fixed_u32string = basic_fixed_string<char32_t, N>;
 	export template<std::size_t N>
 	using fixed_wstring = basic_fixed_string<wchar_t, N>;
-
 }
 
 // hash support
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<std::fixed_string<N>> : std::hash<std::string_view>
 {
 };
 
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<std::fixed_u8string<N>> : std::hash<std::u8string_view>
 {
 };
 
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<std::fixed_u16string<N>> : std::hash<std::u16string_view>
 {
 };
 
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<std::fixed_u32string<N>> : std::hash<std::u32string_view>
 {
 };
 
-export template<std::size_t N>
+template<std::size_t N>
 struct std::hash<std::fixed_wstring<N>> : std::hash<std::wstring_view>
 {
 };
 
 // formatting support
-export template<typename CharT, std::size_t N>
+template<typename CharT, std::size_t N>
 struct std::formatter<std::basic_fixed_string<CharT, N>> : formatter<std::basic_string_view<CharT>>
 {
 	template<typename FormatContext>

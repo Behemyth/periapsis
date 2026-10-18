@@ -19,7 +19,7 @@ export namespace peri
 	struct FNV1a<std::uint32_t>
 	{
 		static constexpr std::uint32_t OFFSET_BASIS = 2'166'136'261u;
-		static constexpr std::uint32_t PRIME        = 16'777'619u;
+		static constexpr std::uint32_t PRIME		= 16'777'619u;
 
 		static constexpr std::uint32_t Hash(const std::string_view view) noexcept
 		{
@@ -37,7 +37,7 @@ export namespace peri
 	struct FNV1a<std::uint64_t>
 	{
 		static constexpr std::uint64_t OFFSET_BASIS = 14'695'981'039'346'656'037ull;
-		static constexpr std::uint64_t PRIME        = 1'099'511'628'211ull;
+		static constexpr std::uint64_t PRIME		= 1'099'511'628'211ull;
 
 		static constexpr std::uint64_t Hash(const std::string_view view) noexcept
 		{
@@ -100,12 +100,12 @@ export namespace peri
 		}
 
 	private:
-		Integral hash_{};
+		Integral hash_ {};
 	};
 
 	using Hash = BasicHash<std::uint32_t>;
 
-	using Hash8  = BasicHash<std::uint8_t>;
+	using Hash8	 = BasicHash<std::uint8_t>;
 	using Hash16 = BasicHash<std::uint16_t>;
 	using Hash32 = BasicHash<std::uint32_t>;
 	using Hash64 = BasicHash<std::uint64_t>;
@@ -114,7 +114,7 @@ export namespace peri
 /**
  * @brief std::hash specialization for BasicHash that allows it to be used in associative containers
  */
-export template<std::unsigned_integral Integral>
+template<std::unsigned_integral Integral>
 struct std::hash<peri::BasicHash<Integral>>
 {
 	constexpr std::size_t operator()(const peri::BasicHash<Integral>& hash) const noexcept
