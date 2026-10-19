@@ -90,6 +90,7 @@ install(EXPORT periapsisTargets
 	FILE periapsisTargets.cmake
 	NAMESPACE synodic::
 	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/periapsis
+	CXX_MODULES_DIRECTORY cxx-modules
 )
 
 install(

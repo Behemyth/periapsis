@@ -37,7 +37,7 @@ class MyProject(CPPythonBase):
 
     def package_info(self):
         self.cpp_info.set_property('cmake_find_mode', 'none')
-        self.cpp_info.builddirs = ['.']
+        self.cpp_info.builddirs = ['lib/cmake/periapsis']
 
     def export_sources(self):
         copy(self, 'CMakeLists.txt', src=self.recipe_folder, dst=self.export_sources_folder)
