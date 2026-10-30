@@ -38,6 +38,7 @@ export import :exception;
 // String partitions
 export import :string.hash_string;
 export import :string.inplace_string;
+export import zstring_view;
 
 // Algorithm partitions
 export import :algorithm.graph.max_flow;

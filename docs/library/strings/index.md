@@ -10,3 +10,8 @@ String utilities provided by Periapsis for compile-time operations and fixed-cap
 ## HashString
 
 ## InplaceString
+
+## zstring_view
+
+`std::zstring_view` is a non-owning, null-terminated string view exported by
+`import zstring_view;` and `import synodic.periapsis;`.
