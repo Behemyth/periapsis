@@ -29,6 +29,35 @@
 				"CMAKE_C_COMPILER": "gcc",
 				"CMAKE_CXX_COMPILER": "g++"
 			}
+		},
+		{
+			"name": "linux-ninja-clang-libcxx",
+			"displayName": "Ninja upstream Clang libc++",
+			"description": "Ninja Multi-Config generator with upstream Clang and libc++ from LLVM_ROOT",
+			"generator": "Ninja Multi-Config",
+			"inherits": [
+				"linux-default"
+			],
+			"cacheVariables": {
+				"CMAKE_C_COMPILER": "$env{LLVM_ROOT}/bin/clang",
+				"CMAKE_CXX_COMPILER": "$env{LLVM_ROOT}/bin/clang++",
+				"CMAKE_CXX_FLAGS": "-stdlib=libc++",
+				"CMAKE_EXE_LINKER_FLAGS": "-stdlib=libc++",
+				"CMAKE_SHARED_LINKER_FLAGS": "-stdlib=libc++"
+			}
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-sanitize",
+			"displayName": "Ninja upstream Clang libc++ ASan UBSan",
+			"description": "Upstream Clang and libc++ with AddressSanitizer and UndefinedBehaviorSanitizer",
+			"inherits": [
+				"linux-ninja-clang-libcxx"
+			],
+			"cacheVariables": {
+				"CMAKE_CXX_FLAGS": "-stdlib=libc++ -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer",
+				"CMAKE_EXE_LINKER_FLAGS": "-stdlib=libc++ -fsanitize=address,undefined",
+				"CMAKE_SHARED_LINKER_FLAGS": "-stdlib=libc++ -fsanitize=address,undefined"
+			}
 		}
 	],
 	"buildPresets": [
@@ -66,6 +95,42 @@
 			"name": "linux-ninja-gcc-debug",
 			"displayName": "Ninja GCC Debug",
 			"configurePreset": "linux-ninja-gcc",
+			"configuration": "Debug",
+			"inherits": [
+				"linux-default"
+			]
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-debug",
+			"displayName": "Ninja upstream Clang libc++ Debug",
+			"configurePreset": "linux-ninja-clang-libcxx",
+			"configuration": "Debug",
+			"inherits": [
+				"linux-default"
+			]
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-development",
+			"displayName": "Ninja upstream Clang libc++ Development",
+			"configurePreset": "linux-ninja-clang-libcxx",
+			"configuration": "Development",
+			"inherits": [
+				"linux-default"
+			]
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-release",
+			"displayName": "Ninja upstream Clang libc++ Release",
+			"configurePreset": "linux-ninja-clang-libcxx",
+			"configuration": "Release",
+			"inherits": [
+				"linux-default"
+			]
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-sanitize-debug",
+			"displayName": "Ninja upstream Clang libc++ ASan UBSan Debug",
+			"configurePreset": "linux-ninja-clang-libcxx-sanitize",
 			"configuration": "Debug",
 			"inherits": [
 				"linux-default"
@@ -136,6 +201,46 @@
 				"linux-default"
 			],
 			"configuration": "Release"
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-debug",
+			"displayName": "Ninja upstream Clang libc++ Debug",
+			"configurePreset": "linux-ninja-clang-libcxx",
+			"inherits": [
+				"linux-default"
+			],
+			"configuration": "Debug"
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-development",
+			"displayName": "Ninja upstream Clang libc++ Development",
+			"configurePreset": "linux-ninja-clang-libcxx",
+			"inherits": [
+				"linux-default"
+			],
+			"configuration": "Development"
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-release",
+			"displayName": "Ninja upstream Clang libc++ Release",
+			"configurePreset": "linux-ninja-clang-libcxx",
+			"inherits": [
+				"linux-default"
+			],
+			"configuration": "Release"
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-sanitize-debug",
+			"displayName": "Ninja upstream Clang libc++ ASan UBSan Debug",
+			"configurePreset": "linux-ninja-clang-libcxx-sanitize",
+			"inherits": [
+				"linux-default"
+			],
+			"configuration": "Debug",
+			"environment": {
+				"ASAN_OPTIONS": "abort_on_error=1:detect_leaks=1:strict_string_checks=1",
+				"UBSAN_OPTIONS": "print_stacktrace=1:halt_on_error=1"
+			}
 		}
 	]
 }

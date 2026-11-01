@@ -25,6 +25,22 @@
 			"inherits": [
 				"macos-default"
 			]
+		},
+		{
+			"name": "macos-ninja-llvm-libcxx",
+			"displayName": "Ninja upstream LLVM libc++",
+			"description": "Ninja Multi-Config generator with upstream Clang and libc++ from LLVM_ROOT",
+			"generator": "Ninja Multi-Config",
+			"inherits": [
+				"macos-default"
+			],
+			"cacheVariables": {
+				"CMAKE_C_COMPILER": "$env{LLVM_ROOT}/bin/clang",
+				"CMAKE_CXX_COMPILER": "$env{LLVM_ROOT}/bin/clang++",
+				"CMAKE_CXX_FLAGS": "-stdlib=libc++",
+				"CMAKE_EXE_LINKER_FLAGS": "-stdlib=libc++ -L$env{LLVM_ROOT}/lib/c++ -Wl,-rpath,$env{LLVM_ROOT}/lib/c++ -L$env{LLVM_ROOT}/lib/unwind -lunwind",
+				"CMAKE_SHARED_LINKER_FLAGS": "-stdlib=libc++ -L$env{LLVM_ROOT}/lib/c++ -Wl,-rpath,$env{LLVM_ROOT}/lib/c++ -L$env{LLVM_ROOT}/lib/unwind -lunwind"
+			}
 		}
 	],
 	"buildPresets": [
@@ -63,6 +79,33 @@
 			"displayName": "Ninja Clang Debug",
 			"configurePreset": "macos-ninja-clang",
 			"configuration": "Debug",
+			"inherits": [
+				"macos-default"
+			]
+		},
+		{
+			"name": "macos-ninja-llvm-libcxx-debug",
+			"displayName": "Ninja upstream LLVM libc++ Debug",
+			"configurePreset": "macos-ninja-llvm-libcxx",
+			"configuration": "Debug",
+			"inherits": [
+				"macos-default"
+			]
+		},
+		{
+			"name": "macos-ninja-llvm-libcxx-development",
+			"displayName": "Ninja upstream LLVM libc++ Development",
+			"configurePreset": "macos-ninja-llvm-libcxx",
+			"configuration": "Development",
+			"inherits": [
+				"macos-default"
+			]
+		},
+		{
+			"name": "macos-ninja-llvm-libcxx-release",
+			"displayName": "Ninja upstream LLVM libc++ Release",
+			"configurePreset": "macos-ninja-llvm-libcxx",
+			"configuration": "Release",
 			"inherits": [
 				"macos-default"
 			]
@@ -129,6 +172,33 @@
 			"configurePreset": "macos-ninja-clang",
 			"inherits": [
 				"default-bench",
+				"macos-default"
+			],
+			"configuration": "Release"
+		},
+		{
+			"name": "macos-ninja-llvm-libcxx-debug",
+			"displayName": "Ninja upstream LLVM libc++ Debug",
+			"configurePreset": "macos-ninja-llvm-libcxx",
+			"inherits": [
+				"macos-default"
+			],
+			"configuration": "Debug"
+		},
+		{
+			"name": "macos-ninja-llvm-libcxx-development",
+			"displayName": "Ninja upstream LLVM libc++ Development",
+			"configurePreset": "macos-ninja-llvm-libcxx",
+			"inherits": [
+				"macos-default"
+			],
+			"configuration": "Development"
+		},
+		{
+			"name": "macos-ninja-llvm-libcxx-release",
+			"displayName": "Ninja upstream LLVM libc++ Release",
+			"configurePreset": "macos-ninja-llvm-libcxx",
+			"inherits": [
 				"macos-default"
 			],
 			"configuration": "Release"
