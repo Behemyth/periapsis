@@ -25,7 +25,10 @@ config = ["copier>=9.17.0"]
 native = ["cppython[cmake,conan,git]", "ninja>=1.13.0"]
 
 [tool.cppython]
-dependencies = ['gtest==1.17.0', 'benchmark==1.9.1']
+dependencies = []
+
+[tool.cppython.dependency-groups]
+test = ['gtest==1.17.0', 'benchmark==1.9.1']
 
 [tool.cppython.generators.cmake]
 preset_file = "tool/cmake/platform/common/CMakePresets.json"

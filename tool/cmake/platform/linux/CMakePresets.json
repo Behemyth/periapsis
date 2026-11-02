@@ -62,6 +62,112 @@
 				"CMAKE_EXE_LINKER_FLAGS": "-stdlib=libc++ -fsanitize=address,undefined",
 				"CMAKE_SHARED_LINKER_FLAGS": "-stdlib=libc++ -fsanitize=address,undefined"
 			}
+		},
+		{
+			"name": "linux-ninja-gcc-release",
+			"inherits": [
+				"cppython-release",
+				"linux-ninja-gcc"
+			],
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_CONFIGURATION_TYPES": {
+					"type": "STRING",
+					"value": "Release"
+				}
+			}
+		},
+		{
+			"name": "linux-ninja-gcc-development",
+			"inherits": [
+				"cppython-debug",
+				"linux-ninja-gcc"
+			],
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_CONFIGURATION_TYPES": {
+					"type": "STRING",
+					"value": "Development"
+				},
+				"CMAKE_MAP_IMPORTED_CONFIG_DEVELOPMENT": {
+					"type": "STRING",
+					"value": "Debug"
+				}
+			}
+		},
+		{
+			"name": "linux-ninja-gcc-debug",
+			"inherits": [
+				"cppython-debug",
+				"linux-ninja-gcc"
+			],
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_CONFIGURATION_TYPES": {
+					"type": "STRING",
+					"value": "Debug"
+				}
+			}
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-debug",
+			"inherits": [
+				"cppython-debug",
+				"linux-ninja-clang-libcxx"
+			],
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_CONFIGURATION_TYPES": {
+					"type": "STRING",
+					"value": "Debug"
+				}
+			}
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-development",
+			"inherits": [
+				"cppython-debug",
+				"linux-ninja-clang-libcxx"
+			],
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_CONFIGURATION_TYPES": {
+					"type": "STRING",
+					"value": "Development"
+				},
+				"CMAKE_MAP_IMPORTED_CONFIG_DEVELOPMENT": {
+					"type": "STRING",
+					"value": "Debug"
+				}
+			}
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-release",
+			"inherits": [
+				"cppython-release",
+				"linux-ninja-clang-libcxx"
+			],
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_CONFIGURATION_TYPES": {
+					"type": "STRING",
+					"value": "Release"
+				}
+			}
+		},
+		{
+			"name": "linux-ninja-clang-libcxx-sanitize-debug",
+			"inherits": [
+				"cppython-debug",
+				"linux-ninja-clang-libcxx-sanitize"
+			],
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_CONFIGURATION_TYPES": {
+					"type": "STRING",
+					"value": "Debug"
+				}
+			}
 		}
 	],
 	"buildPresets": [
@@ -80,7 +186,7 @@
 		{
 			"name": "linux-ninja-gcc-release",
 			"displayName": "Ninja GCC Release",
-			"configurePreset": "linux-ninja-gcc",
+			"configurePreset": "linux-ninja-gcc-release",
 			"configuration": "Release",
 			"inherits": [
 				"linux-default"
@@ -89,7 +195,7 @@
 		{
 			"name": "linux-ninja-gcc-development",
 			"displayName": "Ninja GCC Development",
-			"configurePreset": "linux-ninja-gcc",
+			"configurePreset": "linux-ninja-gcc-development",
 			"configuration": "Development",
 			"inherits": [
 				"linux-default"
@@ -98,7 +204,7 @@
 		{
 			"name": "linux-ninja-gcc-debug",
 			"displayName": "Ninja GCC Debug",
-			"configurePreset": "linux-ninja-gcc",
+			"configurePreset": "linux-ninja-gcc-debug",
 			"configuration": "Debug",
 			"inherits": [
 				"linux-default"
@@ -107,7 +213,7 @@
 		{
 			"name": "linux-ninja-clang-libcxx-debug",
 			"displayName": "Ninja upstream Clang libc++ Debug",
-			"configurePreset": "linux-ninja-clang-libcxx",
+			"configurePreset": "linux-ninja-clang-libcxx-debug",
 			"configuration": "Debug",
 			"inherits": [
 				"linux-default"
@@ -116,7 +222,7 @@
 		{
 			"name": "linux-ninja-clang-libcxx-development",
 			"displayName": "Ninja upstream Clang libc++ Development",
-			"configurePreset": "linux-ninja-clang-libcxx",
+			"configurePreset": "linux-ninja-clang-libcxx-development",
 			"configuration": "Development",
 			"inherits": [
 				"linux-default"
@@ -125,7 +231,7 @@
 		{
 			"name": "linux-ninja-clang-libcxx-release",
 			"displayName": "Ninja upstream Clang libc++ Release",
-			"configurePreset": "linux-ninja-clang-libcxx",
+			"configurePreset": "linux-ninja-clang-libcxx-release",
 			"configuration": "Release",
 			"inherits": [
 				"linux-default"
@@ -134,7 +240,7 @@
 		{
 			"name": "linux-ninja-clang-libcxx-sanitize-debug",
 			"displayName": "Ninja upstream Clang libc++ ASan UBSan Debug",
-			"configurePreset": "linux-ninja-clang-libcxx-sanitize",
+			"configurePreset": "linux-ninja-clang-libcxx-sanitize-debug",
 			"configuration": "Debug",
 			"inherits": [
 				"linux-default"
@@ -152,7 +258,7 @@
 		{
 			"name": "linux-ninja-gcc-debug",
 			"displayName": "Ninja GCC Debug",
-			"configurePreset": "linux-ninja-gcc",
+			"configurePreset": "linux-ninja-gcc-debug",
 			"inherits": [
 				"linux-default"
 			],
@@ -161,7 +267,7 @@
 		{
 			"name": "linux-ninja-gcc-development",
 			"displayName": "Ninja GCC Development",
-			"configurePreset": "linux-ninja-gcc",
+			"configurePreset": "linux-ninja-gcc-development",
 			"inherits": [
 				"linux-default"
 			],
@@ -170,7 +276,7 @@
 		{
 			"name": "linux-ninja-gcc-release",
 			"displayName": "Ninja GCC Release",
-			"configurePreset": "linux-ninja-gcc",
+			"configurePreset": "linux-ninja-gcc-release",
 			"inherits": [
 				"linux-default"
 			],
@@ -179,7 +285,7 @@
 		{
 			"name": "linux-ninja-gcc-bench-debug",
 			"displayName": "Ninja GCC Bench Debug",
-			"configurePreset": "linux-ninja-gcc",
+			"configurePreset": "linux-ninja-gcc-debug",
 			"inherits": [
 				"default-bench",
 				"linux-default"
@@ -189,7 +295,7 @@
 		{
 			"name": "linux-ninja-gcc-bench-development",
 			"displayName": "Ninja GCC Bench Development",
-			"configurePreset": "linux-ninja-gcc",
+			"configurePreset": "linux-ninja-gcc-development",
 			"inherits": [
 				"default-bench",
 				"linux-default"
@@ -199,7 +305,7 @@
 		{
 			"name": "linux-ninja-gcc-bench-release",
 			"displayName": "Ninja GCC Bench Release",
-			"configurePreset": "linux-ninja-gcc",
+			"configurePreset": "linux-ninja-gcc-release",
 			"inherits": [
 				"default-bench",
 				"linux-default"
@@ -209,7 +315,7 @@
 		{
 			"name": "linux-ninja-clang-libcxx-debug",
 			"displayName": "Ninja upstream Clang libc++ Debug",
-			"configurePreset": "linux-ninja-clang-libcxx",
+			"configurePreset": "linux-ninja-clang-libcxx-debug",
 			"inherits": [
 				"linux-default"
 			],
@@ -218,7 +324,7 @@
 		{
 			"name": "linux-ninja-clang-libcxx-development",
 			"displayName": "Ninja upstream Clang libc++ Development",
-			"configurePreset": "linux-ninja-clang-libcxx",
+			"configurePreset": "linux-ninja-clang-libcxx-development",
 			"inherits": [
 				"linux-default"
 			],
@@ -227,7 +333,7 @@
 		{
 			"name": "linux-ninja-clang-libcxx-release",
 			"displayName": "Ninja upstream Clang libc++ Release",
-			"configurePreset": "linux-ninja-clang-libcxx",
+			"configurePreset": "linux-ninja-clang-libcxx-release",
 			"inherits": [
 				"linux-default"
 			],
@@ -236,7 +342,7 @@
 		{
 			"name": "linux-ninja-clang-libcxx-sanitize-debug",
 			"displayName": "Ninja upstream Clang libc++ ASan UBSan Debug",
-			"configurePreset": "linux-ninja-clang-libcxx-sanitize",
+			"configurePreset": "linux-ninja-clang-libcxx-sanitize-debug",
 			"inherits": [
 				"linux-default"
 			],
