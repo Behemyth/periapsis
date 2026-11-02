@@ -87,7 +87,7 @@ export namespace peri
 		constexpr BasicHash() noexcept = default;
 
 		explicit constexpr BasicHash(std::string_view value) noexcept :
-			hash_(FNV1a<Integral>::hash(value))
+			hash_(FNV1a<Integral>::Hash(value))
 		{
 		}
 
