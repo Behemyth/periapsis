@@ -10,6 +10,7 @@ export import :container.sparse.index_vector;
 export import :container.lockfree.spsc_queue;
 export import :container.fixed.bitset;
 export import :container.fixed.ring_buffer;
+export import inplace_vector;
 export import :container.dynamic.bitset;
 
 // Structure partitions
@@ -62,3 +63,4 @@ export import :thread.local;
 // Utility partitions
 export import :utility;
 export import :utility.hash;
+export import function_ref;

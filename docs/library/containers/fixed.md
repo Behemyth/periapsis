@@ -12,3 +12,10 @@ Fixed-capacity containers provide zero-allocation, constexpr-capable storage wit
 ## FixedQueue / FixedStack
 
 ## fixed::Bitset
+
+## inplace_vector
+
+`std::inplace_vector` is a fixed-capacity, dynamically sized vector with inline
+storage, polyfilling the C++26 type. It is exported by `import inplace_vector;`
+and `import synodic.periapsis;`. Adapted from the Beman Project implementation
+(MIT or Apache-2.0 WITH LLVM-exception).

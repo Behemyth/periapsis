@@ -4,4 +4,5 @@ target_sources(periapsis
 	FILES
 	"utility.ixx"
 	"hash.ixx"
+	"function_ref.ixx"
 )

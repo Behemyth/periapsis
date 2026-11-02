@@ -4,4 +4,5 @@ target_sources(periapsis
 	FILES
 	"bitset.ixx"
 	"ring_buffer.ixx"
+	"inplace_vector.ixx"
 )

@@ -1,6 +1,7 @@
 target_sources(tests
 	PRIVATE
 	test_queue.cpp
+	test_inplace_vector.cpp
 )
 
 add_subdirectory(
