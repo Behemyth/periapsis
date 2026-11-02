@@ -15,6 +15,10 @@ add_subdirectory(
 )
 
 add_subdirectory(
+	string
+)
+
+add_subdirectory(
 	structure
 )
 

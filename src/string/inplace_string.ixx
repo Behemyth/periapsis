@@ -53,7 +53,7 @@ export namespace peri
 
 		constexpr explicit BasicInplaceString(const std::basic_string_view<CharT, Traits> data) noexcept :
 			data_(),
-			size_(data.size())
+			size_(static_cast<MinimalIntegerType<N>>(data.size()))
 		{
 			std::copy_n(data.data(), size_, data_.begin());
 			std::fill(
