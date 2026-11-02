@@ -34,7 +34,7 @@ export module inplace_vector;
 import std;
 
 // Artifact from previous implementation, can be used as hints for optimizer
-#define IV_EXPECT(EXPR)
+#define IV_EXPECT(EXPR) static_cast<void>(sizeof(EXPR))
 
 // beman::from_range_t
 namespace beman
@@ -65,7 +65,7 @@ using smallest_size_t
 	static constexpr decltype(auto) index(Rng&& rng, Index i) noexcept
 		requires(std::ranges::sized_range<Rng>)
 	{
-		IV_EXPECT(static_cast<ptrdiff_t>(i) < std::ranges::size(rng));
+		IV_EXPECT(std::cmp_less(i, std::ranges::size(rng)));
 		return std::begin(std::forward<Rng>(rng))[std::forward<Index>(i)];
 	}
 

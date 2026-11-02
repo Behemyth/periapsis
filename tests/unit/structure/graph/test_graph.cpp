@@ -93,7 +93,7 @@ namespace
 
 		StaticStorage<void, void, 4, 4> storage;
 		auto v0 = storage.AddVertex();
-		auto v1 = storage.AddVertex();
+		[[maybe_unused]] auto v1 = storage.AddVertex();
 		auto v2 = storage.AddVertex();
 
 		storage.MarkBoundary(v0);
@@ -118,7 +118,7 @@ namespace
 
 		auto v0 = storage.AddVertex(VertexData {1});
 		auto v1 = storage.AddVertex(VertexData {2});
-		auto v2 = storage.AddVertex(VertexData {3});
+		[[maybe_unused]] auto v2 = storage.AddVertex(VertexData {3});
 
 		EXPECT_EQ(storage.NumVertices(), 3);
 		EXPECT_EQ(storage[v0].id, 1);
@@ -236,7 +236,7 @@ namespace
 
 		// Create runtime host graph
 		AdjacencyListStorage<VertexData, void> host;
-		auto h0 = host.AddVertex(VertexData {100});
+		[[maybe_unused]] auto h0 = host.AddVertex(VertexData {100});
 
 		// Compose subgraph into host
 		auto mapping = host.Compose(subgraph);
@@ -485,19 +485,19 @@ namespace
 
 		// Can go forward to v2
 		EXPECT_TRUE(visitor.can_advance_forward());
-		visitor.advance_forward();
+		std::ignore = visitor.advance_forward();
 		EXPECT_EQ(visitor.position(), v2);
 
 		// Go back to v1
-		visitor.advance_backward();
+		std::ignore = visitor.advance_backward();
 		EXPECT_EQ(visitor.position(), v1);
 
 		// Go back to v0
-		visitor.advance_backward();
+		std::ignore = visitor.advance_backward();
 		EXPECT_EQ(visitor.position(), v0);
 
 		// Go forward to v1 again
-		visitor.advance_forward();
+		std::ignore = visitor.advance_forward();
 		EXPECT_EQ(visitor.position(), v1);
 	}
 
@@ -516,10 +516,10 @@ namespace
 		auto visitor = make_bidirectional_visitor(graph, v0);
 
 		// Advance with direction parameter
-		visitor.advance(TraversalDirection::FORWARD);
+		std::ignore = visitor.advance(TraversalDirection::FORWARD);
 		EXPECT_EQ(visitor.position(), v1);
 
-		visitor.advance(TraversalDirection::BACKWARD);
+		std::ignore = visitor.advance(TraversalDirection::BACKWARD);
 		EXPECT_EQ(visitor.position(), v0);
 	}
 

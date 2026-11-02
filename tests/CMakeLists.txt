@@ -22,6 +22,12 @@ target_link_libraries(tests
 	GTest::gtest_main
 )
 
+# Tests feed constant zero denominators into guarded divisions, which MSVC's optimizer reports as C4723
+target_compile_options(tests
+	PRIVATE
+	$<$<CXX_COMPILER_ID:MSVC>:/wd4723>
+)
+
 add_subdirectory(
 	unit
 )

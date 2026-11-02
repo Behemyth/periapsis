@@ -121,7 +121,7 @@ export namespace peri::structure
 			}
 
 			// 1-indexed in the tree structure
-			for (size_type i = index + 1; i <= size_; i += i & -i)
+			for (size_type i = index + 1; i <= size_; i += i & (~i + 1))
 			{
 				tree_[i - 1] = tree_[i - 1] + delta;
 			}
@@ -145,7 +145,7 @@ export namespace peri::structure
 			}
 
 			T result = T();
-			for (size_type i = index + 1; i > 0; i -= i & -i)
+			for (size_type i = index + 1; i > 0; i -= i & (~i + 1))
 			{
 				result = result + tree_[i - 1];
 			}

@@ -58,7 +58,7 @@ export namespace peri
 		return !string.empty() ? offset : Hash((offset ^ string[0]) * PRIME, string.substr(1));
 	}
 
-	constexpr HashString operator"" _hashed(const char* str, std::size_t)
+	constexpr HashString operator""_hashed(const char* str, std::size_t)
 	{
 		return HashString{str};
 	}

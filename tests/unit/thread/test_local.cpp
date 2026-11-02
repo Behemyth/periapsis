@@ -365,7 +365,7 @@ namespace
 
 		ThreadLocal value(ThrowingFactory{});
 
-		EXPECT_THROW(*value, std::runtime_error);
+		EXPECT_THROW(static_cast<void>(*value), std::runtime_error);
 	}
 
 	TEST(ThreadLocal, ThreadLocalStorage)

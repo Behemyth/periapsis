@@ -95,11 +95,11 @@ export namespace std
 #pragma warning(disable: 4455)
 #endif
 			// [zstring.view.literals], suffix for basic_zstring_view literals
-			constexpr zstring_view operator"" zsv(const char* str, size_t len) noexcept;
-			constexpr u8zstring_view operator"" zsv(const char8_t* str, size_t len) noexcept;
-			constexpr u16zstring_view operator"" zsv(const char16_t* str, size_t len) noexcept;
-			constexpr u32zstring_view operator"" zsv(const char32_t* str, size_t len) noexcept;
-			constexpr wzstring_view operator"" zsv(const wchar_t* str, size_t len) noexcept;
+			constexpr zstring_view operator""zsv(const char* str, size_t len) noexcept;
+			constexpr u8zstring_view operator""zsv(const char8_t* str, size_t len) noexcept;
+			constexpr u16zstring_view operator""zsv(const char16_t* str, size_t len) noexcept;
+			constexpr u32zstring_view operator""zsv(const char32_t* str, size_t len) noexcept;
+			constexpr wzstring_view operator""zsv(const wchar_t* str, size_t len) noexcept;
 #ifndef _MSC_VER
             #pragma GCC diagnostic pop
 #else

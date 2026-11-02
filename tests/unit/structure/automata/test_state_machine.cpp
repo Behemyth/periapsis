@@ -306,8 +306,8 @@ namespace
 
 		peri::automata::Runner runner {sm};
 		runner.Start();
-		runner.Process(1);	// start -> middle
-		runner.Process(2);	// middle -> end
+		std::ignore = runner.Process(1);	// start -> middle
+		std::ignore = runner.Process(2);	// middle -> end
 
 		EXPECT_TRUE(runner.IsInFinalState());
 
@@ -413,7 +413,7 @@ namespace
 		EXPECT_TRUE(runner.CanProcess(1));
 		EXPECT_FALSE(runner.CanProcess(2));
 
-		runner.Process(1);
+		std::ignore = runner.Process(1);
 
 		// From s1, no transitions defined
 		EXPECT_FALSE(runner.CanProcess(1));
@@ -542,16 +542,16 @@ namespace
 
 			EXPECT_EQ(runner.CurrentState(), idle);
 
-			runner.Process(Event::START);
+			std::ignore = runner.Process(Event::START);
 			EXPECT_EQ(runner.CurrentState(), running);
 
-			runner.Process(Event::PAUSE);
+			std::ignore = runner.Process(Event::PAUSE);
 			EXPECT_EQ(runner.CurrentState(), paused);
 
-			runner.Process(Event::RESUME);
+			std::ignore = runner.Process(Event::RESUME);
 			EXPECT_EQ(runner.CurrentState(), running);
 
-			runner.Process(Event::STOP);
+			std::ignore = runner.Process(Event::STOP);
 			EXPECT_EQ(runner.CurrentState(), idle);
 		}
 	}

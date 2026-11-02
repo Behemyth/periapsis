@@ -44,6 +44,11 @@ export namespace peri::lockfree
 	 * @tparam T The type to store
 	 * @tparam Container The container for storage backing
 	 */
+// Members are deliberately cache-line aligned, so the resulting padding is expected
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4324)
+#endif
 	template<spsc_queue_type T, spsc_queue_container_of<T> Container>
 	class SPSCQueue
 	{
@@ -308,6 +313,9 @@ export namespace peri::lockfree
 		// The padding used to avoid cache line overlap with the full flag
 		std::array<std::byte, CACHE_LINE_SIZE - sizeof cachedWriteIndex_> padding_;
 	};
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Deduction guides as specified: https://en.cppreference.com/w/cpp/container/queue/deduction_guides

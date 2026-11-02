@@ -135,7 +135,7 @@ namespace
 		const Bitset bs(8, 0b11110000);
 		EXPECT_FALSE(bs.test(0));
 		EXPECT_TRUE(bs.test(4));
-		EXPECT_THROW(bs.test(100), std::out_of_range);
+		EXPECT_THROW(static_cast<void>(bs.test(100)), std::out_of_range);
 	}
 
 	TEST(DynamicBitset, TestSet)
