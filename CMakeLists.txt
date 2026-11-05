@@ -96,3 +96,16 @@ install(
 	${CMAKE_CURRENT_BINARY_DIR}/periapsisConfigVersion.cmake
 	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/periapsis
 )
+
+# Build-tree package for local-source (editable) consumers. It mirrors the installed
+# lib/cmake/periapsis layout, so a local checkout resolves through the same path as the package.
+set(periapsis_BUILD_PACKAGE_DIR ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/cmake/periapsis)
+
+export(EXPORT periapsisTargets
+	FILE ${periapsis_BUILD_PACKAGE_DIR}/periapsisTargets.cmake
+	NAMESPACE synodic::
+	CXX_MODULES_DIRECTORY cxx-modules
+)
+
+configure_file(${CMAKE_CURRENT_BINARY_DIR}/periapsisConfig.cmake ${periapsis_BUILD_PACKAGE_DIR}/periapsisConfig.cmake COPYONLY)
+configure_file(${CMAKE_CURRENT_BINARY_DIR}/periapsisConfigVersion.cmake ${periapsis_BUILD_PACKAGE_DIR}/periapsisConfigVersion.cmake COPYONLY)
