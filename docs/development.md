@@ -121,8 +121,26 @@ Leave the variable unset on other hosts so CMake detects the manifest itself.
 ## CI and optional testing
 
 The full native checks run automatically for pull requests and merge queues,
-not for standalone pushes. Pushing to an open pull request still updates its
-normal CI checks.
+not for standalone pushes or on a schedule. Pushing to an open pull request
+still updates its normal CI checks. Fast checks and identity preflight run
+concurrently; native lanes start once preflight succeeds. The required result
+still needs every stage and lane to pass.
+
+Each lane builds and tests its multi-config tree, then configures every
+single-config preset without building a duplicate tree. The CI adapter executes
+the committed workflow steps, collects independent build/test failures, and
+continues later configurations when possible. A CI-only CMake presets file
+keeps tests quiet and writes JUnit results without changing local presets.
+
+The lane artifact `native-<identity>-<attempt>` contains the stage logs,
+`result.json`, a concise reproduction summary, JUnit XML, and SARIF source
+diagnostics. Clang and MSVC errors also appear as check annotations. SARIF is
+generated from compiler text output; check jobs do not upload to code scanning
+or require write permissions. A report never overrides a failed required job.
+
+Hosted Windows lanes use a temporary ReFS Dev Drive for the copied checkout,
+Conan home, and build trees. This setup affects only the hosted runner, never
+the developer's local drive.
 
 Users and agents can request an additional single-identity run through GitHub
 Actions' **Run workflow** option or the GitHub CLI:
