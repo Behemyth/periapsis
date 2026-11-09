@@ -62,7 +62,7 @@ using smallest_size_t
 
 	// Index a random-access and sized range doing bound checks in debug builds
 	template<std::ranges::random_access_range Rng, std::integral Index>
-	static constexpr decltype(auto) index(Rng&& rng, Index i) noexcept
+	constexpr decltype(auto) index(Rng&& rng, Index i) noexcept
 		requires(std::ranges::sized_range<Rng>)
 	{
 		IV_EXPECT(std::cmp_less(i, std::ranges::size(rng)));
