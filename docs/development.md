@@ -29,10 +29,16 @@ Porringer release does not provide this setup. With pipx using Python 3.15 or
 newer, install the tested fork commit before running `porr install`:
 
 ```shell
-pipx install "git+https://github.com/Behemyth/porringer.git@5d507ba0a66cfe4ec36c575ee3d7b2772707f99c"
+pipx install "git+https://github.com/Behemyth/porringer.git@812b0cb5f2268a845af246273771b876f2cc3b35"
 ```
 
 Use pipx's `--python` option if its default interpreter is older than 3.15.
+
+For automation, `porr install --json --yes` approves the installation and
+returns one versioned JSON result on stdout, with human-readable logs on
+stderr. Preparation reports the selected identity, build-system backend,
+dependency provider, and authoritative output directory. Successful preparation
+does not verify a native build or test run; run the CMake workflow separately.
 
 The current Python lock selects CMake 4.4.4, which is too old for this project.
 Until a compatible CMake is available in the Python package and the lock is
