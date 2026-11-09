@@ -18,8 +18,8 @@ export namespace peri::graph::storage
 	 * @tparam IndexType Unsigned integer type for descriptors
 	 */
 	template<
-		typename VertexProperty,
-		typename EdgeProperty,
+		typename VertexPropertyT,
+		typename EdgePropertyT,
 		template<typename...> typename VertexContainer = std::vector,
 		template<typename...> typename EdgeContainer = std::vector,
 		std::unsigned_integral IndexType = std::size_t>
@@ -35,8 +35,8 @@ export namespace peri::graph::storage
 		using VerticesSizeType   = IndexType;
 		using EdgesSizeType      = IndexType;
 		using DegreeSizeType     = IndexType;
-		using VertexPropertyType = VertexProperty;
-		using EdgePropertyType   = EdgeProperty;
+		using VertexPropertyType = VertexPropertyT;
+		using EdgePropertyType   = EdgePropertyT;
 
 		// Compile-time properties
 		static constexpr bool IS_DIRECTED                   = false;

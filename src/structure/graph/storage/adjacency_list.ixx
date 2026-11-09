@@ -17,8 +17,8 @@ export namespace peri::graph::storage
 	 * @tparam Bidirectional If true, maintain in-edge lists for O(1) predecessor access
 	 */
 	template<
-		typename VertexProperty,
-		typename EdgeProperty,
+		typename VertexPropertyT,
+		typename EdgePropertyT,
 		template<typename...> typename VertexContainer = std::vector,
 		template<typename...> typename EdgeContainer = std::vector,
 		std::unsigned_integral IndexType = std::size_t,
@@ -45,8 +45,8 @@ export namespace peri::graph::storage
 			constexpr auto operator<=>(const EdgeDescriptor&) const noexcept = default;
 		};
 
-		using VertexPropertyType = VertexProperty;
-		using EdgePropertyType   = EdgeProperty;
+		using VertexPropertyType = VertexPropertyT;
+		using EdgePropertyType   = EdgePropertyT;
 
 		// Compile-time properties
 		static constexpr bool IS_DIRECTED                   = true;
