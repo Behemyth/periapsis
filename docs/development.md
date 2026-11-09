@@ -126,6 +126,11 @@ workflow. The same command works for `Behemyth/cppython` with its declared
 identities. Manual runs use a separate, non-required result and do not replace
 the full pull-request checks.
 
+Pull-request and merge-queue runs restore the shared Conan package cache but
+never save it. Once this workflow is on `development`, warm the cache for an
+identity by running the same command with `--ref development`; only a
+successful manual run on the default branch saves.
+
 ## Documentation
 
 Documentation is built with [Zensical](https://github.com/synodic/zensical) :
