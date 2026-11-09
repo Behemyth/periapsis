@@ -57,8 +57,6 @@ export namespace peri::algorithm::graph
 			Queue& queue) -> bool
 			requires peri::graph::bidirectional_storage<typename GraphType::StorageType>
 		{
-			using VertexDescriptor = typename GraphType::VertexDescriptor;
-
 			// Reset visited flags
 			for (std::size_t i = 0; i < MaxV; ++i)
 			{
@@ -117,8 +115,6 @@ export namespace peri::algorithm::graph
 			std::array<PathInfo, MaxV>& parent,
 			Queue& queue) -> bool
 		{
-			using VertexDescriptor = typename GraphType::VertexDescriptor;
-
 			// Reset visited flags
 			for (std::size_t i = 0; i < MaxV; ++i)
 			{
