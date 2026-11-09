@@ -14,7 +14,53 @@ export namespace peri
 	class ThreadLocal
 	{
 	public:
-		using Factory = std::move_only_function<T()>;
+		/**
+		 * @brief Owning, move-only factory wrapper.
+		 * @details Avoids std::move_only_function, which libc++ does not yet provide.
+		 */
+		class Factory
+		{
+		public:
+			template<typename F>
+				requires(not std::same_as<std::remove_cvref_t<F>, Factory>) and
+						std::invocable<std::decay_t<F>&> and
+						std::convertible_to<std::invoke_result_t<std::decay_t<F>&>, T>
+			constexpr Factory(F&& factory) :
+				callable_(std::make_unique<Model<std::decay_t<F>>>(std::forward<F>(factory)))
+			{
+			}
+
+			constexpr auto operator()() -> T
+			{
+				return callable_->Invoke();
+			}
+
+		private:
+			struct Concept
+			{
+				constexpr virtual ~Concept() = default;
+				constexpr virtual auto Invoke() -> T = 0;
+			};
+
+			template<typename F>
+			struct Model final : Concept
+			{
+				template<typename U>
+				constexpr explicit Model(U&& callable) :
+					function(std::forward<U>(callable))
+				{
+				}
+
+				constexpr auto Invoke() -> T override
+				{
+					return std::invoke(function);
+				}
+
+				F function;
+			};
+
+			std::unique_ptr<Concept> callable_;
+		};
 
 		/**
 		 * @brief Default constructor. Each thread will default-construct T on first access.

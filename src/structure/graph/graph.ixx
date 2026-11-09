@@ -118,7 +118,7 @@ export namespace peri::graph
 	 * @tparam EdgeProperty Type stored per edge (void for none)
 	 * @tparam Policy Storage policy: Dynamic<Dir> or Fixed<MaxV, MaxE, Dir>
 	 */
-	template<typename VertexProperty = void, typename EdgeProperty = void, typename Policy = Dynamic<>>
+	template<typename VertexPropertyT = void, typename EdgePropertyT = void, typename Policy = Dynamic<>>
 	class Graph
 	{
 	public:
@@ -127,7 +127,7 @@ export namespace peri::graph
 		// ========================================================================
 
 		using PolicyType  = Policy;
-		using StorageType = detail::StorageSelector_t<VertexProperty, EdgeProperty, Policy>;
+		using StorageType = detail::StorageSelector_t<VertexPropertyT, EdgePropertyT, Policy>;
 		using Traits      = StorageTraits<StorageType>;
 
 		using VertexDescriptor   = Traits::VertexDescriptor;
@@ -135,8 +135,8 @@ export namespace peri::graph
 		using VerticesSizeType   = Traits::VerticesSizeType;
 		using EdgesSizeType      = Traits::EdgesSizeType;
 		using DegreeSizeType     = StorageType::DegreeSizeType;
-		using VertexPropertyType = VertexProperty;
-		using EdgePropertyType   = EdgeProperty;
+		using VertexPropertyType = VertexPropertyT;
+		using EdgePropertyType   = EdgePropertyT;
 
 		// Compile-time properties from policy
 		static constexpr Directionality DIRECTIONALITY = Policy::DIRECTIONALITY;
@@ -171,12 +171,12 @@ export namespace peri::graph
 		 */
 		template<typename OtherPolicy>
 			requires IS_DYNAMIC and (not OtherPolicy::IS_DYNAMIC)
-		Graph(const Graph<VertexProperty, EdgeProperty, OtherPolicy>& source)
+		Graph(const Graph<VertexPropertyT, EdgePropertyT, OtherPolicy>& source)
 		{
 			// Copy all vertices
 			for (auto v: source.vertices())
 			{
-				if constexpr (not std::same_as<VertexProperty, void>)
+				if constexpr (not std::same_as<VertexPropertyT, void>)
 				{
 					AddVertex(source.VertexProperty(v));
 				}
@@ -191,7 +191,7 @@ export namespace peri::graph
 			{
 				auto src = source.Source(e);
 				auto tgt = source.Target(e);
-				if constexpr (not std::same_as<EdgeProperty, void>)
+				if constexpr (not std::same_as<EdgePropertyT, void>)
 				{
 					AddEdge(src, tgt, source.EdgeProperty(e));
 				}
@@ -222,7 +222,7 @@ export namespace peri::graph
 		}
 
 		template<typename... Args>
-			requires(not std::same_as<VertexProperty, void>) and std::constructible_from<VertexProperty, Args...>
+			requires(not std::same_as<VertexPropertyT, void>) and std::constructible_from<VertexPropertyT, Args...>
 		constexpr auto AddVertex(Args&&... args) -> VertexDescriptor
 		{
 			return storage_.AddVertex(std::forward<Args>(args)...);
@@ -260,7 +260,7 @@ export namespace peri::graph
 		}
 
 		template<typename... Args>
-			requires(not std::same_as<EdgeProperty, void>) and std::constructible_from<EdgeProperty, Args...>
+			requires(not std::same_as<EdgePropertyT, void>) and std::constructible_from<EdgePropertyT, Args...>
 		constexpr auto AddEdge(
 			VertexDescriptor source,
 			VertexDescriptor target,
@@ -383,26 +383,26 @@ export namespace peri::graph
 
 		/// Access vertex property
 		[[nodiscard]] constexpr decltype(auto) VertexProperty(VertexDescriptor v)
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return storage_.VertexProperty(v);
 		}
 
 		[[nodiscard]] constexpr decltype(auto) VertexProperty(VertexDescriptor v) const
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return storage_.VertexProperty(v);
 		}
 
 		// Access edge property
 		[[nodiscard]] constexpr decltype(auto) EdgeProperty(EdgeDescriptor e)
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return storage_.EdgeProperty(e);
 		}
 
 		[[nodiscard]] constexpr decltype(auto) EdgeProperty(EdgeDescriptor e) const
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return storage_.EdgeProperty(e);
 		}

@@ -211,9 +211,6 @@ export namespace peri::graph
 		}
 	};
 
-	template<typename E, typename Ex>
-	EventSelector(Ex) -> EventSelector<E, Ex>;
-
 	/**
 	 * @brief Default event extractor that assumes edge property IS the event
 	 */

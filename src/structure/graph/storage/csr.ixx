@@ -17,8 +17,8 @@ export namespace peri::graph::storage
 	 * @tparam IndexType Unsigned integer type for indices
 	 */
 	template<
-		typename VertexProperty,
-		typename EdgeProperty,
+		typename VertexPropertyT,
+		typename EdgePropertyT,
 		template<typename...> typename VertexContainer = std::vector,
 		template<typename...> typename EdgeContainer = std::vector,
 		std::unsigned_integral IndexType = std::size_t>
@@ -34,8 +34,8 @@ export namespace peri::graph::storage
 		using VerticesSizeType   = IndexType;
 		using EdgesSizeType      = IndexType;
 		using DegreeSizeType     = IndexType;
-		using VertexPropertyType = VertexProperty;
-		using EdgePropertyType   = EdgeProperty;
+		using VertexPropertyType = VertexPropertyT;
+		using EdgePropertyType   = EdgePropertyT;
 
 		// Compile-time properties
 		static constexpr bool IS_DIRECTED                   = true;
@@ -58,10 +58,10 @@ export namespace peri::graph::storage
 		};
 
 		using VertexPropsStorage =
-		std::conditional_t<std::same_as<VertexProperty, void>, Empty, VertexContainer<VertexProperty>>;
+		std::conditional_t<std::same_as<VertexPropertyT, void>, Empty, VertexContainer<VertexPropertyT>>;
 
 		using EdgePropsStorage =
-		std::conditional_t<std::same_as<EdgeProperty, void>, Empty, EdgeContainer<EdgeProperty>>;
+		std::conditional_t<std::same_as<EdgePropertyT, void>, Empty, EdgeContainer<EdgePropertyT>>;
 
 		[[no_unique_address]] VertexPropsStorage vertexProperties_;
 		[[no_unique_address]] EdgePropsStorage edgeProperties_;
@@ -110,11 +110,11 @@ export namespace peri::graph::storage
 			}
 
 			// Allocate property storage
-			if constexpr (not std::same_as<VertexProperty, void>)
+			if constexpr (not std::same_as<VertexPropertyT, void>)
 			{
 				vertexProperties_.resize(numVertices);
 			}
-			if constexpr (not std::same_as<EdgeProperty, void>)
+			if constexpr (not std::same_as<EdgePropertyT, void>)
 			{
 				edgeProperties_.resize(colIndices_.size());
 			}
@@ -127,8 +127,8 @@ export namespace peri::graph::storage
 		 * @param edges Range of (source, target, edge_property) tuples, sorted by source
 		 */
 		template<std::ranges::input_range VertexPropRange, std::ranges::input_range EdgeRange>
-			requires(not std::same_as<VertexProperty, void>) and (not std::same_as<EdgeProperty, void>) and
-			        std::convertible_to<std::ranges::range_value_t<VertexPropRange>, VertexProperty>
+			requires(not std::same_as<VertexPropertyT, void>) and (not std::same_as<EdgePropertyT, void>) and
+			        std::convertible_to<std::ranges::range_value_t<VertexPropRange>, VertexPropertyT>
 		CSRStorage(VerticesSizeType numVertices, VertexPropRange&& vertexProps, EdgeRange&& edges) :
 			rowOffsets_(numVertices + 1, 0)
 		{
@@ -235,75 +235,75 @@ export namespace peri::graph::storage
 		// ========================================================================
 
 		[[nodiscard]] decltype(auto) operator[](VertexDescriptor v)
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] decltype(auto) operator[](VertexDescriptor v) const
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] decltype(auto) operator[](EdgeDescriptor e)
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		[[nodiscard]] decltype(auto) operator[](EdgeDescriptor e) const
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		// Named property accessors (avoid ambiguity when VertexDescriptor == EdgeDescriptor)
 		[[nodiscard]] decltype(auto) vertex_property(VertexDescriptor v)
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] decltype(auto) vertex_property(VertexDescriptor v) const
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] decltype(auto) edge_property(EdgeDescriptor e)
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		[[nodiscard]] decltype(auto) edge_property(EdgeDescriptor e) const
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		// PascalCase named property accessors
 		[[nodiscard]] decltype(auto) VertexProperty(VertexDescriptor v)
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] decltype(auto) VertexProperty(VertexDescriptor v) const
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] decltype(auto) EdgeProperty(EdgeDescriptor e)
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		[[nodiscard]] decltype(auto) EdgeProperty(EdgeDescriptor e) const
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
@@ -323,13 +323,13 @@ export namespace peri::graph::storage
 		}
 
 		[[nodiscard]] auto VertexPropertiesData() const noexcept
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_.data();
 		}
 
 		[[nodiscard]] auto EdgePropertiesData() const noexcept
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_.data();
 		}

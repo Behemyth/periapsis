@@ -66,8 +66,6 @@ export namespace std
 	using wzstring_view   = basic_zstring_view<wchar_t>;
 
 	// [zstring.view.hash], hash support
-	template<class T>
-	struct hash;
 	template<>
 	struct hash<zstring_view>;
 	template<>
@@ -87,6 +85,7 @@ export namespace std
             #pragma GCC diagnostic push
 #ifdef __clang__
             #pragma GCC diagnostic ignored "-Wuser-defined-literals"
+            #pragma GCC diagnostic ignored "-Wreserved-user-defined-literal"
 #else
             #pragma GCC diagnostic ignored "-Wliteral-suffix"
 #endif
@@ -571,6 +570,18 @@ namespace std
 	{
 		inline namespace zstring_view_literals
 		{
+#ifndef _MSC_VER
+            #pragma GCC diagnostic push
+#ifdef __clang__
+            #pragma GCC diagnostic ignored "-Wuser-defined-literals"
+            #pragma GCC diagnostic ignored "-Wreserved-user-defined-literal"
+#else
+            #pragma GCC diagnostic ignored "-Wliteral-suffix"
+#endif
+#else
+#pragma warning(push)
+#pragma warning(disable: 4455)
+#endif
 			// [zstring.view.literals], suffix for basic_zstring_view literals
 			constexpr zstring_view operator""zsv(const char* str, std::size_t len) noexcept
 			{
@@ -596,6 +607,11 @@ namespace std
 			{
 				return basic_zstring_view(str, len);
 			}
+#ifndef _MSC_VER
+            #pragma GCC diagnostic pop
+#else
+#pragma warning(pop)
+#endif
 		}
 	}
 

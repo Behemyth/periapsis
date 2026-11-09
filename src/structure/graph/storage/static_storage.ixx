@@ -18,8 +18,8 @@ export namespace peri::graph::storage
 	 * @tparam IndexType Unsigned integer type for indices (default: std::size_t)
 	 */
 	template<
-		typename VertexProperty,
-		typename EdgeProperty,
+		typename VertexPropertyT,
+		typename EdgePropertyT,
 		std::size_t MaxVertices,
 		std::size_t MaxEdges,
 		std::unsigned_integral IndexType = std::size_t>
@@ -35,8 +35,8 @@ export namespace peri::graph::storage
 		using VerticesSizeType   = IndexType;
 		using EdgesSizeType      = IndexType;
 		using DegreeSizeType     = IndexType;
-		using VertexPropertyType = VertexProperty;
-		using EdgePropertyType   = EdgeProperty;
+		using VertexPropertyType = VertexPropertyT;
+		using EdgePropertyType   = EdgePropertyT;
 
 		// Compile-time properties
 		static constexpr bool IS_DIRECTED                   = true;
@@ -68,12 +68,12 @@ export namespace peri::graph::storage
 		};
 
 		using VertexPropsStorage = std::conditional_t<
-			std::same_as<VertexProperty, void>,
+			std::same_as<VertexPropertyT, void>,
 			EmptyVertexProps,
-			std::array<VertexProperty, MaxVertices>>;
+			std::array<VertexPropertyT, MaxVertices>>;
 
 		using EdgePropsStorage =
-		std::conditional_t<std::same_as<EdgeProperty, void>, EmptyEdgeProps, std::array<EdgeProperty, MaxEdges>>;
+		std::conditional_t<std::same_as<EdgePropertyT, void>, EmptyEdgeProps, std::array<EdgePropertyT, MaxEdges>>;
 
 		[[no_unique_address]] VertexPropsStorage vertexProperties_{};
 		[[no_unique_address]] EdgePropsStorage edgeProperties_{};
@@ -119,7 +119,7 @@ export namespace peri::graph::storage
 		}
 
 		template<typename... Args>
-			requires(not std::same_as<VertexProperty, void>) and std::constructible_from<VertexProperty, Args...>
+			requires(not std::same_as<VertexPropertyT, void>) and std::constructible_from<VertexPropertyT, Args...>
 		constexpr auto AddVertex(Args&&... args) -> VertexDescriptor
 		{
 			auto v               = AddVertex();
@@ -153,7 +153,7 @@ export namespace peri::graph::storage
 		}
 
 		template<typename... Args>
-			requires(not std::same_as<EdgeProperty, void>) and std::constructible_from<EdgeProperty, Args...>
+			requires(not std::same_as<EdgePropertyT, void>) and std::constructible_from<EdgePropertyT, Args...>
 		constexpr auto AddEdge(
 			VertexDescriptor source,
 			VertexDescriptor target,
@@ -224,75 +224,75 @@ export namespace peri::graph::storage
 		// ========================================================================
 
 		[[nodiscard]] constexpr decltype(auto) operator[](VertexDescriptor v)
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] constexpr decltype(auto) operator[](VertexDescriptor v) const
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] constexpr decltype(auto) operator[](EdgeDescriptor e)
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		[[nodiscard]] constexpr decltype(auto) operator[](EdgeDescriptor e) const
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		// Named property accessors (avoid ambiguity when VertexDescriptor == EdgeDescriptor)
 		[[nodiscard]] constexpr decltype(auto) vertex_property(VertexDescriptor v)
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] constexpr decltype(auto) vertex_property(VertexDescriptor v) const
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] constexpr decltype(auto) edge_property(EdgeDescriptor e)
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		[[nodiscard]] constexpr decltype(auto) edge_property(EdgeDescriptor e) const
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		// PascalCase named property accessors
 		[[nodiscard]] constexpr decltype(auto) VertexProperty(VertexDescriptor v)
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] constexpr decltype(auto) VertexProperty(VertexDescriptor v) const
-			requires(not std::same_as<VertexProperty, void>)
+			requires(not std::same_as<VertexPropertyT, void>)
 		{
 			return vertexProperties_[v];
 		}
 
 		[[nodiscard]] constexpr decltype(auto) EdgeProperty(EdgeDescriptor e)
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
 
 		[[nodiscard]] constexpr decltype(auto) EdgeProperty(EdgeDescriptor e) const
-			requires(not std::same_as<EdgeProperty, void>)
+			requires(not std::same_as<EdgePropertyT, void>)
 		{
 			return edgeProperties_[e];
 		}
