@@ -18,7 +18,7 @@ namespace
 	using MultiMap			= std::multimap<int, int>;
 	using Set				= std::set<int>;
 	using MultiSet			= std::multiset<int>;
-	using String			= std::basic_string<int>;
+	using String			= std::string;
 	using UnorderedMap		= std::unordered_map<int, int>;
 	using UnorderedMultiMap = std::unordered_multimap<int, int>;
 	using UnorderedSet		= std::unordered_set<int>;
