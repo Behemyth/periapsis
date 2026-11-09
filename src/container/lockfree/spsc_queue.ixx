@@ -295,7 +295,7 @@ export namespace peri::lockfree
 		constexpr auto operator<=>(const SPSCQueue&) const = default;
 
 	private:
-		static constexpr size_t CACHE_LINE_SIZE = std::hardware_destructive_interference_size;
+		static constexpr std::size_t CACHE_LINE_SIZE = std::hardware_destructive_interference_size;
 
 		// Tracks capacity external to the container to guarantee alignment. Placed by front
 		// to get bundled with container_

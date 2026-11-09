@@ -108,6 +108,16 @@ VS Code CMake Tools. Visual Studio or the terminal must have a matching C++
 compiler environment on `PATH`. Re-run `pdm run prepare` after changing the
 identity or native dependency declarations.
 
+On macOS with Homebrew LLVM, CMake cannot find libc++'s `import std` manifest
+automatically. Before configuring, set `SYNODIC_CXX_STDLIB_MODULES_JSON` to the
+manifest path:
+
+```bash
+export SYNODIC_CXX_STDLIB_MODULES_JSON="$(brew --prefix llvm)/lib/c++/libc++.modules.json"
+```
+
+Leave the variable unset on other hosts so CMake detects the manifest itself.
+
 ## CI and optional testing
 
 The full native checks run automatically for pull requests and merge queues,

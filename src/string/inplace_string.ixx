@@ -150,27 +150,27 @@ export namespace peri
 			return view();
 		}
 
-		template<size_t N2>
+		template<std::size_t N2>
 		[[nodiscard]] friend constexpr bool
 			operator==(const BasicInplaceString& lhs, const BasicInplaceString<CharT, N2, Traits>& rhs)
 		{
 			return lhs.view() == rhs.view();
 		}
 
-		template<size_t N2>
+		template<std::size_t N2>
 		[[nodiscard]] friend consteval bool operator==(const BasicInplaceString& lhs, const CharT (&rhs)[N2])
 		{
 			return lhs.view() == std::basic_string_view<CharT, Traits>(rhs, rhs + N2 - 1);
 		}
 
-		template<size_t N2>
+		template<std::size_t N2>
 		[[nodiscard]] friend constexpr auto
 			operator<=>(const BasicInplaceString& lhs, const BasicInplaceString<CharT, N2, Traits>& rhs)
 		{
 			return lhs.view() <=> rhs.view();
 		}
 
-		template<size_t N2>
+		template<std::size_t N2>
 		[[nodiscard]] friend constexpr auto operator<=>(const BasicInplaceString& lhs, const CharT (&rhs)[N2])
 		{
 			return lhs.view() <=> std::basic_string_view<CharT, Traits>(rhs, rhs + N2 - 1);

@@ -95,11 +95,11 @@ export namespace std
 #pragma warning(disable: 4455)
 #endif
 			// [zstring.view.literals], suffix for basic_zstring_view literals
-			constexpr zstring_view operator""zsv(const char* str, size_t len) noexcept;
-			constexpr u8zstring_view operator""zsv(const char8_t* str, size_t len) noexcept;
-			constexpr u16zstring_view operator""zsv(const char16_t* str, size_t len) noexcept;
-			constexpr u32zstring_view operator""zsv(const char32_t* str, size_t len) noexcept;
-			constexpr wzstring_view operator""zsv(const wchar_t* str, size_t len) noexcept;
+			constexpr zstring_view operator""zsv(const char* str, std::size_t len) noexcept;
+			constexpr u8zstring_view operator""zsv(const char8_t* str, std::size_t len) noexcept;
+			constexpr u16zstring_view operator""zsv(const char16_t* str, std::size_t len) noexcept;
+			constexpr u32zstring_view operator""zsv(const char32_t* str, std::size_t len) noexcept;
+			constexpr wzstring_view operator""zsv(const wchar_t* str, std::size_t len) noexcept;
 #ifndef _MSC_VER
             #pragma GCC diagnostic pop
 #else
@@ -126,8 +126,8 @@ namespace std
 		using iterator                  = const_iterator;
 		using const_reverse_iterator    = std::reverse_iterator<const_iterator>;
 		using reverse_iterator          = const_reverse_iterator;
-		using size_type                 = size_t;
-		using difference_type           = ptrdiff_t;
+		using size_type                 = std::size_t;
+		using difference_type           = std::ptrdiff_t;
 		static constexpr size_type npos = size_type(-1);
 
 		// [zstring.view.cons], construction and assignment
@@ -572,27 +572,27 @@ namespace std
 		inline namespace zstring_view_literals
 		{
 			// [zstring.view.literals], suffix for basic_zstring_view literals
-			constexpr zstring_view operator""zsv(const char* str, size_t len) noexcept
+			constexpr zstring_view operator""zsv(const char* str, std::size_t len) noexcept
 			{
 				return basic_zstring_view(str, len);
 			}
 
-			constexpr u8zstring_view operator""zsv(const char8_t* str, size_t len) noexcept
+			constexpr u8zstring_view operator""zsv(const char8_t* str, std::size_t len) noexcept
 			{
 				return basic_zstring_view(str, len);
 			}
 
-			constexpr u16zstring_view operator""zsv(const char16_t* str, size_t len) noexcept
+			constexpr u16zstring_view operator""zsv(const char16_t* str, std::size_t len) noexcept
 			{
 				return basic_zstring_view(str, len);
 			}
 
-			constexpr u32zstring_view operator""zsv(const char32_t* str, size_t len) noexcept
+			constexpr u32zstring_view operator""zsv(const char32_t* str, std::size_t len) noexcept
 			{
 				return basic_zstring_view(str, len);
 			}
 
-			constexpr wzstring_view operator""zsv(const wchar_t* str, size_t len) noexcept
+			constexpr wzstring_view operator""zsv(const wchar_t* str, std::size_t len) noexcept
 			{
 				return basic_zstring_view(str, len);
 			}

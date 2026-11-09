@@ -51,13 +51,13 @@ namespace details::inplace_vector
 {
 // clang-format off
 // Smallest unsigned integer that can represent values in [0, N].
-template <size_t N>
+template <std::size_t N>
 using smallest_size_t
 = std::conditional_t<(N < std::numeric_limits<std::uint8_t>::max()),  std::uint8_t,
     std::conditional_t<(N < std::numeric_limits<std::uint16_t>::max()), std::uint16_t,
     std::conditional_t<(N < std::numeric_limits<std::uint32_t>::max()), std::uint32_t,
     std::conditional_t<(N < std::numeric_limits<std::uint64_t>::max()),std:: uint64_t,
-                   size_t>>>>;
+                   std::size_t>>>>;
 	// clang-format on
 
 	// Index a random-access and sized range doing bound checks in debug builds
@@ -99,7 +99,7 @@ namespace details::inplace_vector::storage
 			return 0;
 		}
 
-		static constexpr void unsafe_set_size(size_t new_size) noexcept
+		static constexpr void unsafe_set_size(std::size_t new_size) noexcept
 		{
 			IV_EXPECT(
 				new_size == 0 &&
@@ -116,13 +116,13 @@ namespace details::inplace_vector::storage
 	};
 
 	// Storage for trivial types.
-	template<class T, size_t N>
+	template<class T, std::size_t N>
 	struct trivial
 	{
 		static_assert(
 			std::is_trivial_v<T>,
 			"storage::trivial<T, C> requires Trivial<T>");
-		static_assert(N != size_t{0}, "N  == 0, use zero_sized");
+		static_assert(N != std::size_t{0}, "N  == 0, use zero_sized");
 
 	protected:
 		using size_type = smallest_size_t<N>;
@@ -151,7 +151,7 @@ namespace details::inplace_vector::storage
 			return storage_size_;
 		}
 
-		constexpr void unsafe_set_size(size_t new_size) noexcept
+		constexpr void unsafe_set_size(std::size_t new_size) noexcept
 		{
 			IV_EXPECT(size_type(new_size) <= N && "new_size out-of-bounds [0, N]");
 			storage_size_ = size_type(new_size);
@@ -166,18 +166,18 @@ namespace details::inplace_vector::storage
 		constexpr ~trivial()                                  = default;
 	};
 
-	template<class T, size_t N>
+	template<class T, std::size_t N>
 	struct raw_byte_based_storage
 	{
 		alignas(T) std::byte _d[sizeof(T) * N];
 
-		constexpr T* storage_data(size_t i) noexcept
+		constexpr T* storage_data(std::size_t i) noexcept
 		{
 			IV_EXPECT(i < N);
 			return reinterpret_cast<T*>(_d) + i;
 		}
 
-		constexpr const T* storage_data(size_t i) const noexcept
+		constexpr const T* storage_data(std::size_t i) const noexcept
 		{
 			IV_EXPECT(i < N);
 			return reinterpret_cast<const T*>(_d) + i;
@@ -185,13 +185,13 @@ namespace details::inplace_vector::storage
 	};
 
 	/// Storage for non-trivial elements.
-	template<class T, size_t N>
+	template<class T, std::size_t N>
 	struct non_trivial
 	{
 		static_assert(
 			!std::is_trivial_v<T>,
 			"use storage::trivial for Trivial<T> elements");
-		static_assert(N != size_t{0}, "use storage::zero for N==0");
+		static_assert(N != std::size_t{0}, "use storage::zero for N==0");
 
 	protected:
 		using size_type = smallest_size_t<N>;
@@ -219,7 +219,7 @@ namespace details::inplace_vector::storage
 			return storage_size_;
 		}
 
-		constexpr void unsafe_set_size(size_t new_size) noexcept
+		constexpr void unsafe_set_size(std::size_t new_size) noexcept
 		{
 			IV_EXPECT(size_type(new_size) <= N && "new_size out-of-bounds [0, N)");
 			storage_size_ = size_type(new_size);
@@ -243,7 +243,7 @@ namespace details::inplace_vector::storage
 	};
 
 	// Selects the vector storage.
-	template<class T, size_t N>
+	template<class T, std::size_t N>
 	using storage_for = std::conditional_t<
 		!satify_constexpr<T, N>, non_trivial<T, N>,
 		std::conditional_t<N == 0, zero_sized<T>, trivial<T, N>>>;
@@ -257,7 +257,7 @@ namespace std
 		                                          IV::capacity()>;
 
 	/// Dynamically-resizable fixed-N vector with inplace storage.
-	export template<class T, size_t N>
+	export template<class T, std::size_t N>
 	struct inplace_vector
 		: private details::inplace_vector::storage::storage_for<T, N>
 	{
@@ -276,7 +276,7 @@ namespace std
 		using const_pointer          = const T*;
 		using reference              = value_type&;
 		using const_reference        = const value_type&;
-		using size_type              = size_t;
+		using size_type              = std::size_t;
 		using difference_type        = std::ptrdiff_t;
 		using iterator               = pointer;
 		using const_iterator         = const_pointer;

@@ -239,7 +239,7 @@ namespace std
 		{
 			CharT txt[N1 + N];
 			CharT* it = txt;
-			for (size_t i = 0; i != N1 - 1; ++i)
+			for (std::size_t i = 0; i != N1 - 1; ++i)
 			{
 				*it++ = lhs[i];
 			}
@@ -252,27 +252,27 @@ namespace std
 		}
 
 		// non-member comparison functions
-		template<size_t N2>
+		template<std::size_t N2>
 		[[nodiscard]] friend constexpr bool
 			operator==(const basic_fixed_string& lhs, const basic_fixed_string<CharT, N2, Traits>& rhs)
 		{
 			return lhs.view() == rhs.view();
 		}
 
-		template<size_t N2>
+		template<std::size_t N2>
 		[[nodiscard]] friend consteval bool operator==(const basic_fixed_string& lhs, const CharT (&rhs)[N2])
 		{
 			return lhs.view() == std::basic_string_view<CharT, Traits>(rhs, rhs + N2 - 1);
 		}
 
-		template<size_t N2>
+		template<std::size_t N2>
 		[[nodiscard]] friend constexpr auto
 			operator<=>(const basic_fixed_string& lhs, const basic_fixed_string<CharT, N2, Traits>& rhs)
 		{
 			return lhs.view() <=> rhs.view();
 		}
 
-		template<size_t N2>
+		template<std::size_t N2>
 		[[nodiscard]] friend consteval auto operator<=>(const basic_fixed_string& lhs, const CharT (&rhs)[N2])
 		{
 			return lhs.view() <=> std::basic_string_view<CharT, Traits>(rhs, rhs + N2 - 1);
@@ -297,7 +297,7 @@ namespace std
 	basic_fixed_string(std::from_range_t, std::array<CharT, N>) -> basic_fixed_string<CharT, N>;
 
 	// specialized algorithms
-	export template<class charT, size_t N, class traits>
+	export template<class charT, std::size_t N, class traits>
 	constexpr void swap(basic_fixed_string<charT, N, traits>& x, basic_fixed_string<charT, N, traits>& y) noexcept
 	{
 		x.swap(y);
