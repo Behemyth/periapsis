@@ -4,7 +4,7 @@
 	"name": "Periapsis",
 	"description": "A companion to the C++ standard library",
 	"author": "Synodic Software",
-	"url": "https://github.com/synodic/periapsis",
+	"url": "https://github.com/Behemyth/periapsis",
 	"runtimes": {
 		"python": [
 			"3.15"
@@ -18,5 +18,9 @@
 				"installer": "pipx"
 			}
 		]
+	},
+	"project": {
+		"ecosystem": "python",
+		"prepare": true
 	}
 }

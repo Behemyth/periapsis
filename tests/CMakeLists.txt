@@ -43,14 +43,11 @@ if(CMAKE_CONFIGURATION_TYPES)
 else()
 	set(_test_is_multi_config OFF)
 endif()
-set(_test_dependency_build_type "$<IF:$<STREQUAL:$<CONFIG>,Development>,Debug,$<CONFIG>>")
-
 add_test(
 	NAME test_package_consumer
 	COMMAND ${CMAKE_COMMAND}
 		"-DTEST_PROJECT_BINARY_DIR=${CMAKE_BINARY_DIR}"
 		"-DTEST_SOURCE_DIR=${CMAKE_SOURCE_DIR}/test_package"
-		"-DTEST_GENERATORS_DIR=${CMAKE_SOURCE_DIR}/build/conan/${_test_dependency_build_type}/generators"
 		"-DTEST_GENERATOR=${CMAKE_GENERATOR}"
 		"-DTEST_GENERATOR_PLATFORM=${CMAKE_GENERATOR_PLATFORM}"
 		"-DTEST_GENERATOR_TOOLSET=${CMAKE_GENERATOR_TOOLSET}"

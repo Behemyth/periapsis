@@ -5,7 +5,7 @@
 groups = ["default", "config", "docs", "lint", "native", "test"]
 strategy = []
 lock_version = "4.5.1"
-content_hash = "sha256:b0d203e7aef73fec497b1bbcd0255cf9b362708855ab7ccc79bcdf84c29bf73d"
+content_hash = "sha256:33ba2e17cd542b28426e9e83e579fc915ef91be9200c6a34e1b8fee7c4bf3c8b"
 
 [[metadata.targets]]
 requires_python = ">=3.15"
@@ -315,38 +315,36 @@ files = [
 
 [[package]]
 name = "cppython"
-version = "0.9.15.dev6"
-requires_python = ">=3.14"
+version = "0.1.dev190"
+requires_python = ">=3.15"
+git = "https://github.com/Behemyth/cppython.git"
+ref = "9213fd8b3f1fc92e30dee594efbbe774c52a602c"
+revision = "9213fd8b3f1fc92e30dee594efbbe774c52a602c"
 summary = "A Python management solution for C++ dependencies"
 dependencies = [
-    "meson-python>=0.19.0",
-    "packaging>=26.0",
-    "pydantic>=2.12.5",
-    "requests>=2.32.5",
-    "scikit-build-core>=0.11.6",
-    "typer>=0.24.0",
-    "types-requests>=2.32.4.20260107",
-]
-files = [
-    {file = "cppython-0.9.15.dev6-py3-none-any.whl", hash = "sha256:230cda28e9b15e4c2653ebc5e821e42713b91a83ed1a82db731171bca66570bc"},
-    {file = "cppython-0.9.15.dev6.tar.gz", hash = "sha256:7a2f14d058a37bc37262cf26987abd56c8106e5792e49a0eac2c385b358c3b2a"},
+    "meson-python>=0.20.0",
+    "packaging>=26.2",
+    "pydantic>=2.13.4",
+    "requests>=2.34.2",
+    "scikit-build-core>=0.12.2",
+    "typer>=0.26.8",
+    "types-requests>=2.33.0.20260518",
 ]
 
 [[package]]
 name = "cppython"
-version = "0.9.15.dev6"
+version = "0.1.dev190"
 extras = ["cmake", "conan", "git"]
-requires_python = ">=3.14"
+requires_python = ">=3.15"
+git = "https://github.com/Behemyth/cppython.git"
+ref = "9213fd8b3f1fc92e30dee594efbbe774c52a602c"
+revision = "9213fd8b3f1fc92e30dee594efbbe774c52a602c"
 summary = "A Python management solution for C++ dependencies"
 dependencies = [
-    "cmake>=4.2.1",
-    "conan>=2.25.2",
-    "cppython==0.9.15.dev6",
-    "dulwich>=1.1.0",
-]
-files = [
-    {file = "cppython-0.9.15.dev6-py3-none-any.whl", hash = "sha256:230cda28e9b15e4c2653ebc5e821e42713b91a83ed1a82db731171bca66570bc"},
-    {file = "cppython-0.9.15.dev6.tar.gz", hash = "sha256:7a2f14d058a37bc37262cf26987abd56c8106e5792e49a0eac2c385b358c3b2a"},
+    "cmake>=4.3.4",
+    "conan<2.34,>=2.30.0",
+    "cppython @ git+https://github.com/Behemyth/cppython.git@9213fd8b3f1fc92e30dee594efbbe774c52a602c",
+    "dulwich>=1.2.8",
 ]
 
 [[package]]

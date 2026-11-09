@@ -28,7 +28,7 @@ set(_configure_command
 	-S "${TEST_SOURCE_DIR}"
 	-B "${_consumer_binary_dir}"
 	-G "${TEST_GENERATOR}"
-	"-DCMAKE_PREFIX_PATH=${_install_prefix};${TEST_GENERATORS_DIR}"
+	"-DCMAKE_PREFIX_PATH=${_install_prefix}"
 )
 
 if(TEST_GENERATOR_PLATFORM)
@@ -43,7 +43,9 @@ endif()
 if(TEST_MAKE_PROGRAM)
 	list(APPEND _configure_command "-DCMAKE_MAKE_PROGRAM=${TEST_MAKE_PROGRAM}")
 endif()
-if(NOT TEST_IS_MULTI_CONFIG AND TEST_CONFIG)
+if(TEST_IS_MULTI_CONFIG AND TEST_CONFIG)
+	list(APPEND _configure_command "-DCMAKE_CONFIGURATION_TYPES=${TEST_CONFIG}")
+elseif(TEST_CONFIG)
 	list(APPEND _configure_command "-DCMAKE_BUILD_TYPE=${TEST_CONFIG}")
 endif()
 

@@ -5,27 +5,51 @@ on:
   merge_group:
   push:
     branches: [development]
+  workflow_dispatch:
+    inputs:
+      identity:
+        description: Native identity to test
+        type: choice
+        required: true
+        options:
+          - windows-x64-msvc
+          - windows-arm64-msvc
+          - linux-x64-clang-libcxx
+          - linux-arm64-clang-libcxx
+          - linux-x64-clang-libcxx-sanitize
+          - macos-arm64-clang-libcxx
 
 permissions:
   contents: read
 
 concurrency:
-  group: native-check-${{ github.event.pull_request.number || github.ref }}
+  group: native-check-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   check:
-    uses: synodic/.github/.github/workflows/native-check.yml@v1.0.0
+    if: github.event_name != 'workflow_dispatch'
+    uses: Behemyth/.github/.github/workflows/native-check.yml@feature/native-identity-matrix
     with:
       fast-install: pdm install -G native
       fast-uses-cmake: true
       fast-command: pdm lock --check && "$CMAKE_BINARY" --list-presets=all
-      native-lanes: >-
-        [
-          {"name":"windows-x64-msvc","runner":"windows-2025-vs2026","toolchain":"msvc","install":"pdm install -G native","command":"pdm run cppython install; pdm run cppython configure --configuration windows-ninja-msvc; for c in debug release; do pdm run cppython build --configuration windows-ninja-msvc-$c; pdm run cppython test --configuration windows-ninja-msvc-$c; done"},
-          {"name":"windows-arm64-msvc","runner":"windows-11-vs2026-arm","toolchain":"msvc","install":"pdm install -G native","command":"pdm run cppython install; pdm run cppython configure --configuration windows-ninja-msvc; for c in debug release; do pdm run cppython build --configuration windows-ninja-msvc-$c; pdm run cppython test --configuration windows-ninja-msvc-$c; done"},
-          {"name":"ubuntu-x64-llvm-libcxx","runner":"ubuntu-26.04","toolchain":"llvm-libcxx","install":"pdm install -G native","command":"pdm run cppython install; pdm run cppython configure --configuration linux-ninja-clang-libcxx; for c in debug release; do pdm run cppython build --configuration linux-ninja-clang-libcxx-$c; pdm run cppython test --configuration linux-ninja-clang-libcxx-$c; done"},
-          {"name":"ubuntu-arm64-llvm-libcxx","runner":"ubuntu-26.04-arm","toolchain":"llvm-libcxx","install":"pdm install -G native","command":"pdm run cppython install; pdm run cppython configure --configuration linux-ninja-clang-libcxx; for c in debug release; do pdm run cppython build --configuration linux-ninja-clang-libcxx-$c; pdm run cppython test --configuration linux-ninja-clang-libcxx-$c; done"},
-          {"name":"macos-arm64-llvm-libcxx","runner":"macos-26","toolchain":"llvm-libcxx","install":"pdm install -G native","command":"pdm run cppython install; pdm run cppython configure --configuration macos-ninja-llvm-libcxx; for c in debug release; do pdm run cppython build --configuration macos-ninja-llvm-libcxx-$c; pdm run cppython test --configuration macos-ninja-llvm-libcxx-$c; done"},
-          {"name":"ubuntu-x64-llvm-libcxx-sanitize","runner":"ubuntu-26.04","toolchain":"llvm-libcxx","install":"pdm install -G native","command":"pdm run cppython install; pdm run cppython configure --configuration linux-ninja-clang-libcxx-sanitize; for c in debug; do pdm run cppython build --configuration linux-ninja-clang-libcxx-sanitize-$c; pdm run cppython test --configuration linux-ninja-clang-libcxx-sanitize-$c; done"}
-        ]
+      native-install: pdm install -G native
+      configuration-ref: &configuration-ref 38c8d01da33b80face10ac873f29156a50365cbf
+      native-identities: &identities >-
+        ["windows-x64-msvc", "windows-arm64-msvc", "linux-x64-clang-libcxx",
+         "linux-arm64-clang-libcxx", "linux-x64-clang-libcxx-sanitize",
+         "macos-arm64-clang-libcxx"]
+
+  development-check:
+    if: github.event_name == 'workflow_dispatch'
+    uses: Behemyth/.github/.github/workflows/native-check.yml@feature/native-identity-matrix
+    with:
+      fast-install: pdm install -G native
+      fast-uses-cmake: true
+      fast-command: pdm lock --check && "$CMAKE_BINARY" --list-presets=all
+      native-install: pdm install -G native
+      configuration-ref: *configuration-ref
+      native-identities: *identities
+      targeted: true
+      target-identity: ${{ inputs.identity }}
