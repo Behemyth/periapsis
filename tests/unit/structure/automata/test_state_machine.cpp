@@ -495,6 +495,9 @@ namespace
 		auto [t1, success1] = sm.AddTransition(s0, s1, 1);
 		auto [t2, success2] = sm.AddTransition(s0, s1, 2);
 
+		EXPECT_TRUE(success1);
+		EXPECT_TRUE(success2);
+		EXPECT_NE(t1, t2);
 		EXPECT_EQ(sm.NumTransitions(), 2);
 
 		sm.RemoveTransition(t1);
