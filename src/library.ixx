@@ -2,6 +2,7 @@ export module synodic.periapsis;
 
 // Type partitions
 export import :type.concepts.algebraic;
+export import :type.concepts.core;
 export import :type.traits;
 
 // Container partitions
