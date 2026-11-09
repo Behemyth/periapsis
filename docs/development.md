@@ -108,6 +108,24 @@ VS Code CMake Tools. Visual Studio or the terminal must have a matching C++
 compiler environment on `PATH`. Re-run `pdm run prepare` after changing the
 identity or native dependency declarations.
 
+## CI and optional testing
+
+The full native checks run automatically for pull requests and merge queues,
+not for standalone pushes. Pushing to an open pull request still updates its
+normal CI checks.
+
+Users and agents can request an additional single-identity run through GitHub
+Actions' **Run workflow** option or the GitHub CLI:
+
+```shell
+gh workflow run native-check.yml --repo Behemyth/periapsis --ref YOUR_BRANCH -f identity=windows-x64-msvc
+```
+
+Choose a branch containing the manual workflow and an identity declared by that
+workflow. The same command works for `Behemyth/cppython` with its declared
+identities. Manual runs use a separate, non-required result and do not replace
+the full pull-request checks.
+
 ## Documentation
 
 Documentation is built with [Zensical](https://github.com/synodic/zensical) :
