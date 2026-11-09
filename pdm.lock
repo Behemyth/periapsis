@@ -5,7 +5,7 @@
 groups = ["default", "config", "docs", "lint", "native", "test"]
 strategy = []
 lock_version = "4.5.1"
-content_hash = "sha256:33ba2e17cd542b28426e9e83e579fc915ef91be9200c6a34e1b8fee7c4bf3c8b"
+content_hash = "sha256:472787f875499547885d5509b4a98c3c6e541f8a68f50f17cc7836d9cddce2ee"
 
 [[metadata.targets]]
 requires_python = ">=3.15"
@@ -315,11 +315,11 @@ files = [
 
 [[package]]
 name = "cppython"
-version = "0.1.dev190"
+version = "0.1.dev192"
 requires_python = ">=3.15"
 git = "https://github.com/Behemyth/cppython.git"
-ref = "9213fd8b3f1fc92e30dee594efbbe774c52a602c"
-revision = "9213fd8b3f1fc92e30dee594efbbe774c52a602c"
+ref = "77d0df096c642894e2c501b1908173afd3696a21"
+revision = "77d0df096c642894e2c501b1908173afd3696a21"
 summary = "A Python management solution for C++ dependencies"
 dependencies = [
     "meson-python>=0.20.0",
@@ -333,17 +333,17 @@ dependencies = [
 
 [[package]]
 name = "cppython"
-version = "0.1.dev190"
+version = "0.1.dev192"
 extras = ["cmake", "conan", "git"]
 requires_python = ">=3.15"
 git = "https://github.com/Behemyth/cppython.git"
-ref = "9213fd8b3f1fc92e30dee594efbbe774c52a602c"
-revision = "9213fd8b3f1fc92e30dee594efbbe774c52a602c"
+ref = "77d0df096c642894e2c501b1908173afd3696a21"
+revision = "77d0df096c642894e2c501b1908173afd3696a21"
 summary = "A Python management solution for C++ dependencies"
 dependencies = [
     "cmake>=4.3.4",
     "conan<2.34,>=2.30.0",
-    "cppython @ git+https://github.com/Behemyth/cppython.git@9213fd8b3f1fc92e30dee594efbbe774c52a602c",
+    "cppython @ git+https://github.com/Behemyth/cppython.git@77d0df096c642894e2c501b1908173afd3696a21",
     "dulwich>=1.2.8",
 ]
 

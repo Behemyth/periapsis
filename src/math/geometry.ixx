@@ -58,6 +58,11 @@ export namespace peri::math
 	 * @brief Plane storage: normal + distance from origin
 	 * @details Plane equation: dot(normal, point) = distance
 	 */
+// Vec3 is deliberately aligned, so padding after the distance is expected.
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4324)
+#endif
 	template<std::floating_point T>
 	struct PlaneNormalDistance
 	{
@@ -90,6 +95,9 @@ export namespace peri::math
 			return normal * distance;
 		}
 	};
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 	/**
 	 * @brief Plane storage: point on plane + normal
