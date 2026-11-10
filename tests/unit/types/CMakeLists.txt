@@ -4,4 +4,5 @@ target_sources(tests
 	test_utility.cpp
 	test_zstring_view.cpp
 	test_function_ref.cpp
+	test_generator.cpp
 )

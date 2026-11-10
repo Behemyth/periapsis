@@ -20,3 +20,13 @@ the C++26 type, along with `std::nontype`. It is exported by
 `import function_ref;` and `import synodic.periapsis;`. Adapted from
 [nontype_functional](https://github.com/zhihaoy/nontype_functional)
 (BSD-2-Clause).
+
+## generator
+
+`std::generator` is a coroutine that yields a lazily computed range. Standard
+libraries that provide `<generator>` supply it. For those that do not yet,
+`import generator;` and `import synodic.periapsis;` export a polyfill of the
+C++23 type.
+
+The polyfill does not support yielding a nested generator through
+`std::ranges::elements_of`, and it ignores the allocator parameter.

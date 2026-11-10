@@ -5,4 +5,5 @@ target_sources(periapsis
 	"utility.ixx"
 	"hash.ixx"
 	"function_ref.ixx"
+	"generator.ixx"
 )

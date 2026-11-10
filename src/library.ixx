@@ -65,3 +65,4 @@ export import :thread.local;
 export import :utility;
 export import :utility.hash;
 export import function_ref;
+export import generator;
