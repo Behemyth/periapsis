@@ -28,5 +28,5 @@ libraries that provide `<generator>` supply it. For those that do not yet,
 `import generator;` and `import synodic.periapsis;` export a polyfill of the
 C++23 type.
 
-The polyfill does not support yielding a nested generator through
-`std::ranges::elements_of`, and it ignores the allocator parameter.
+The polyfill supports nested generators and other ranges through
+`std::ranges::elements_of`. It ignores the allocator parameter.

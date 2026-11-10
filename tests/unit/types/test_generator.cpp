@@ -76,6 +76,78 @@ namespace
 		}
 	}
 
+	std::generator<int> Outer()
+	{
+		co_yield -1;
+		co_yield std::ranges::elements_of(Count(3));
+		co_yield std::ranges::elements_of(Empty());
+		co_yield 99;
+	}
+
+	std::generator<int> Tree(int depth)
+	{
+		co_yield depth;
+
+		if (depth > 0)
+		{
+			co_yield std::ranges::elements_of(Tree(depth - 1));
+			co_yield std::ranges::elements_of(Tree(depth - 1));
+		}
+	}
+
+	std::generator<const int&> FromRange()
+	{
+		const std::vector<int> values {7, 8, 9};
+
+		co_yield 6;
+		co_yield std::ranges::elements_of(values);
+		co_yield 10;
+	}
+
+	std::generator<int> CatchesNested(bool& caught)
+	{
+		try
+		{
+			co_yield std::ranges::elements_of(Throws());
+		}
+		catch (const std::runtime_error&)
+		{
+			caught = true;
+		}
+
+		co_yield 2;
+	}
+
+	std::generator<int> PropagatesNested()
+	{
+		co_yield 0;
+		co_yield std::ranges::elements_of(Throws());
+		co_yield 5;
+	}
+
+	std::generator<int> NestedGuarded(bool& innerDestroyed, bool& outerDestroyed, int& steps)
+	{
+		Guard guard {outerDestroyed};
+		co_yield std::ranges::elements_of(Guarded(innerDestroyed, steps));
+	}
+
+	std::generator<std::unique_ptr<int>> NestedOwned()
+	{
+		co_yield std::ranges::elements_of(Owned());
+		co_yield std::make_unique<int>(3);
+	}
+
+	template<typename Range>
+	std::vector<int> Collect(Range&& range)
+	{
+		std::vector<int> values;
+		for (const int value: range)
+		{
+			values.push_back(value);
+		}
+		return values;
+	}
+
 	TEST(Generator, YieldsValuesInOrder)
 	{
 		std::vector<int> values;
@@ -173,12 +245,81 @@ namespace
 		auto source = Count(3);
 		auto target = std::move(source);
 
-		int total = 0;
-		for (const int value: target)
+		EXPECT_EQ(Collect(target), (std::vector {0, 1, 2}));
+	}
+
+	TEST(Generator, YieldsElementsOfNestedGenerators)
+	{
+		EXPECT_EQ(Collect(Outer()), (std::vector {-1, 0, 1, 2, 99}));
+	}
+
+	TEST(Generator, YieldsElementsOfRecursiveGenerators)
+	{
+		EXPECT_EQ(Collect(Tree(2)), (std::vector {2, 1, 0, 0, 1, 0, 0}));
+	}
+
+	TEST(Generator, YieldsElementsOfOtherRanges)
+	{
+		EXPECT_EQ(Collect(FromRange()), (std::vector {6, 7, 8, 9, 10}));
+	}
+
+	TEST(Generator, YieldsMoveOnlyElementsOfNestedGenerators)
+	{
+		int sum = 0;
+		for (auto&& pointer: NestedOwned())
 		{
-			total += value;
+			sum += *pointer;
 		}
 
-		EXPECT_EQ(total, 3);
+		EXPECT_EQ(sum, 6);
+	}
+
+	TEST(Generator, NestedExceptionCanBeCaughtByTheYieldingGenerator)
+	{
+		bool caught = false;
+
+		EXPECT_EQ(Collect(CatchesNested(caught)), (std::vector {1, 2}));
+		EXPECT_TRUE(caught);
+	}
+
+	TEST(Generator, UncaughtNestedExceptionReachesTheConsumer)
+	{
+		std::vector<int> values;
+
+		EXPECT_THROW(
+			{
+				for (const int value: PropagatesNested())
+				{
+					values.push_back(value);
+				}
+			},
+			std::runtime_error);
+		EXPECT_EQ(values, (std::vector {0, 1}));
+	}
+
+	TEST(Generator, DestroysNestedGeneratorsWithTheOutermost)
+	{
+		bool innerDestroyed = false;
+		bool outerDestroyed = false;
+		int steps = 0;
+
+		{
+			auto generator = NestedGuarded(innerDestroyed, outerDestroyed, steps);
+
+			for (const int value: generator)
+			{
+				if (value == 2)
+				{
+					break;
+				}
+			}
+
+			EXPECT_EQ(steps, 3);
+			EXPECT_FALSE(innerDestroyed);
+			EXPECT_FALSE(outerDestroyed);
+		}
+
+		EXPECT_TRUE(innerDestroyed);
+		EXPECT_TRUE(outerDestroyed);
 	}
 }
